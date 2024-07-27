@@ -39,7 +39,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # We need wget to do the healthcheck
-RUN apt-get update && apt-get install -y wget
+# RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get install -y curl
 
 # Switch to the non-privileged user to run the application.
 USER appuser
