@@ -1,0 +1,39 @@
+
+###
+@url = http://localhost:8000
+
+###
+
+GET {{url}}
+content-type: application/json
+
+###
+
+POST {{url}}/talk/
+content-type: application/json
+
+{
+    "message": {
+        "sender": "user", 
+        "text": "How would this help him in his career?",
+        "timestamp": "2021-01-01T00:00:00"
+    },
+    "previousMessages": [
+        {
+            "sender": "user",
+            "text": "What did Simon doe in artificial intelligence?",
+            "timestamp": "2021-01-01T00:00:00"
+        }
+    ]
+}
+
+###
+
+POST {{url}}/message/
+content-type: application/json
+
+{
+    "message": "your_value"
+}
+
+###
