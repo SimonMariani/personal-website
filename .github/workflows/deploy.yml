@@ -1,0 +1,48 @@
+name: deploy code
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-project:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: ssh into remote server and setup changes
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: | 
+
+              echo 123
+              echo 321
+              # Go to the right folder and pull the changes
+              cd /home/SimonMariani/SimonMariani
+              git pull origin main
+
+              # Update the frontend
+              cd /home/SimonMariani/SimonMariani/frontend
+              npm install
+              npm run build
+
+              # Run the docker compose production file for the new changes
+              cd /home/SimonMariani/SimonMariani
+              sudo docker compose -f docker-compose-prod.yaml up --build -d 
+              sudo docker image prune -f
+              
+
+              # source .venv/bin/activate
+              # pip3 install -r requirements.txt
+              # python3 manage.py migrate
+              # python3 manage.py collectstatic --noinput
+
+              # Reload the servers
+              # sudo systemctl daemon-reload
+              # sudo systemctl restart daphne
+              # sudo nginx -s reload
+
+              # Custom command to inizialize users after application is running
+              # python manage.py initialize_users

@@ -9,7 +9,8 @@ if (process.env.NODE_ENV === "development") {
   // apiURL = "http://localhost/api";
 } else if (process.env.NODE_ENV === "production") {
   // apiURL = "https://simonmariani.com";
-  apiURL = "http://localhost/api";
+  // apiURL = "http://localhost/api";
+  apiURL = "http://13.95.15.101/api";
 } else {
   console.log("Unknown environment");
 }
