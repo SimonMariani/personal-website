@@ -77,6 +77,9 @@ services:
       - DEBUG=false
     volumes:
       - ./backend/.env:/app/.env
+    depends_on:
+      standalone:
+        condition: service_healthy
 
   nginx-server:
     image: nginx-server
