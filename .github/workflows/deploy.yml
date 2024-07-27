@@ -30,7 +30,7 @@ jobs:
 
               # Run the docker compose production file for the new changes
               cd /home/SimonMariani/SimonMariani
-              sudo docker compose -f docker-compose.yaml down
+              # sudo docker compose -f docker-compose.yaml down
               sudo docker compose -f docker-compose.yaml up --build -d 
               sudo docker image prune -f
               
