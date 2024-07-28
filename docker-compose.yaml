@@ -66,7 +66,7 @@ services:
     ports:
       - "7000:3000"
 
-  # NOTE when running locally you can comment this --->
+  # NOTE when running locally you can comment this just to start the database --->
   backend:
     image: backend
     container_name: backend

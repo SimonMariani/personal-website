@@ -69,15 +69,16 @@ const Chat = () => {
 
   return (
     <>
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 50, overflow: "auto", padding: 10 }}>
+      <div style={{ position: "absolute", top: 0, left: 5, right: 0, bottom: 50, overflow: "auto", padding: 10 }}>
         {messages.map((message, index) => (
-          <div key={index} style={{ marginBottom: 10, textAlign: message.sender === "user" ? "right" : "left" }}>
+          <div key={index} style={{ marginBottom: 15, marginLeft: 5, marginRight: 5, textAlign: message.sender === "user" ? "right" : "left" }}>
             <div
               style={{
                 display: "inline-block",
                 padding: 10,
                 borderRadius: 10,
                 backgroundColor: message.sender === "user" ? "#e6f7ff" : "#f0f0f0",
+                boxShadow: "5px 5px 10px rgba(0,0,0,0.1)",
               }}
             >
               {message.text}

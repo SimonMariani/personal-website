@@ -1,20 +1,8 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Grid, Row, Col, Layout, Flex, Button, Menu, Divider, Card, FloatButton } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  LineChartOutlined,
-  ProfileOutlined,
-  CloseOutlined,
-  CalendarOutlined,
-  // CompassOutlined,
-  TableOutlined,
-  BoxPlotOutlined,
-  InfoOutlined,
-  CustomerServiceOutlined,
-} from "@ant-design/icons";
+import { Button, Card, FloatButton } from "antd";
+import { CloseOutlined, CustomerServiceOutlined } from "@ant-design/icons";
 
 import Chat from "./Chat";
 
@@ -30,8 +18,8 @@ function ChatBox() {
       <FloatButton
         shape="circle"
         type="primary"
-        style={{ width: 100, height: 100, boxShadow: "10px 10px 10px rgba(0,0,0,0.5)" }}
-        icon={<CustomerServiceOutlined style={{ fontSize: 40, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
+        style={{ width: 70, height: 70, boxShadow: "10px 10px 10px rgba(0,0,0,0.5)" }}
+        icon={<CustomerServiceOutlined style={{ fontSize: 30, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
         onClick={toggleChatBox}
       />
       <Card
@@ -49,10 +37,10 @@ function ChatBox() {
         style={{
           zIndex: 1000,
           position: "fixed",
-          bottom: 170,
+          bottom: 130,
           right: 20,
-          width: 700,
-          height: 850,
+          width: 550,
+          height: 700,
           border: "1px solid #ccc",
           boxShadow: "10px 10px 10px rgba(0,0,0,0.5)",
           display: chatBoxVisible ? "block" : "none",

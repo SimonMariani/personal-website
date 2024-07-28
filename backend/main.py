@@ -25,19 +25,20 @@ def talk(item: Dict[str, Any]):
     message = item['message']['text']
     previous_messages = "\n".join([previous_message['text'] for previous_message in item['previousMessages']])
 
+    print(previous_messages)
+
     texts = retrieve_relevant_documents(message, use_splitted=True, limit=5)
     context = "\n".join(texts)
 
     SYSTEM_PROMPT = \
     """
-    Human: You are an AI assistant. You are able to find answers to the questions from the contextual passage snippets provided.
+    Human: You are an AI assistant. You are able to find answers to the questions from the contextual passage snippets provided and the previous messsages of the conversation.
     """
 
     USER_PROMPT = \
     f"""
     Use the following pieces of information enclosed in <context> tags to provide an answer to the question enclosed in <question> tags.
-    Also use the previous messages to provide a more accurate answer and make sure that you continue the conversation. The messages are 
-    enclosed in the <messages> tags and are ordered from newest to oldest, and separated by a newline character.
+    Take the previous messages into account enclosed in the <messages> tags.
     <messages>
     {previous_messages}
     <messages>
