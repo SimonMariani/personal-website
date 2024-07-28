@@ -33,17 +33,3 @@ jobs:
               # sudo docker compose -f docker-compose.yaml down
               sudo docker compose -f docker-compose.yaml up --build -d 
               sudo docker image prune -f
-              
-
-              # source .venv/bin/activate
-              # pip3 install -r requirements.txt
-              # python3 manage.py migrate
-              # python3 manage.py collectstatic --noinput
-
-              # Reload the servers
-              # sudo systemctl daemon-reload
-              # sudo systemctl restart daphne
-              # sudo nginx -s reload
-
-              # Custom command to inizialize users after application is running
-              # python manage.py initialize_users

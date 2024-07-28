@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Row, Col, Space, Card, List, Divider, Anchor } from "antd";
+import { Row, Col, Space, Card, List } from "antd";
 import { MailOutlined, LinkedinOutlined, PhoneOutlined } from "@ant-design/icons";
 import Simon from "../assets/images/simon32.jpg";
 import LogoStacticcs from "../assets/images/logo_stactics.png";
@@ -152,65 +152,6 @@ const contactInfo = {
 function Home() {
   return (
     <Row gutter={[16, 16]} style={{ position: "relative", padding: 15, margin: 0 }}>
-      {/* Col to reserve the space and fixed anchor on top */}
-      {/* <Col span={4}></Col>
-      <Card style={{ position: "fixed", top: 100, left: 120, width: 250, overflowY: "auto" }}>
-        <Anchor
-          items={[
-            {
-              key: "1",
-              href: "#general",
-              title: "General",
-            },
-            {
-              key: "2",
-              href: "#contact-information",
-              title: "Contact Information",
-            },
-            {
-              key: "3",
-              href: "#work-experience",
-              title: "Work Experience",
-            },
-            {
-              key: "4",
-              href: "#education",
-              title: "Education",
-            },
-            {
-              key: "4",
-              href: "#programming-languages",
-              title: "Programming Languages",
-            },
-            {
-              key: "5",
-              href: "#frameworks-and-software",
-              title: "Frameworks and Software",
-            },
-            {
-              key: "6",
-              href: "#development-tools",
-              title: "Development Tools",
-            },
-            {
-              key: "7",
-              href: "#ai-experience",
-              title: "AI Experience",
-            },
-            {
-              key: "8",
-              href: "#publications",
-              title: "Publications",
-            },
-            {
-              key: "9",
-              href: "#languages",
-              title: "Languages",
-            },
-          ]}
-        />
-      </Card> */}
-
       <Col span={24}>
         <Row id="general" style={{ textAlign: "center", marginBottom: 10 }}>
           <Card style={{ width: "100%" }}>

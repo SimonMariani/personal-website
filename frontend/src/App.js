@@ -1,24 +1,18 @@
 /** @format */
 
-import logo from "./logo.svg";
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Link as RouterLink } from "react-router-dom"; // , Switch, Link
-import { Grid, Row, Col, Layout, Flex, Button, Menu, Divider, FloatButton, Anchor } from "antd";
+import { BrowserRouter, Routes, Route, Link as RouterLink } from "react-router-dom"; // , Switch, Link
+import { Layout, Menu, Anchor } from "antd";
 import { HomeOutlined, ProjectOutlined } from "@ant-design/icons";
-
-import Simon from "./assets/images/simon28.jpg";
-// import Logo from "./assets/images/ailogo.avif";
-import Logo from "./assets/images/ailogo.jpg";
+// import Simon from "./assets/images/simon28.jpg";
+// import Logo from "./assets/images/ailogo.jpg";
+import LogoSimon from "./assets/images/logo_simon.png";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
-
 import ChatBox from "./components/ChatBox";
-
 const { Header, Sider, Footer, Content } = Layout;
-const { Link } = Anchor;
 
-const items = [
+const headerItems = [
   {
     key: "home",
     icon: <HomeOutlined />,
@@ -32,8 +26,6 @@ const items = [
 ];
 
 function App() {
-  const [collapsed, setCollapsed] = useState(true);
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -45,26 +37,16 @@ function App() {
             trigger={null}
             collapsible
             collapsed={false}
-            // style={{ zIndex: 2, position: "relative", overflow: "hidden" }}
             style={{ overflow: "auto", height: "100vh", position: "fixed", left: 0, top: 0, bottom: 0 }}
           >
-            {/* <Flex style={{ alignItems: "center", justifyContent: "center" }}>
-              {collapsed ? (
-                <img src={Logo} alt="unavailable" style={{ flexGrow: 1, width: "100%" }} />
-              ) : (
-                <Flex vertical justify="center" align="center" style={{ width: "100%" }}>
-                  <img src={Simon} alt="unavailable" style={{ flexGrow: 1, padding: 30, width: 300, height: 300, borderRadius: "50%", objectFit: "cover" }} />
-                  <h1>Welcome!</h1>
-                </Flex>
-              )}
-            </Flex> */}
-            <img src={Logo} alt="unavailable" style={{ width: 250 }} />
+            <img src={LogoSimon} alt="unavailable" style={{ width: 250, paddingTop: 20 }} />
             <Routes>
               <Route
                 path="/home"
                 element={
                   <Anchor
                     style={{ padding: 20 }}
+                    defaultSelectedKeys={["1"]}
                     items={[
                       {
                         key: "1",
@@ -120,7 +102,6 @@ function App() {
                   />
                 }
               ></Route>
-              {/* <Route path="/projects" element={<Projects />} /> */}
             </Routes>
 
             <div style={{ position: "absolute", bottom: 0, left: 0, paddingLeft: 10 }}>
@@ -129,7 +110,6 @@ function App() {
           </Sider>
 
           <Layout style={{ marginLeft: 300 }}>
-            {/* <Header style={{ padding: 0, background: "white", display: "flex", alignItems: "center" }}> */}
             <Header
               style={{
                 position: "sticky",
@@ -141,44 +121,21 @@ function App() {
                 background: "white",
               }}
             >
-              {/* <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined style={{ fontSize: 25 }} /> : <MenuFoldOutlined style={{ fontSize: 25 }} />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            /> */}
-              {/* <div className="demo-logo" style={{ width: 300 }} /> */}
               <Menu
                 mode="horizontal"
                 theme="light"
-                items={items}
+                items={headerItems}
+                defaultSelectedKeys={["home"]}
                 style={{
                   flex: 1,
                   minWidth: 0,
                 }}
               />
-              {/* <Row justify="start">
-                <Button
-                  type="text"
-                  icon={collapsed ? <MenuUnfoldOutlined style={{ fontSize: 25 }} /> : <MenuFoldOutlined style={{ fontSize: 25 }} />}
-                  onClick={() => setCollapsed(!collapsed)}
-                  style={{
-                    fontSize: "16px",
-                    width: 64,
-                    height: 64,
-                  }}
-                />
-              </Row> */}
             </Header>
             <Content
               style={{
                 overflow: "auto",
                 backgroundColor: "rgba(240, 240, 240, 1)",
-                // height: "90vh",
               }}
             >
               <ChatBox />
@@ -190,17 +147,12 @@ function App() {
             <Footer
               style={{
                 textAlign: "start",
-                // color: "#fff",
-                // backgroundColor: "#4096ff",
                 backgroundColor: "white",
               }}
             >
               Footer content
             </Footer>
           </Layout>
-          {/* <Layout> */}
-
-          {/* </Layout> */}
         </Layout>
       </div>
     </BrowserRouter>

@@ -29,10 +29,7 @@ const Chat = () => {
     console.log("url: ", apiURL);
 
     try {
-      // const response = await fetch("http://172.17.160.1:8000/talk/", {
-      // const response = await fetch("http://localhost:8000/talk/", {
       const response = await fetch(apiURL + "/talk", {
-        // const response = await fetch("http://backend:8000/talk/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
