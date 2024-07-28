@@ -39,7 +39,7 @@ function App() {
             collapsed={false}
             style={{ overflow: "auto", height: "100vh", position: "fixed", left: 0, top: 0, bottom: 0 }}
           >
-            <img src={LogoSimon} alt="unavailable" style={{ width: 250, paddingTop: 20 }} />
+            <img src={LogoSimon} alt="unavailable" style={{ width: 200, paddingTop: 20 }} />
             <Routes>
               <Route
                 path="/home"

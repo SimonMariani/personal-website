@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Card, FloatButton } from "antd";
-import { CloseOutlined, CustomerServiceOutlined } from "@ant-design/icons";
+import { CloseOutlined, WechatWorkOutlined } from "@ant-design/icons";
 
 import Chat from "./Chat";
 
@@ -19,11 +19,11 @@ function ChatBox() {
         shape="circle"
         type="primary"
         style={{ width: 70, height: 70, boxShadow: "10px 10px 10px rgba(0,0,0,0.5)" }}
-        icon={<CustomerServiceOutlined style={{ fontSize: 30, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
+        icon={<WechatWorkOutlined style={{ fontSize: 30, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
         onClick={toggleChatBox}
       />
       <Card
-        title={"Chat with Simon"}
+        title={"Ask anything about Simon"}
         extra={
           <Button
             type="text"
