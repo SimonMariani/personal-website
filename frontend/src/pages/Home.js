@@ -115,11 +115,11 @@ const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJ
 const tools = ["Docker", "Docker Compose", "Docker Swarm", "Kubernetes", "Git", "GitHub", "GitHub Actions", "Azure", "AWS", "ETL/ELT"];
 
 const languages = [
-  { name: "Dutch", level: "fluent" },
-  { name: "English", level: "fluent" },
-  { name: "Spanish", level: "intermediate" },
-  { name: "German", level: "intermediate" },
-  { name: "Chinese", level: "elementary" },
+  { name: "Dutch", level: "Fluent" },
+  { name: "English", level: "Fluent" },
+  { name: "Spanish", level: "Intermediate" },
+  { name: "German", level: "Intermediate" },
+  { name: "Chinese", level: "Elementary" },
 ];
 
 const aiExperience = [
@@ -130,10 +130,10 @@ const aiExperience = [
   "Generative Natural Language Processing",
   "Reinforcement Learning",
   "Active Learning",
-  "OOD-detection",
+  "OOD-Detection",
   "Anomaly Detection",
   "Time Series Analysis",
-  "Recommender systems",
+  "Recommender Systems",
   "Game Theory",
 ];
 
@@ -166,7 +166,7 @@ function Home() {
                 developer as there is always something new to learn. My academic background helps me to implement complex algorithms and systems, as well as
                 developing and training various AI models.
               </p>
-              <p>
+              {/* <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
                 the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
                 but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
@@ -179,7 +179,7 @@ function Home() {
                 but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
                 sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
                 Ipsum.
-              </p>
+              </p> */}
             </div>
           </Card>
         </Row>

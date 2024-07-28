@@ -150,7 +150,7 @@ function App() {
                 backgroundColor: "white",
               }}
             >
-              Footer content
+              {/* Footer content */}
             </Footer>
           </Layout>
         </Layout>
