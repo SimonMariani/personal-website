@@ -81,16 +81,15 @@ services:
       standalone:
         condition: service_healthy
     healthcheck:
-      # test: wget --no-verbose --tries=1 --spider http://localhost:8000 || exit 1
       test: curl http://localhost:8000 || exit 1
       interval: 30s
       timeout: 5s
       retries: 5
       start_period: 10s
 
-  nginx-server:
-    image: nginx-server
-    container_name: nginx-server
+  nginx:
+    image: nginx
+    container_name: nginx
     build: 
       context: ./nginx
       dockerfile: Dockerfile
@@ -101,19 +100,19 @@ services:
     volumes:
       - ./frontend/build:/usr/share/nginx/html
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-      - ./nginx-server/certbot/conf:/etc/letsencrypt
-      - ./nginx-server/certbot/www:/var/www/certbot
+      # - ./nginx/certbot/conf:/etc/letsencrypt
+      # - ./nginx/certbot/www:/var/www/certbot
     depends_on:
       backend:
         condition: service_healthy
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./nginx-server/certbot/conf:/etc/letsencrypt
-      - ./nginx-server/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 48h & wait $${!}; done;'"
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./nginx/certbot/conf:/etc/letsencrypt
+  #     - ./nginx/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 48h & wait $${!}; done;'"
   # <---
   
 networks:
