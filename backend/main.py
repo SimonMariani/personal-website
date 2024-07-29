@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any
-from db import milvus_client, openai_client, splitter, emb_text, schema, index_params, embedding_dim
+from db import retrieve_relevant_content, openai_client
 
 # App setup
 app = FastAPI()
@@ -21,15 +21,19 @@ def test():
 
 @app.post("/talk")
 def talk(item: Dict[str, Any]):
+    """
+    Route to chat with the chatbot, input should containe the message and the previous messages.
+    """
 
+    # Extract the message and the previous messages
     message = item['message']['text']
     previous_messages = "\n".join([previous_message['text'] for previous_message in item['previousMessages']])
 
-    print(previous_messages)
-
-    texts = retrieve_relevant_documents(message, use_splitted=True, limit=5)
+    # Extract the relvant conents
+    texts = retrieve_relevant_content(message, use_splitted=True, limit=5)
     context = "\n".join(texts)
 
+    # Create the system and user prompts
     SYSTEM_PROMPT = \
     """
     Human: You are an AI assistant. You are able to find answers to the questions from the contextual passage snippets provided and the previous messsages of the conversation.
@@ -50,6 +54,7 @@ def talk(item: Dict[str, Any]):
     </question>
     """
 
+    # Get the response from the chatbot and re
     response = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         # model="gpt-4o-mini",
@@ -58,28 +63,8 @@ def talk(item: Dict[str, Any]):
             {"role": "user", "content": USER_PROMPT},
         ],
     )
-
     response_message = response.choices[0].message.content
+
     return {'response': response_message}
 
 
-def retrieve_relevant_documents(query, use_splitted=True, limit=100, truncate_text=None):
-
-    collection = "documents_splitted" if use_splitted else "documents" 
-
-    texts = []
-    if milvus_client.has_collection(collection) and query is not None:
-
-        search_res = milvus_client.search(
-            collection_name=collection,
-            data=[
-                emb_text(query)
-            ],
-            limit=limit,
-            search_params={"metric_type": "IP", "params": {}},  # Inner product distance
-            output_fields=["text", "id", "filename"],  # Return the text field
-        )
-
-        texts = [res["entity"]["text"][:truncate_text] for res in search_res[0]]
-
-    return texts

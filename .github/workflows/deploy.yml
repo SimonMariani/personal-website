@@ -17,8 +17,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: | 
 
+
+              # Just some output to see if the script is running
               echo 123
-              echo 321
+
               # Go to the right folder and pull the changes
               cd /home/SimonMariani/SimonMariani
               git pull origin main

@@ -1,12 +1,10 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from pymilvus import MilvusClient, DataType
 from openai import OpenAI
-
 import pandas as pd
 from PyPDF2 import PdfReader
 from docx import Document
 from pptx import Presentation
-
 import os
 
 try:
@@ -15,9 +13,11 @@ try:
 except:
     pass
 
+# Load the environment variables
 db_url = os.environ['DB_URL']
 db_token = os.environ['DB_TOKEN']
 
+# Connect to clients and instatiate the splitter and embedding function
 milvus_client  = MilvusClient(uri=db_url, token=db_token)
 openai_client = OpenAI(api_key=os.environ['OPENAIKEY'])
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
@@ -116,22 +116,6 @@ def add_text_array_to_vector_db(texts, file_name, collection_name):
         index_params=index_params
     )
 
-    # Create the collection if it does not exist
-    # if not milvus_client.has_collection(collection_name):
-    #     milvus_client.create_collection(
-    #         collection_name=collection_name,
-    #         dimension=embedding_dim,
-    #         consistency_level="Strong",  # Strong consistency level
-    #         schema=schema,
-    #         index_params=index_params
-    #     )                
-    
-    # Delete all the old entries from this document
-    # milvus_client.delete(
-    #     collection_name=collection_name,
-    #     filter=f"id_document == '{str(self.id)}'"
-    # )
-
     # Create all the new entries
     embeddings = [emb_text(text) for text in texts]
 
@@ -158,20 +142,66 @@ def remove_from_vector_db(self):
         collection_name=self.collection_name_splitted,
         filter=f"id_document == '{str(self.id)}'"
     )
+    # TODO handle errors
+
+
+def retrieve_relevant_content(query, use_splitted=True, limit=100, truncate_text=None):
+    """
+    Retrieve the relevant content from the Milvus database based on the query.
+    """
+
+    # Either retrieve from the splitted collection or from the collection with the full documents
+    collection = "documents_splitted" if use_splitted else "documents" 
+
+    texts = []
+    if milvus_client.has_collection(collection) and query is not None:
+
+        search_res = milvus_client.search(
+            collection_name=collection,
+            data=[
+                emb_text(query)
+            ],
+            limit=limit,
+            search_params={"metric_type": "IP", "params": {}},  # Inner product distance
+            output_fields=["text", "id", "filename"],  # Return the text field
+        )
+
+        texts = [res["entity"]["text"][:truncate_text] for res in search_res[0]]
+
+    return texts
 
 
 if __name__ == "__main__":
+    # When ran as a script we will process all the files in the files directory.
     print("running db.py as script")
 
     directory = 'files'
     for file in os.listdir(directory):
-        print(file)
+        print("Processing file: ", file)
+
         file_path = os.path.join(directory, file)
         file_name = os.path.basename(file_path)
 
         file_content, file_content_splitted = get_file_contens(file_path)
-
         add_text_array_to_vector_db([file_content], file_name, 'documents')
         add_text_array_to_vector_db(file_content_splitted, file_name, 'documents_splitted')
 
 
+
+
+
+ # Create the collection if it does not exist
+    # if not milvus_client.has_collection(collection_name):
+    #     milvus_client.create_collection(
+    #         collection_name=collection_name,
+    #         dimension=embedding_dim,
+    #         consistency_level="Strong",  # Strong consistency level
+    #         schema=schema,
+    #         index_params=index_params
+    #     )                
+    
+    # Delete all the old entries from this document
+    # milvus_client.delete(
+    #     collection_name=collection_name,
+    #     filter=f"id_document == '{str(self.id)}'"
+    # )

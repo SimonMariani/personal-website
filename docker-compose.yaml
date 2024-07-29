@@ -97,13 +97,23 @@ services:
     init: true
     ports:
       - 80:80
+      - 443:443
     volumes:
-      # - static-volume:/app/staticfiles
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
       - ./frontend/build:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx-server/certbot/conf:/etc/letsencrypt
+      - ./nginx-server/certbot/www:/var/www/certbot
     depends_on:
       backend:
         condition: service_healthy
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./nginx-server/certbot/conf:/etc/letsencrypt
+      - ./nginx-server/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 48h & wait $${!}; done;'"
   # <---
   
 networks:

@@ -10,24 +10,32 @@ if (process.env.NODE_ENV === "development") {
 } else if (process.env.NODE_ENV === "production") {
   // apiURL = "https://simonmariani.com";
   // apiURL = "http://localhost/api";
-  apiURL = "http://13.95.15.101/api";
+  apiURL = "https://simonmariani.com/api";
+  // apiURL = "http://13.95.15.101/api";
 } else {
   console.log("Unknown environment");
 }
 
 // ChatBox Component
 const Chat = () => {
+  /**
+   * Chat component that sends chat messages to the backend server and displays the responses.
+   * The chat messages are stored in the 'messages' state variable which is used to give context to the backend server.
+   */
+
+  // State variables for messages and user input
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
+  // Async function to send a message to the backend server and update the state variable 'messages'
   const handleSendMessage = async () => {
     if (inputValue.trim() === "") return;
 
+    // Update user messages when the user sends a message
     const message = { sender: "user", text: inputValue, timestamp: new Date() };
     setMessages((prevMessages) => [...prevMessages, message]);
 
-    console.log("url: ", apiURL);
-
+    // Send the message to the backend server and update with the response
     try {
       const response = await fetch(apiURL + "/talk", {
         method: "POST",
@@ -45,25 +53,31 @@ const Chat = () => {
 
       setMessages((prevMessages) => [...prevMessages, responseMessage]);
     } catch (error) {
+      // Catch the error and display a message to the user
       console.error("Error sending message:", error);
       setMessages((prevMessages) => [...prevMessages, { sender: "system", text: "Error: Could not send message.", timestamp: new Date() }]);
     }
   };
 
+  // Function to handle send message on enter
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent the default action of the Enter key (e.g., form submission)
+      event.preventDefault();
       handleSendMessage();
     }
   };
 
+  // Reference to the end of the chat messages so we can scroll down after each message
   const chatEndRef = useRef(null);
 
+  // When the messages update we scroll to the end of the chat and reset the input value
   useEffect(() => {
+    // TODO this also triggers when the system message arrives and you're typing a new messag already
     setInputValue("");
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Return the component
   return (
     <>
       <div style={{ position: "absolute", top: 0, left: 5, right: 0, bottom: 50, overflow: "auto", padding: 10 }}>
