@@ -34,6 +34,7 @@ trained to answer questions about Simon Mariani.
 a password or something so it shouldn't be that hard
 - ssl
 - update domain name once it is ready
+- SSL: https://mindsers.blog/en/post/https-using-nginx-certbot-docker/
 
 
 

@@ -1,7 +1,7 @@
 /** @format */
 
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link as RouterLink } from "react-router-dom"; // , Switch, Link
+import { BrowserRouter, Routes, Route, Link as RouterLink, Navigate } from "react-router-dom"; // , Switch, Link
 import { Layout, Menu, Anchor } from "antd";
 import { HomeOutlined, ProjectOutlined } from "@ant-design/icons";
 // import Simon from "./assets/images/simon28.jpg";
@@ -140,6 +140,7 @@ function App() {
             >
               <ChatBox />
               <Routes>
+                <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path="/home" element={<Home />}></Route>
                 <Route path="/projects" element={<Projects />} />
               </Routes>
