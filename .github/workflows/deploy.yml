@@ -22,16 +22,16 @@ jobs:
               echo 123
 
               # Go to the right folder and pull the changes
-              cd /home/SimonMariani/SimonMariani
+              cd /home/SimonMariani
               git pull origin main
 
               # Update the frontend
-              cd /home/SimonMariani/SimonMariani/frontend
+              cd /home/SimonMariani/frontend
               npm install
               npm run build
 
               # Run the docker compose production file for the new changes
-              cd /home/SimonMariani/SimonMariani
+              cd /home/SimonMariani
               # sudo docker compose -f docker-compose.yaml down
               sudo docker compose -f docker-compose.yaml up --build -d 
               sudo docker image prune -f
