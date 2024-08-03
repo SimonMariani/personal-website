@@ -2,7 +2,7 @@
 
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link as RouterLink, Navigate } from "react-router-dom"; // , Switch, Link
-import { Layout, Menu, Anchor } from "antd";
+import { Grid, Layout, Menu, Anchor } from "antd";
 import { HomeOutlined, ProjectOutlined } from "@ant-design/icons";
 // import Simon from "./assets/images/simon28.jpg";
 // import Logo from "./assets/images/ailogo.jpg";
@@ -10,6 +10,7 @@ import LogoSimon from "./assets/images/logo_simon.png";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import ChatBox from "./components/ChatBox";
+const { useBreakpoint } = Grid;
 const { Header, Sider, Footer, Content } = Layout;
 
 const headerItems = [
@@ -26,12 +27,17 @@ const headerItems = [
 ];
 
 function App() {
+  const screens = useBreakpoint();
+  const useSmall = (screens.xs || screens.sm) && !screens.md ? true : false;
+
+  const siderWidth = useSmall ? 0 : 300;
+
   return (
     <BrowserRouter>
       <div className="App">
         <Layout>
           <Sider
-            width={300}
+            width={siderWidth}
             collapsedWidth={100}
             theme="light"
             trigger={null}
@@ -45,6 +51,7 @@ function App() {
                 path="/home"
                 element={
                   <Anchor
+                    targetOffset={70}
                     style={{ padding: 20 }}
                     defaultSelectedKeys={["1"]}
                     items={[
@@ -109,7 +116,7 @@ function App() {
             </div>
           </Sider>
 
-          <Layout style={{ marginLeft: 300 }}>
+          <Layout style={{ marginLeft: siderWidth }}>
             <Header
               style={{
                 position: "sticky",
@@ -141,8 +148,8 @@ function App() {
               <ChatBox />
               <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
-                <Route path="/home" element={<Home />}></Route>
-                <Route path="/projects" element={<Projects />} />
+                <Route path="/home" element={<Home useSmall={useSmall} />}></Route>
+                <Route path="/projects" element={<Projects useSmall={useSmall} />} />
               </Routes>
             </Content>
             <Footer

@@ -11,6 +11,8 @@ import LogoBomberbot from "../assets/images/logo_bomberbot.png";
 import LogoUVA from "../assets/images/logo_uva.png";
 import LogoUU from "../assets/images/logo_uu.png";
 import LogoTsinghua from "../assets/images/logo_tsinghua.png";
+import BarChart from "../components/BarChart";
+import RadarChart from "../components/RadarChart";
 
 const workExperience = [
   {
@@ -108,7 +110,15 @@ const education = [
   },
 ];
 
-const skills = ["Python", "JavaScript", "HTML/CSS", "C#", "R", "C - C++", "Clingo – Prolog - Netlogo"];
+const programmingLanguages = [
+  { name: "Python", percentage: 90 },
+  { name: "JavaScript", percentage: 85 },
+  { name: "HTML/CSS", percentage: 80 },
+  { name: "C#", percentage: 70 },
+  { name: "R", percentage: 65 },
+  { name: "C - C++", percentage: 75 },
+  { name: "Clingo – Prolog - Netlogo", percentage: 60 },
+];
 
 const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJS", "SQL", "NoSQL", "PyTorch", "CUDA", "Linux", "Unity", "PowerBI"];
 
@@ -122,19 +132,35 @@ const languages = [
   { name: "Chinese", level: "Elementary" },
 ];
 
+// const aiExperience = [
+//   "Deep Learning",
+//   "Distributed Machine Learning",
+//   "Generative Computer Vision",
+//   "Image Segmentation",
+//   "Generative Natural Language Processing",
+//   "Reinforcement Learning",
+//   "Active Learning",
+//   "OOD-Detection",
+//   "Anomaly Detection",
+//   "Time Series Analysis",
+//   "Recommender Systems",
+//   "Game Theory",
+// ];
+
+// Format aiExperience as a list of objects similar to programmingLanguages
 const aiExperience = [
-  "Deep Learning",
-  "Distributed Machine Learning",
-  "Generative Computer Vision",
-  "Image Segmentation",
-  "Generative Natural Language Processing",
-  "Reinforcement Learning",
-  "Active Learning",
-  "OOD-Detection",
-  "Anomaly Detection",
-  "Time Series Analysis",
-  "Recommender Systems",
-  "Game Theory",
+  { name: "Deep Learning", percentage: 90 },
+  { name: "Distributed Machine Learning", percentage: 85 },
+  { name: "Generative Computer Vision", percentage: 80 },
+  { name: "Image Segmentation", percentage: 70 },
+  { name: "Generative Natural Language Processing", percentage: 65 },
+  { name: "Reinforcement Learning", percentage: 75 },
+  { name: "Active Learning", percentage: 60 },
+  { name: "OOD-Detection", percentage: 90 },
+  { name: "Anomaly Detection", percentage: 85 },
+  { name: "Time Series Analysis", percentage: 80 },
+  { name: "Recommender Systems", percentage: 70 },
+  { name: "Game Theory", percentage: 65 },
 ];
 
 const publications = [
@@ -149,7 +175,9 @@ const contactInfo = {
   phone: "+31 6 375 552 91",
 };
 
-function Home() {
+function Home({ useSmall }) {
+  const textPadding = useSmall ? 0 : "10vw";
+
   return (
     <Row gutter={[16, 16]} style={{ position: "relative", padding: 15, margin: 0 }}>
       <Col span={24}>
@@ -157,9 +185,14 @@ function Home() {
           <Card style={{ width: "100%" }}>
             <h1 style={{ fontSize: 36, marginBottom: 0 }}>Simon Mariani</h1>
             <h2 style={{ fontSize: 24, color: "#888", marginTop: 0 }}>Software/AI Engineer</h2>
-            <img src={Simon} alt="Simon Mariani" style={{ width: 500, height: 500, borderRadius: "50%", objectFit: "cover", marginBottom: "20px" }} />
+            <img
+              src={Simon}
+              alt="Simon Mariani"
+              style={{ width: useSmall ? "65vw" : 500, height: useSmall ? "65vw" : 500, borderRadius: "50%", objectFit: "cover", marginBottom: "20px" }}
+            />
 
-            <div style={{ fontSize: 18, margin: "0 auto", color: "#555", paddingLeft: 200, paddingRight: 200 }}>
+            <div style={{ fontSize: 18, margin: "0 auto", color: "#555", paddingLeft: textPadding, paddingRight: textPadding }}>
+              {/* <div style={{ fontSize: 18, margin: "0 auto", color: "#555", textAlign: "center" }}> */}
               <p>
                 Versatile software and AI engineer, with strong research skills. Quick learner, adaptable and thrives in new environments. I enjoy creating and
                 working on complex projects and bringing them from development into production. This also pairs well with my eagerness to grow as a software
@@ -232,7 +265,7 @@ function Home() {
                     description={
                       <>
                         <p style={{ marginBottom: "5px" }}>{item.dates}</p>
-                        <p style={{ color: "#555", paddingLeft: 200, paddingRight: 200 }}>{item.description}</p>
+                        <p style={{ color: "#555", paddingLeft: textPadding, paddingRight: textPadding }}>{item.description}</p>
                       </>
                     }
                   />
@@ -253,7 +286,7 @@ function Home() {
                     description={
                       <>
                         <p style={{ marginBottom: "5px" }}>{item.dates}</p>
-                        <p style={{ color: "#555", paddingLeft: 200, paddingRight: 200 }}>{item.description}</p>
+                        <p style={{ color: "#555", paddingLeft: textPadding, paddingRight: textPadding }}>{item.description}</p>
                       </>
                     }
                   />
@@ -264,14 +297,17 @@ function Home() {
         </Row>
         <Row id="programming-languages" style={{ marginBottom: 20 }}>
           <Card title="Programming Languages" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            <List
+            {/* <List
               dataSource={skills}
               renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta title={item} />
                 </List.Item>
               )}
-            />
+            /> */}
+            <BarChart data={programmingLanguages} />
+            <RadarChart data={programmingLanguages} />
+            {/* <Chart options={chartOptions} series={chartSeries} type="bar" height={500} /> */}
           </Card>
         </Row>
         <Row id="frameworks-and-software" style={{ marginBottom: 20 }}>
@@ -300,14 +336,16 @@ function Home() {
         </Row>
         <Row id="ai-experience" style={{ marginBottom: 20 }}>
           <Card title="AI Experience" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            <List
+            {/* <List
               dataSource={aiExperience}
               renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta title={item} />
                 </List.Item>
               )}
-            />
+            /> */}
+
+            <RadarChart data={aiExperience} />
           </Card>
         </Row>
         <Row id="publications" style={{ marginBottom: 20 }}>
