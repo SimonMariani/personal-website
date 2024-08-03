@@ -30,7 +30,7 @@ def talk(item: Dict[str, Any]):
     previous_messages = "\n".join([previous_message['text'] for previous_message in item['previousMessages']])
 
     # Extract the relvant conents
-    texts = retrieve_relevant_content(message, use_splitted=True, limit=5)
+    texts = retrieve_relevant_content(message, use_splitted=True, limit=3)
     context = "\n".join(texts)
 
     # Create the system and user prompts

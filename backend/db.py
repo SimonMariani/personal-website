@@ -20,7 +20,7 @@ db_token = os.environ['DB_TOKEN']
 # Connect to clients and instatiate the splitter and embedding function
 milvus_client  = MilvusClient(uri=db_url, token=db_token)
 openai_client = OpenAI(api_key=os.environ['OPENAIKEY'])
-splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
+splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 
 def emb_text(text):
     """
