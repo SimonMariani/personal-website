@@ -145,7 +145,7 @@ function App() {
                 backgroundColor: "rgba(240, 240, 240, 1)",
               }}
             >
-              <ChatBox />
+              <ChatBox useSmall={useSmall} />
               <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path="/home" element={<Home useSmall={useSmall} />}></Route>

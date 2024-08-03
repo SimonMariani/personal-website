@@ -6,12 +6,14 @@ import { CloseOutlined, WechatWorkOutlined } from "@ant-design/icons";
 
 import Chat from "./Chat";
 
-function ChatBox() {
+function ChatBox({ useSmall }) {
   const [chatBoxVisible, setChatBoxVisible] = useState(false);
 
   const toggleChatBox = () => {
     setChatBoxVisible(!chatBoxVisible);
   };
+
+  const props = useSmall ? { left: 0, right: 0, top: 0 } : { right: 20, width: 500, height: 550 };
 
   return (
     <div>
@@ -38,9 +40,7 @@ function ChatBox() {
           zIndex: 1000,
           position: "fixed",
           bottom: 130,
-          right: 20,
-          width: 500,
-          height: 600,
+          ...props,
           border: "1px solid #ccc",
           boxShadow: "10px 10px 10px rgba(0,0,0,0.5)",
           display: chatBoxVisible ? "block" : "none",

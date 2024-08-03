@@ -13,6 +13,8 @@ import LogoUU from "../assets/images/logo_uu.png";
 import LogoTsinghua from "../assets/images/logo_tsinghua.png";
 import BarChart from "../components/BarChart";
 import RadarChart from "../components/RadarChart";
+import RadialBarChart from "../components/RadialBarChart";
+import TreeMapChart from "../components/TreemapChart";
 
 const workExperience = [
   {
@@ -122,9 +124,39 @@ const programmingLanguages = [
   { name: "Netlogo", percentage: 60 },
 ];
 
-const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJS", "SQL", "NoSQL", "PyTorch", "CUDA", "Linux", "Unity", "PowerBI"];
+// const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJS", "SQL", "NoSQL", "PyTorch", "CUDA", "Linux", "Unity", "PowerBI"];
 
-const tools = ["Docker", "Docker Compose", "Docker Swarm", "Kubernetes", "Git", "GitHub", "GitHub Actions", "Azure", "AWS", "ETL/ELT"];
+// Change frameworks variable to an array of objects similar to programmingLanguages
+const frameworks = [
+  { name: "Django", percentage: 90 },
+  { name: "Flask", percentage: 85 },
+  { name: "FastAPI", percentage: 80 },
+  { name: "NodeJS", percentage: 70 },
+  { name: "ExpressJS", percentage: 65 },
+  { name: "ReactJS", percentage: 75 },
+  { name: "SQL", percentage: 60 },
+  { name: "NoSQL", percentage: 60 },
+  { name: "PyTorch", percentage: 60 },
+  { name: "CUDA", percentage: 60 },
+  { name: "Linux", percentage: 60 },
+  { name: "Unity", percentage: 60 },
+  { name: "PowerBI", percentage: 60 },
+];
+
+// const tools = ["Docker", "Docker Compose", "Docker Swarm", "Kubernetes", "Git", "GitHub", "GitHub Actions", "Azure", "AWS", "ETL/ELT"];
+
+const developmentTools = [
+  { name: "Docker", percentage: 90 },
+  { name: "Docker Compose", percentage: 85 },
+  { name: "Docker Swarm", percentage: 80 },
+  { name: "Kubernetes", percentage: 70 },
+  { name: "Git", percentage: 65 },
+  { name: "GitHub", percentage: 75 },
+  { name: "GitHub Actions", percentage: 60 },
+  { name: "Azure", percentage: 60 },
+  { name: "AWS", percentage: 60 },
+  { name: "ETL/ELT", percentage: 60 },
+];
 
 const languages = [
   { name: "Dutch", level: "Fluent" },
@@ -308,32 +340,35 @@ function Home({ useSmall }) {
               )}
             /> */}
             <BarChart data={programmingLanguages} />
-            <RadarChart data={programmingLanguages} />
+            {/* <RadarChart data={programmingLanguages} /> */}
             {/* <Chart options={chartOptions} series={chartSeries} type="bar" height={500} /> */}
           </Card>
         </Row>
         <Row id="frameworks-and-software" style={{ marginBottom: 20 }}>
           <Card title="Frameworks and Software" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            <List
+            {/* <List
               dataSource={frameworks}
               renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta title={item} />
                 </List.Item>
               )}
-            />
+            /> */}
+
+            <RadialBarChart data={frameworks} />
           </Card>
         </Row>
         <Row id="development-tools" style={{ marginBottom: 20 }}>
           <Card title="Development Tools" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            <List
+            {/* <List
               dataSource={tools}
               renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta title={item} />
                 </List.Item>
               )}
-            />
+            /> */}
+            <TreeMapChart data={developmentTools} />
           </Card>
         </Row>
         <Row id="ai-experience" style={{ marginBottom: 20 }}>

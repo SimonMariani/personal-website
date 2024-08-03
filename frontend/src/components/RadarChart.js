@@ -7,16 +7,16 @@ import Chart from "react-apexcharts";
 function RadarChart({ data }) {
   const radarChartOptions = {
     chart: {
-      type: "radar",
+      // type: "radar",
       toolbar: {
         show: false,
       },
-      offsetX: 0, // Adjust horizontal padding
-      offsetY: 0, // Adjust vertical padding
-      height: "100%", // Ensure the chart takes the full height of its container
+      // offsetX: 0, // Adjust horizontal padding
+      // offsetY: 0, // Adjust vertical padding
+      // height: "100%", // Ensure the chart takes the full height of its container
     },
     title: {
-      text: "Programming Languages Proficiency",
+      // text: "Programming Languages Proficiency",
       align: "left",
       style: {
         fontSize: "18px",
@@ -25,7 +25,7 @@ function RadarChart({ data }) {
     },
     plotOptions: {
       radar: {
-        size: 140,
+        // size: 140,
         polygons: {
           strokeColors: "#e8e8e8",
           strokeWidth: 1,
@@ -64,12 +64,12 @@ function RadarChart({ data }) {
     },
     grid: {
       borderColor: "#f1f1f1",
-      padding: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-      },
+      // padding: {
+      //   top: 0,
+      //   right: 0,
+      //   bottom: 0,
+      //   left: 0,
+      // },
     },
   };
 
@@ -81,9 +81,9 @@ function RadarChart({ data }) {
   ];
 
   return (
-    <div style={{ padding: 0, margin: 0 }}>
-      <Chart options={radarChartOptions} series={radarChartSeries} type="radar" width={"100%"} />
-    </div>
+    // <div>
+    <Chart options={radarChartOptions} series={radarChartSeries} type="radar" width={"100%"} />
+    // </div>
   );
 }
 
