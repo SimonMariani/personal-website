@@ -14,12 +14,12 @@ app.add_middleware(
 )
 
 # Test route
-@app.get("/")
+@app.get("/api/")
 def test():
     return {"Hello": "World"} 
 
 
-@app.post("/talk")
+@app.post("/api/talk/")
 def talk(item: Dict[str, Any]):
     """
     Route to chat with the chatbot, input should containe the message and the previous messages.

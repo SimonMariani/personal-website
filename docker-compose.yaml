@@ -16,6 +16,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - default
 
   minio:
     container_name: milvus-minio
@@ -34,6 +36,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - default
 
   standalone:
     container_name: milvus-standalone
@@ -58,6 +62,8 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+    networks:
+      - default
 
   # Service for monitoring the database service, not necessary in production environment
   # attu:
@@ -80,11 +86,13 @@ services:
       standalone:
         condition: service_healthy
     healthcheck:
-      test: curl http://localhost:8000 || exit 1
+      test: curl http://localhost:8000/api/ || exit 1
       interval: 30s
       timeout: 5s
       retries: 10
       start_period: 10s
+    networks:
+      - default
 
   personal-website-webserver:
     image: nginx:latest
