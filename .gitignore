@@ -1,6 +1,6 @@
 # Other folders
 test-files/
-# nginx.conf
+files/
 volumes/
 
 # Byte-compiled / optimized / DLL files
