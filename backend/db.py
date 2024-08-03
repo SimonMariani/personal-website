@@ -104,17 +104,16 @@ def add_text_array_to_vector_db(texts, file_name, collection_name):
     Add an array of strings to a given collection in the vector database.
     """
 
-    # Since we do not have a system of adding new files or removing old files we simply just start over every time.
-    if milvus_client.has_collection(collection_name):
-        milvus_client.drop_collection(collection_name)
-
-    milvus_client.create_collection(
-        collection_name=collection_name,
-        dimension=embedding_dim,
-        consistency_level="Strong",  # Strong consistency level
-        schema=schema,
-        index_params=index_params
-    )
+    # Create the collection if it does not exist
+    if not milvus_client.has_collection(collection_name):
+        print("Creating collection: ", collection_name)
+        milvus_client.create_collection(
+            collection_name=collection_name,
+            dimension=embedding_dim,
+            consistency_level="Strong",  # Strong consistency level
+            schema=schema,
+            index_params=index_params
+        )
 
     # Create all the new entries
     embeddings = [emb_text(text) for text in texts]
@@ -128,21 +127,21 @@ def add_text_array_to_vector_db(texts, file_name, collection_name):
     milvus_client.insert(collection_name=collection_name, data=data)
 
 
-def remove_from_vector_db(self):
-    """
-    Remove all the entries from the vector database that are related to this document.
-    """
+# def remove_from_vector_db(self):
+#     """
+#     Remove all the entries from the vector database that are related to this document.
+#     """
     
-    res = milvus_client.delete(
-        collection_name=self.collection_name,
-        filter=f"id_document == '{str(self.id)}'"
-    )
+#     res = milvus_client.delete(
+#         collection_name=self.collection_name,
+#         filter=f"id_document == '{str(self.id)}'"
+#     )
 
-    res_splitted = milvus_client.delete(
-        collection_name=self.collection_name_splitted,
-        filter=f"id_document == '{str(self.id)}'"
-    )
-    # TODO handle errors
+#     res_splitted = milvus_client.delete(
+#         collection_name=self.collection_name_splitted,
+#         filter=f"id_document == '{str(self.id)}'"
+#     )
+    
 
 
 def retrieve_relevant_content(query, use_splitted=True, limit=100, truncate_text=None):
@@ -176,6 +175,15 @@ if __name__ == "__main__":
     # When ran as a script we will process all the files in the files directory.
     print("running db.py as script")
 
+    # Since we do not have a system of adding new files or removing old files we simply just start over every time.
+    if milvus_client.has_collection('documents'):
+        print("Dropping collection: documents")
+        milvus_client.drop_collection('documents')
+
+    if milvus_client.has_collection('documents_splitted'):
+        print("Dropping collection: documents_splitted")
+        milvus_client.drop_collection('documents_splitted')
+
     directory = 'files'
     for file in os.listdir(directory):
         print("Processing file: ", file)
@@ -188,20 +196,7 @@ if __name__ == "__main__":
         # NOTE only add the splitted documents for now due to the size of the documents
         # add_text_array_to_vector_db([file_content], file_name, 'documents')
         add_text_array_to_vector_db(file_content_splitted, file_name, 'documents_splitted')
-
-
-
-
-
- # Create the collection if it does not exist
-    # if not milvus_client.has_collection(collection_name):
-    #     milvus_client.create_collection(
-    #         collection_name=collection_name,
-    #         dimension=embedding_dim,
-    #         consistency_level="Strong",  # Strong consistency level
-    #         schema=schema,
-    #         index_params=index_params
-    #     )                
+          
     
     # Delete all the old entries from this document
     # milvus_client.delete(
