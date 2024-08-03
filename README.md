@@ -3,28 +3,6 @@ This is the github of the personal website from Simon Mariani, as of now it cont
 trained to answer questions about Simon Mariani.
 
 
-# Running the code
-
-## Production
-
-### Setup
-- SSH keygen to be able to pull from github: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-- install docker: https://docs.docker.com/engine/install/ubuntu/
-- install NPM: apt install nodejs
-- create .env file for backend
-- use previous ssh keys for automatic deployment: https://github.com/appleboy/ssh-action
-
-### Running
-- To run the code simply use docker compose up
-
-
-## Local
-
-### Setup
-- TBD
-
-
-
 # TODO
 - add links to home for companies and papers and such
 - extend projects page with projects including this one
