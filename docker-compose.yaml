@@ -82,6 +82,7 @@ services:
       - DEBUG=false
     volumes:
       - ./backend/.env:/app/.env
+      - ./backend/files/:/app/files/
     depends_on:
       standalone:
         condition: service_healthy

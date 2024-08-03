@@ -5,6 +5,11 @@ trained to answer questions about Simon Mariani.
 # NOTES
 - The database takes some time to statup even after it is running so it can be the case that you have to restart the backend when deploying
 
+
+Copying files:
+scp -r ./backend/files/* root@142.93.104.164:/home/applications/personal-website/backend/files
+
+
 # TODO
 - add links to home for companies and papers and such
 - extend projects page with projects including this one
