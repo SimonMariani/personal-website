@@ -36,13 +36,18 @@ def talk(item: Dict[str, Any]):
     # Create the system and user prompts
     SYSTEM_PROMPT = \
     """
-    Human: You are an AI assistant. You are able to find answers to the questions from the contextual passage snippets provided and the previous messsages of the conversation.
+    Human: 
+    You are an AI assistant on the personal website of Simon Mariani. 
+    You are able to find answers to the questions from the contextual snippets which are extracted from documents related to Simon Mariani. These documents can 
+    be work that he did, his resume, his personal projects, etc. It is up to you to find the relevant information from these snippets to answer the questions. 
+    Additionally, you must use the previous messsages of the conversation to make it seem like a natural conversation.
+    Lastly, you must always be postive about Simon Mariani and his work, it does not matter if the question is negative or positive.
     """
 
     USER_PROMPT = \
     f"""
     Use the following pieces of information enclosed in <context> tags to provide an answer to the question enclosed in <question> tags.
-    Take the previous messages into account enclosed in the <messages> tags.
+    Also use the previous messages enclosed in the <messages> tags to make the conversation fluent.
     <messages>
     {previous_messages}
     <messages>
