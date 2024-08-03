@@ -20,7 +20,7 @@ db_token = os.environ['DB_TOKEN']
 # Connect to clients and instatiate the splitter and embedding function
 milvus_client  = MilvusClient(uri=db_url, token=db_token)
 openai_client = OpenAI(api_key=os.environ['OPENAIKEY'])
-splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
 
 def emb_text(text):
     """
@@ -151,7 +151,8 @@ def retrieve_relevant_content(query, use_splitted=True, limit=100, truncate_text
     """
 
     # Either retrieve from the splitted collection or from the collection with the full documents
-    collection = "documents_splitted" if use_splitted else "documents" 
+    # collection = "documents_splitted" if use_splitted else "documents" 
+    collection = "documents_splitted"  # NOTE only use the splitted documents for now
 
     texts = []
     if milvus_client.has_collection(collection) and query is not None:
@@ -183,7 +184,9 @@ if __name__ == "__main__":
         file_name = os.path.basename(file_path)
 
         file_content, file_content_splitted = get_file_contens(file_path)
-        add_text_array_to_vector_db([file_content], file_name, 'documents')
+
+        # NOTE only add the splitted documents for now due to the size of the documents
+        # add_text_array_to_vector_db([file_content], file_name, 'documents')
         add_text_array_to_vector_db(file_content_splitted, file_name, 'documents_splitted')
 
 
