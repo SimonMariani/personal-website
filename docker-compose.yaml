@@ -1,6 +1,5 @@
-version: '3.5'
-
 services:
+  # The services for running the database, these are from the official Melvus documentation
   etcd:
     container_name: milvus-etcd
     image: quay.io/coreos/etcd:v3.5.5
@@ -60,16 +59,16 @@ services:
       - "etcd"
       - "minio"
 
-  # This is not part of the regular docker-compose file
-  attu:
-    image: zilliz/attu:v2.4
-    ports:
-      - "7000:3000"
+  # Service for monitoring the database service, not necessary in production environment
+  # attu:
+  #   image: zilliz/attu:v2.4
+  #   ports:
+  #     - 7000:3000
 
   # NOTE when running locally you can comment this just to start the database --->
-  backend:
-    image: backend
-    container_name: backend
+  personal-website-backend:
+    image: personal-website-backend
+    container_name: personal-website-backend
     build:
       context: ./backend/
       dockerfile: Dockerfile
@@ -84,37 +83,24 @@ services:
       test: curl http://localhost:8000 || exit 1
       interval: 30s
       timeout: 5s
-      retries: 5
+      retries: 10
       start_period: 10s
 
-  nginx:
-    image: nginx
-    container_name: nginx
-    build: 
-      context: ./nginx
-      dockerfile: Dockerfile
+  personal-website-webserver:
+    image: personal-website-webserver
+    container_name: personal-website-webserver
     init: true
-    ports:
-      - 80:80
-      # - 443:443
     volumes:
       - ./frontend/build:/usr/share/nginx/html
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-      # - ./nginx/certbot/conf:/etc/letsencrypt
-      # - ./nginx/certbot/www:/var/www/certbot
-    depends_on:
-      backend:
-        condition: service_healthy
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+    networks:
+      - default
+      - network-global
+  # --->
 
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - ./nginx/certbot/conf:/etc/letsencrypt
-  #     - ./nginx/certbot/www:/var/www/certbot
-  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 48h & wait $${!}; done;'"
-  # <---
-  
 networks:
   default:
-    name: milvus
+    name: personal-website  
+  network-global:
+    name: vm-load-balancer
+    external: true
