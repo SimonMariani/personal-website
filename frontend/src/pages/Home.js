@@ -117,7 +117,9 @@ const programmingLanguages = [
   { name: "C#", percentage: 70 },
   { name: "R", percentage: 65 },
   { name: "C - C++", percentage: 75 },
-  { name: "Clingo – Prolog - Netlogo", percentage: 60 },
+  { name: "Clingo", percentage: 60 },
+  { name: "Prolog", percentage: 60 },
+  { name: "Netlogo", percentage: 60 },
 ];
 
 const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJS", "SQL", "NoSQL", "PyTorch", "CUDA", "Linux", "Unity", "PowerBI"];

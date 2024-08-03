@@ -10,6 +10,9 @@ function BarChart({ data }) {
       toolbar: {
         show: false,
       },
+      offsetX: 0, // Adjust horizontal padding
+      offsetY: 0, // Adjust vertical padding
+      height: "100%", // Ensure the chart takes the full height of its container
     },
     plotOptions: {
       bar: {
@@ -20,7 +23,7 @@ function BarChart({ data }) {
     },
     dataLabels: {
       enabled: true,
-      offsetX: 10, // Adjust horizontal position
+      offsetX: 0, // Adjust horizontal position to fit better
       offsetY: 0, // Adjust vertical position
       style: {
         colors: ["#000"],
@@ -40,6 +43,7 @@ function BarChart({ data }) {
           fontSize: "14px",
           fontWeight: "bold",
         },
+        offsetX: 0, // Adjust horizontal label position
       },
     },
     yaxis: {
@@ -49,6 +53,7 @@ function BarChart({ data }) {
           fontSize: "14px",
           fontWeight: "bold",
         },
+        offsetY: 0, // Adjust vertical label position
       },
     },
     tooltip: {
@@ -59,6 +64,12 @@ function BarChart({ data }) {
     },
     grid: {
       borderColor: "#f1f1f1",
+      padding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      },
     },
   };
 
@@ -70,8 +81,8 @@ function BarChart({ data }) {
   ];
 
   return (
-    <div>
-      <Chart options={barChartOptions} series={barChartSeries} type="bar" width={"100%"} />
+    <div style={{ padding: 0, margin: 0 }}>
+      <Chart options={barChartOptions} series={barChartSeries} type="bar" width={"100%"} height={600} />
     </div>
   );
 }
