@@ -38,7 +38,7 @@ const Chat = () => {
 
     // Send the message to the backend server and update with the response
     try {
-      const response = await fetch(apiURL + "/talk", {
+      const response = await fetch(apiURL + "/talk/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
