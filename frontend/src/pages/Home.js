@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Row, Col, Space, Card, List } from "antd";
-import { MailOutlined, LinkedinOutlined, PhoneOutlined } from "@ant-design/icons";
+import { MailOutlined, LinkedinOutlined, PhoneOutlined, CloudOutlined } from "@ant-design/icons";
 import Simon from "../assets/images/simon32.jpg";
 import LogoStacticcs from "../assets/images/logo_stactics.png";
 import LogoVinotion from "../assets/images/logo_vinotion.png";
@@ -207,6 +207,7 @@ const contactInfo = {
   email: "simon.mariani65@gmail.com",
   linkedin: "https://linkedin.com/in/simon-mariani65",
   phone: "+31 6 375 552 91",
+  website: "https://simonmariani.com",
 };
 
 function Home({ useSmall }) {
@@ -263,6 +264,12 @@ function Home({ useSmall }) {
             </p>
             <p>
               <PhoneOutlined /> {contactInfo.phone}
+            </p>
+            <p>
+              <CloudOutlined />{" "}
+              <a href={contactInfo.website} target="_blank" rel="noopener noreferrer">
+                {contactInfo.website}
+              </a>
             </p>
           </Card>
         </Row>

@@ -8,30 +8,30 @@ import { Row, Col, Space, Card, List } from "antd";
 // import Project4Image from "../assets/images/project4.jpg";
 
 const projects = [
-  {
-    title: "AI-Powered E-commerce Platform",
-    image: null,
-    description: `Developed a comprehensive AI-powered e-commerce platform using machine learning algorithms to personalize user experiences and 
-                  optimize product recommendations. Deployed on AWS with a robust microservices architecture.`,
-  },
-  {
-    title: "Real-Time Traffic Monitoring System",
-    image: null,
-    description: `Created a real-time traffic monitoring system using computer vision techniques to analyze and detect traffic patterns from live camera feeds.
-                  Implemented edge computing solutions to process data efficiently on-site.`,
-  },
-  {
-    title: "Healthcare AI Chatbot",
-    image: null,
-    description: `Built an AI chatbot for healthcare services that provides instant responses to patient queries and assists in preliminary diagnosis. 
-                  Utilized natural language processing and deployed the solution on cloud platforms.`,
-  },
-  {
-    title: "Autonomous Drone Navigation",
-    image: null,
-    description: `Developed software for autonomous drone navigation using reinforcement learning and computer vision. 
-                  Implemented obstacle detection and avoidance mechanisms to enhance flight safety and efficiency.`,
-  },
+  // {
+  //   title: "AI-Powered E-commerce Platform",
+  //   image: null,
+  //   description: `Developed a comprehensive AI-powered e-commerce platform using machine learning algorithms to personalize user experiences and
+  //                 optimize product recommendations. Deployed on AWS with a robust microservices architecture.`,
+  // },
+  // {
+  //   title: "Real-Time Traffic Monitoring System",
+  //   image: null,
+  //   description: `Created a real-time traffic monitoring system using computer vision techniques to analyze and detect traffic patterns from live camera feeds.
+  //                 Implemented edge computing solutions to process data efficiently on-site.`,
+  // },
+  // {
+  //   title: "Healthcare AI Chatbot",
+  //   image: null,
+  //   description: `Built an AI chatbot for healthcare services that provides instant responses to patient queries and assists in preliminary diagnosis.
+  //                 Utilized natural language processing and deployed the solution on cloud platforms.`,
+  // },
+  // {
+  //   title: "Autonomous Drone Navigation",
+  //   image: null,
+  //   description: `Developed software for autonomous drone navigation using reinforcement learning and computer vision.
+  //                 Implemented obstacle detection and avoidance mechanisms to enhance flight safety and efficiency.`,
+  // },
 ];
 
 function Projects() {
