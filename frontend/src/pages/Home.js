@@ -11,15 +11,13 @@ import LogoBomberbot from "../assets/images/logo_bomberbot.png";
 import LogoUVA from "../assets/images/logo_uva.png";
 import LogoUU from "../assets/images/logo_uu.png";
 import LogoTsinghua from "../assets/images/logo_tsinghua.png";
-import BarChart from "../components/BarChart";
-import RadarChart from "../components/RadarChart";
-import RadialBarChart from "../components/RadialBarChart";
-import TreeMapChart from "../components/TreemapChart";
+import CustomList from "../components/CustomList";
 
+// Workexperience, education and contact information
 const workExperience = [
   {
     title: "Stactics - Data/AI Engineer",
-    logo: <img src={LogoStacticcs} alt="Stactics" style={{ height: 40 }} />,
+    logo: <img src={LogoStacticcs} alt="Stactics" style={{ height: 30 }} />,
     dates: "Jul 2023 - Present",
     description: `At Stactics, I worked as a consultant and product developer. I 
       developed and refined many skills as I built large frontend and backend 
@@ -44,7 +42,7 @@ const workExperience = [
   },
   {
     title: "Blackbear - Consultant",
-    logo: <img src={LogoBlackbear} alt="Blackbear" style={{ height: 30 }} />,
+    logo: <img src={LogoBlackbear} alt="Blackbear" style={{ height: 25 }} />,
     dates: "Jan 2022 – Dec 2022",
     description: `Blackbear provides a platform where companies can meet freelancing 
       individuals. Here, I did market research of which the result became the 
@@ -53,7 +51,7 @@ const workExperience = [
   },
   {
     title: "Vinea - Programming Camp Coordinator",
-    logo: <img src={LogoBomberbot} alt="Bomberbot" style={{ height: 100 }} />,
+    logo: <img src={LogoBomberbot} alt="Bomberbot" style={{ height: 80 }} />,
     dates: "Jun 2019 – Aug 2020",
     description: `I coordinated several programming camps for children between the 
       ages of 9 and 13, where I managed and taught software skills. 
@@ -63,11 +61,8 @@ const workExperience = [
 
 const education = [
   {
-    title: (
-      <Space direction="vertical">
-        <img src={LogoUVA} alt="UvA" style={{ height: 60 }} /> <div>University of Amsterdam - MSc Artificial Intelligence</div>
-      </Space>
-    ),
+    title: "University of Amsterdam - MSc Artificial Intelligence",
+    logo: <img src={LogoUVA} alt="UvA" style={{ height: 40 }} />,
     dates: "Sep 2020 – Jul 2022",
     description: `The MSc Artificial Intelligence at the University of Amsterdam is one of 
       the best in its field, and I am proud to say that after two years I 
@@ -79,11 +74,8 @@ const education = [
     `,
   },
   {
-    title: (
-      <Space direction="vertical">
-        <img src={LogoTsinghua} alt="Tsinghua" style={{ height: 60 }} /> <div>Tsinghua University - Exchange</div>
-      </Space>
-    ),
+    title: "Tsinghua University - Exchange",
+    logo: <img src={LogoTsinghua} alt="Tsinghua" style={{ height: 40 }} />,
     dates: "Aug 2019 - Feb 2020",
     description: `
       Tsinghua University is one of the highest-ranking universities globally, 
@@ -95,11 +87,8 @@ const education = [
     `,
   },
   {
-    title: (
-      <Space direction="vertical">
-        <img src={LogoUU} alt="UU" style={{ height: 60 }} /> <div>Utrecht University - BSc Artificial Intelligence</div>
-      </Space>
-    ),
+    title: "Utrecht University - BSc Artificial Intelligence",
+    logo: <img src={LogoUU} alt="UU" style={{ height: 40 }} />,
     dates: "Sep 2017 - Jul 2020",
     description: `
       This bachelor’s degree at the University of Utrecht is one of the most 
@@ -112,89 +101,20 @@ const education = [
   },
 ];
 
-const programmingLanguages = [
-  { name: "Python", percentage: 90 },
-  { name: "JavaScript", percentage: 85 },
-  { name: "HTML/CSS", percentage: 80 },
-  { name: "C#", percentage: 70 },
-  { name: "R", percentage: 65 },
-  { name: "C - C++", percentage: 75 },
-  { name: "Clingo", percentage: 60 },
-  { name: "Prolog", percentage: 60 },
-  { name: "Netlogo", percentage: 60 },
-];
+const contactInfo = {
+  email: "simon.mariani65@gmail.com",
+  linkedin: "https://linkedin.com/in/simon-mariani65",
+  phone: "+31 6 375 552 91",
+  website: "https://simonmariani.com",
+};
 
-// const frameworks = ["Django", "Flask", "FastAPI", "NodeJS", "ExpressJS", "ReactJS", "SQL", "NoSQL", "PyTorch", "CUDA", "Linux", "Unity", "PowerBI"];
-
-// Change frameworks variable to an array of objects similar to programmingLanguages
-const frameworks = [
-  { name: "Django", percentage: 90 },
-  { name: "Flask", percentage: 85 },
-  { name: "FastAPI", percentage: 80 },
-  { name: "NodeJS", percentage: 70 },
-  { name: "ExpressJS", percentage: 65 },
-  { name: "ReactJS", percentage: 75 },
-  { name: "SQL", percentage: 60 },
-  { name: "NoSQL", percentage: 60 },
-  { name: "PyTorch", percentage: 60 },
-  { name: "CUDA", percentage: 60 },
-  { name: "Linux", percentage: 60 },
-  { name: "Unity", percentage: 60 },
-  { name: "PowerBI", percentage: 60 },
-];
-
-// const tools = ["Docker", "Docker Compose", "Docker Swarm", "Kubernetes", "Git", "GitHub", "GitHub Actions", "Azure", "AWS", "ETL/ELT"];
-
-const developmentTools = [
-  { name: "Docker", percentage: 90 },
-  { name: "Docker Compose", percentage: 85 },
-  { name: "Docker Swarm", percentage: 80 },
-  { name: "Kubernetes", percentage: 70 },
-  { name: "Git", percentage: 65 },
-  { name: "GitHub", percentage: 75 },
-  { name: "GitHub Actions", percentage: 60 },
-  { name: "Azure", percentage: 60 },
-  { name: "AWS", percentage: 60 },
-  { name: "ETL/ELT", percentage: 60 },
-];
-
+// Remainder
 const languages = [
-  { name: "Dutch", level: "Fluent" },
-  { name: "English", level: "Fluent" },
-  { name: "Spanish", level: "Intermediate" },
-  { name: "German", level: "Intermediate" },
-  { name: "Chinese", level: "Elementary" },
-];
-
-// const aiExperience = [
-//   "Deep Learning",
-//   "Distributed Machine Learning",
-//   "Generative Computer Vision",
-//   "Image Segmentation",
-//   "Generative Natural Language Processing",
-//   "Reinforcement Learning",
-//   "Active Learning",
-//   "OOD-Detection",
-//   "Anomaly Detection",
-//   "Time Series Analysis",
-//   "Recommender Systems",
-//   "Game Theory",
-// ];
-
-// Format aiExperience as a list of objects similar to programmingLanguages
-const aiExperience = [
-  { name: "Deep Learning", percentage: 90 },
-  { name: "Distributed Machine Learning", percentage: 85 },
-  { name: "Generative Computer Vision", percentage: 80 },
-  { name: "Image Segmentation", percentage: 70 },
-  { name: "Generative Natural Language Processing", percentage: 65 },
-  { name: "Reinforcement Learning", percentage: 75 },
-  { name: "Active Learning", percentage: 60 },
-  { name: "OOD-Detection", percentage: 90 },
-  { name: "Anomaly Detection", percentage: 85 },
-  { name: "Time Series Analysis", percentage: 80 },
-  { name: "Recommender Systems", percentage: 70 },
-  { name: "Game Theory", percentage: 65 },
+  { name: "Dutch", description: "Fluent" },
+  { name: "English", description: "Fluent" },
+  { name: "Spanish", description: "Intermediate" },
+  { name: "German", description: "Intermediate" },
+  { name: "Chinese", description: "Elementary" },
 ];
 
 const publications = [
@@ -202,13 +122,6 @@ const publications = [
   { title: "Reproducibility Study (UvA)", link: "https://openreview.net/forum?id=sacRaG5zt_m" },
   { title: "Bachelor’s Thesis (UU)", link: "https://studenttheses.uu.nl/handle/20.500.12932/37006" },
 ];
-
-const contactInfo = {
-  email: "simon.mariani65@gmail.com",
-  linkedin: "https://linkedin.com/in/simon-mariani65",
-  phone: "+31 6 375 552 91",
-  website: "https://simonmariani.com",
-};
 
 function Home({ useSmall }) {
   const textPadding = useSmall ? 0 : "10vw";
@@ -227,27 +140,12 @@ function Home({ useSmall }) {
             />
 
             <div style={{ fontSize: 18, margin: "0 auto", color: "#555", paddingLeft: textPadding, paddingRight: textPadding }}>
-              {/* <div style={{ fontSize: 18, margin: "0 auto", color: "#555", textAlign: "center" }}> */}
               <p>
                 Versatile software and AI engineer, with strong research skills. Quick learner, adaptable and thrives in new environments. I enjoy creating and
                 working on complex projects and bringing them from development into production. This also pairs well with my eagerness to grow as a software
                 developer as there is always something new to learn. My academic background helps me to implement complex algorithms and systems, as well as
                 developing and training various AI models.
               </p>
-              {/* <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-                the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-                the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p> */}
             </div>
           </Card>
         </Row>
@@ -276,28 +174,12 @@ function Home({ useSmall }) {
 
         <Row id="work-experience" style={{ marginBottom: 20 }}>
           <Card title="Work Experience" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {/* Alternative approach */}
-            {/* {workExperience.map((item, index) => {
-              return (
-                <Row style={{ textAlign: index % 2 === 0 ? "left" : "right" }}>
-                  <Col span={4}>{index % 2 === 0 ? item.logo : null}</Col>
-                  <Col span={16}>
-                    <p>{<strong>{item.title}</strong>}</p>
-                    <p style={{ marginBottom: "5px" }}>{item.dates}</p>
-                    <p style={{ color: "#555" }}>{item.description}</p>
-                  </Col>
-                  <Col span={4}>{index % 2 === 0 ? null : item.logo}</Col>
-                  <Divider />
-                </Row>
-              );
-            })} */}
             <List
               itemLayout="horizontal"
               dataSource={workExperience}
               renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta
-                    // avatar={item.logo}
                     title={
                       <Space direction="vertical">
                         {item.logo} <strong>{item.title}</strong>
@@ -320,10 +202,14 @@ function Home({ useSmall }) {
             <List
               itemLayout="horizontal"
               dataSource={education}
-              renderItem={(item) => (
+              renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta
-                    title={<strong>{item.title}</strong>}
+                    title={
+                      <Space direction="vertical">
+                        {item.logo} <strong>{item.title}</strong>
+                      </Space>
+                    }
                     description={
                       <>
                         <p style={{ marginBottom: "5px" }}>{item.dates}</p>
@@ -334,62 +220,6 @@ function Home({ useSmall }) {
                 </List.Item>
               )}
             />
-          </Card>
-        </Row>
-        <Row id="programming-languages" style={{ marginBottom: 20 }}>
-          <Card title="Programming Languages" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {/* <List
-              dataSource={skills}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta title={item} />
-                </List.Item>
-              )}
-            /> */}
-            <BarChart data={programmingLanguages} />
-            {/* <RadarChart data={programmingLanguages} /> */}
-            {/* <Chart options={chartOptions} series={chartSeries} type="bar" height={500} /> */}
-          </Card>
-        </Row>
-        <Row id="frameworks-and-software" style={{ marginBottom: 20 }}>
-          <Card title="Frameworks and Software" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {/* <List
-              dataSource={frameworks}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta title={item} />
-                </List.Item>
-              )}
-            /> */}
-
-            <RadialBarChart data={frameworks} />
-          </Card>
-        </Row>
-        <Row id="development-tools" style={{ marginBottom: 20 }}>
-          <Card title="Development Tools" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {/* <List
-              dataSource={tools}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta title={item} />
-                </List.Item>
-              )}
-            /> */}
-            <TreeMapChart data={developmentTools} />
-          </Card>
-        </Row>
-        <Row id="ai-experience" style={{ marginBottom: 20 }}>
-          <Card title="AI Experience" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {/* <List
-              dataSource={aiExperience}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta title={item} />
-                </List.Item>
-              )}
-            /> */}
-
-            <RadarChart data={aiExperience} />
           </Card>
         </Row>
         <Row id="publications" style={{ marginBottom: 20 }}>
@@ -412,14 +242,7 @@ function Home({ useSmall }) {
         </Row>
         <Row id="languages" style={{ marginBottom: 20 }}>
           <Card title="Languages" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            <List
-              dataSource={languages}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta title={item.name} description={item.level} />
-                </List.Item>
-              )}
-            />
+            <CustomList list={languages} />
           </Card>
         </Row>
       </Col>

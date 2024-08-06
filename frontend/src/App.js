@@ -3,13 +3,15 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link as RouterLink, Navigate } from "react-router-dom"; // , Switch, Link
 import { Grid, Layout, Menu, Anchor } from "antd";
-import { HomeOutlined, ProjectOutlined } from "@ant-design/icons";
+import { HomeOutlined, ProjectOutlined, CheckOutlined } from "@ant-design/icons";
 // import Simon from "./assets/images/simon28.jpg";
 // import Logo from "./assets/images/ailogo.jpg";
 import LogoSimon from "./assets/images/logo_simon.png";
 import Home from "./pages/Home";
+import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import ChatBox from "./components/ChatBox";
+import ScrollToTop from "./components/ScrollToTop";
 const { useBreakpoint } = Grid;
 const { Header, Sider, Footer, Content } = Layout;
 
@@ -18,6 +20,11 @@ const headerItems = [
     key: "home",
     icon: <HomeOutlined />,
     label: <RouterLink to="/home">Home</RouterLink>,
+  },
+  {
+    key: "skills",
+    icon: <CheckOutlined />,
+    label: <RouterLink to="/skills">Skills</RouterLink>,
   },
   {
     key: "projects",
@@ -35,6 +42,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        {/* Component used to always scroll to the top when the page changes */}
+        <ScrollToTop />
+
         <Layout>
           <Sider
             width={siderWidth}
@@ -76,34 +86,74 @@ function App() {
                         title: "Education",
                       },
                       {
+                        key: "12",
+                        href: "#publications",
+                        title: "Publications",
+                      },
+                      {
+                        key: "13",
+                        href: "#languages",
+                        title: "Languages",
+                      },
+                    ]}
+                  />
+                }
+              ></Route>
+
+              <Route
+                path="/skills"
+                element={
+                  <Anchor
+                    targetOffset={70}
+                    style={{ padding: 20 }}
+                    defaultSelectedKeys={["1"]}
+                    items={[
+                      {
                         key: "5",
                         href: "#programming-languages",
                         title: "Programming Languages",
                       },
                       {
                         key: "6",
-                        href: "#frameworks-and-software",
-                        title: "Frameworks and Software",
+                        href: "#web-development",
+                        title: "Web Development",
                       },
                       {
                         key: "7",
+                        href: "#ai-frameworks",
+                        title: "AI Frameworks",
+                      },
+                      {
+                        key: "8",
+                        href: "#other-software",
+                        title: "Other Software",
+                      },
+                      {
+                        key: "9",
                         href: "#development-tools",
                         title: "Development Tools",
                       },
                       {
-                        key: "8",
+                        key: "10",
                         href: "#ai-experience",
                         title: "AI Experience",
                       },
+                    ]}
+                  />
+                }
+              ></Route>
+              <Route
+                path="/projects"
+                element={
+                  <Anchor
+                    targetOffset={70}
+                    style={{ padding: 20 }}
+                    defaultSelectedKeys={["1"]}
+                    items={[
                       {
-                        key: "9",
-                        href: "#publications",
-                        title: "Publications",
-                      },
-                      {
-                        key: "10",
-                        href: "#languages",
-                        title: "Languages",
+                        key: "1",
+                        href: "#general",
+                        title: "General",
                       },
                     ]}
                   />
@@ -148,7 +198,8 @@ function App() {
               <ChatBox useSmall={useSmall} />
               <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
-                <Route path="/home" element={<Home useSmall={useSmall} />}></Route>
+                <Route path="/home" element={<Home useSmall={useSmall} />} />
+                <Route path="/skills" element={<Skills useSmall={useSmall} />} />
                 <Route path="/projects" element={<Projects useSmall={useSmall} />} />
               </Routes>
             </Content>
@@ -158,7 +209,11 @@ function App() {
                 backgroundColor: "white",
               }}
             >
-              {/* Footer content */}
+              {/* <h4>
+                <a href="/home#contact-information" repl>
+                  Contact me!
+                </a>
+              </h4> */}
             </Footer>
           </Layout>
         </Layout>

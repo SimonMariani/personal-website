@@ -1,29 +1,57 @@
 /** @format */
 
-import React, { useState } from "react";
-import { Button, Card, FloatButton } from "antd";
+import React, { useState, useEffect } from "react";
+import { Flex, Button, Card, FloatButton, Popover } from "antd";
 import { CloseOutlined, WechatWorkOutlined } from "@ant-design/icons";
 
 import Chat from "./Chat";
 
 function ChatBox({ useSmall }) {
   const [chatBoxVisible, setChatBoxVisible] = useState(false);
+  const [popoverpOpen, setPopoverOpen] = useState(false);
 
   const toggleChatBox = () => {
+    setPopoverOpen(false);
     setChatBoxVisible(!chatBoxVisible);
   };
 
   const props = useSmall ? { left: 0, right: 0, top: 0 } : { right: 20, width: 500, height: 550 };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPopoverOpen(true);
+    }, 2000);
+
+    // Cleanup the timer if the component is unmounted before the timer finishes
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div>
-      <FloatButton
-        shape="circle"
-        type="primary"
-        style={{ width: 70, height: 70, boxShadow: "10px 10px 10px rgba(0,0,0,0.5)" }}
-        icon={<WechatWorkOutlined style={{ fontSize: 30, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
-        onClick={toggleChatBox}
-      />
+    <>
+      <Popover
+        content={
+          <div>
+            I have been trained on Simon's data.
+            <br />
+            May I assist you with any questions?
+          </div>
+        }
+        title={
+          <Flex justify="space-between">
+            <strong>Hello!</strong>
+            <CloseOutlined onClick={() => setPopoverOpen(false)} />
+          </Flex>
+        }
+        open={popoverpOpen}
+      >
+        <FloatButton
+          shape="circle"
+          type="primary"
+          style={{ width: 70, height: 70, boxShadow: "10px 10px 10px rgba(0,0,0,0.5)" }}
+          icon={<WechatWorkOutlined style={{ fontSize: 30, position: "absolute", left: "50%", transform: "translate(-50%, -50%)" }} />}
+          onClick={toggleChatBox}
+        />
+      </Popover>
       <Card
         title={"Ask anything about Simon"}
         extra={
@@ -50,7 +78,7 @@ function ChatBox({ useSmall }) {
           <Chat />
         </div>
       </Card>
-    </div>
+    </>
   );
 }
 

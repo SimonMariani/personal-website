@@ -102,7 +102,7 @@ const Chat = () => {
 
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 10 }}>
         <Row>
-          <Col span={21}>
+          <Col flex={1}>
             <Input
               placeholder="Ask me anything about Simon Mariani..."
               type="text"
@@ -113,7 +113,7 @@ const Chat = () => {
               onKeyDown={handleKeyDown}
             />
           </Col>
-          <Col span={3}>
+          <Col>
             <Button type="primary" onClick={handleSendMessage}>
               Send
             </Button>
