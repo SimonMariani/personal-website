@@ -54,6 +54,11 @@ const webFrameworks = [
       "React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.",
   },
   {
+    name: "VueJS",
+    percentage: 50,
+    description: "Vue.js is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications.",
+  },
+  {
     name: "SQL",
     percentage: 90,
     description: "SQL is a domain-specific language used in programming and designed for managing data held in a relational database management system.",
@@ -155,19 +160,19 @@ const aiExperience = [
   { name: "Image Segmentation", percentage: 70, description: "Image segmentation is the process of partitioning a digital image into multiple segments." },
   {
     name: "Natural Language Processing",
-    percentage: 50,
+    percentage: 80,
     description:
       "Natural language processing is a subfield of linguistics, computer science, and artificial intelligence concerned with the interactions between computers and human language.",
   },
   {
     name: "Reinforcement Learning",
-    percentage: 40,
+    percentage: 65,
     description:
       "Reinforcement learning is an area of machine learning concerned with how software agents ought to take actions in an environment in order to maximize the notion of cumulative reward.",
   },
   {
     name: "Active Learning",
-    percentage: 65,
+    percentage: 75,
     description:
       "Active learning is a special case of machine learning in which a learning algorithm can interactively query a user to label data with the desired outputs.",
   },
@@ -185,13 +190,13 @@ const aiExperience = [
   },
   {
     name: "Time Series Analysis",
-    percentage: 50,
+    percentage: 80,
     description:
       "Time series analysis comprises methods for analyzing time series data in order to extract meaningful statistics and other characteristics of the data.",
   },
   {
     name: "Recommender Systems",
-    percentage: 40,
+    percentage: 50,
     description:
       "Recommender systems are a subclass of information filtering system that seek to predict the 'rating' or 'preference' a user would give to an item.",
   },
