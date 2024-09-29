@@ -27,11 +27,11 @@ const headerItems = [
     icon: <CheckOutlined />,
     label: <RouterLink to="/skills">Skills</RouterLink>,
   },
-  {
-    key: "projects",
-    icon: <ProjectOutlined />,
-    label: <RouterLink to="/projects">Projects</RouterLink>,
-  },
+  // {
+  //   key: "projects",
+  //   icon: <ProjectOutlined />,
+  //   label: <RouterLink to="/projects">Projects</RouterLink>,
+  // },
 ];
 
 function App() {
