@@ -27,7 +27,7 @@ function ChatBox({ useSmall }) {
   }, []);
 
   return (
-    <>
+    <div style={{ zIndex: 1, position: "fixed" }}>
       <Popover
         content={
           <div>
@@ -43,6 +43,7 @@ function ChatBox({ useSmall }) {
           </Flex>
         }
         open={popoverpOpen}
+        getPopupContainer={(trigger) => trigger.parentElement}
       >
         <FloatButton
           shape="circle"
@@ -78,7 +79,7 @@ function ChatBox({ useSmall }) {
           <Chat />
         </div>
       </Card>
-    </>
+    </div>
   );
 }
 

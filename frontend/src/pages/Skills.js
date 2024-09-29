@@ -22,7 +22,7 @@ const programmingLanguages = [
   { name: "Netlogo", percentage: 50, description: "Netlogo is a language for agent-based modeling and is used for simulating complex systems." },
 ];
 
-const webFrameworks = [
+const backend = [
   { name: "Django", percentage: 90, description: "Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design." },
   {
     name: "Flask",
@@ -48,17 +48,6 @@ const webFrameworks = [
       "Express.js, or simply Express, is a back end web application framework for Node.js, released as free and open-source software under the MIT License.",
   },
   {
-    name: "ReactJS",
-    percentage: 90,
-    description:
-      "React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.",
-  },
-  {
-    name: "VueJS",
-    percentage: 50,
-    description: "Vue.js is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications.",
-  },
-  {
     name: "SQL",
     percentage: 90,
     description: "SQL is a domain-specific language used in programming and designed for managing data held in a relational database management system.",
@@ -73,6 +62,25 @@ const webFrameworks = [
     name: "VectorDatabases",
     percentage: 80,
     description: "A vector database is a database management system that is optimized for storing, querying, and analyzing multidimensional vectors.",
+  },
+];
+
+const frontend = [
+  {
+    name: "ReactJS",
+    percentage: 90,
+    description:
+      "React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.",
+  },
+  {
+    name: "VueJS",
+    percentage: 50,
+    description: "Vue.js is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications.",
+  },
+  {
+    name: "Figma",
+    percentage: 60,
+    description: "Figma is a vector graphics editor and prototyping tool which is primarily web-based, with additional offline features.",
   },
 ];
 
@@ -207,10 +215,8 @@ const aiExperience = [
   },
 ];
 
-function Home({ useSmall }) {
-  const textPadding = useSmall ? 0 : "10vw";
-
-  const [visualize, setVisualize] = useState(true);
+function Skills({ useSmall }) {
+  const [graphs, setGraphs] = useState(true);
 
   return (
     <Row gutter={[16, 16]} style={{ position: "relative", padding: 15, margin: 0 }}>
@@ -221,8 +227,8 @@ function Home({ useSmall }) {
             <h2 style={{ fontSize: 24, color: "#888", marginTop: 0 }}>Software Development and AI Tools </h2>
 
             <Space>
-              <h3>Visualize</h3>
-              <Switch checked={visualize} onChange={(checked) => setVisualize(checked)} />
+              <h3>Graphs: </h3>
+              <Switch checked={graphs} onChange={(checked) => setGraphs(checked)} />
             </Space>
 
             {/* <div style={{ fontSize: 18, margin: "0 auto", color: "#555", paddingLeft: textPadding, paddingRight: textPadding }}>
@@ -238,32 +244,37 @@ function Home({ useSmall }) {
 
         <Row id="programming-languages" style={{ marginBottom: 20 }}>
           <Card title="Programming Languages" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%", padding: 0 }}>
-            {visualize ? <BarChart data={programmingLanguages} colors={["#03A9F4"]} /> : <CustomList list={programmingLanguages} />}
+            {graphs ? <BarChart data={programmingLanguages} colors={["#03A9F4"]} /> : <CustomList list={programmingLanguages} />}
           </Card>
         </Row>
-        <Row id="web-development" style={{ marginBottom: 20 }}>
-          <Card title="Web Development" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {visualize ? <BarChart data={webFrameworks} colors={["#FF4560"]} /> : <CustomList list={webFrameworks} />}
+        <Row id="backend" style={{ marginBottom: 20 }}>
+          <Card title="Backend" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
+            {graphs ? <BarChart data={backend} colors={["#FF4560"]} /> : <CustomList list={backend} />}
+          </Card>
+        </Row>
+        <Row id="frontend" style={{ marginBottom: 20 }}>
+          <Card title="Frontend" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
+            {graphs ? <BarChart data={frontend} colors={["#FEB019"]} /> : <CustomList list={frontend} />}
           </Card>
         </Row>
         <Row id="ai-frameworks" style={{ marginBottom: 20 }}>
           <Card title="AI Frameworks" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {visualize ? <BarChart data={aiFrameworks} colors={["#FEB019"]} /> : <CustomList list={aiFrameworks} />}
+            {graphs ? <BarChart data={aiFrameworks} colors={["#4CAF50"]} /> : <CustomList list={aiFrameworks} />}
           </Card>
         </Row>
         <Row id="other-software" style={{ marginBottom: 20 }}>
           <Card title="Other Software" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {visualize ? <BarChart data={otherSoftware} colors={["#4CAF50"]} /> : <CustomList list={otherSoftware} />}
+            {graphs ? <BarChart data={otherSoftware} colors={["#87006b"]} /> : <CustomList list={otherSoftware} />}
           </Card>
         </Row>
         <Row id="development-tools" style={{ marginBottom: 20 }}>
           <Card title="Development Tools" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {visualize ? <TreeMapChart data={developmentTools} /> : <CustomList list={developmentTools} />}
+            {graphs ? <TreeMapChart data={developmentTools} /> : <CustomList list={developmentTools} />}
           </Card>
         </Row>
         <Row id="ai-experience" style={{ marginBottom: 20 }}>
           <Card title="AI Experience" style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)", width: "100%" }}>
-            {visualize && !useSmall ? <RadarChart data={aiExperience} /> : <CustomList list={aiExperience} />}
+            {graphs && !useSmall ? <RadarChart data={aiExperience} /> : <CustomList list={aiExperience} />}
           </Card>
         </Row>
       </Col>
@@ -271,4 +282,4 @@ function Home({ useSmall }) {
   );
 }
 
-export default Home;
+export default Skills;
