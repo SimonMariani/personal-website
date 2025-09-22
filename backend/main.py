@@ -7,16 +7,17 @@ from db import retrieve_relevant_content, openai_client
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:80", "http://localhost", "http://localhost:8000"], # here
+    allow_origins=["http://localhost:3000", "http://localhost:80", "http://localhost", "http://localhost:8000"],  # here
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
 # Test route
 @app.get("/api/")
 def test():
-    return {"Hello": "World"} 
+    return {"Hello": "World"}
 
 
 @app.post("/api/talk/")
@@ -26,16 +27,15 @@ def talk(item: Dict[str, Any]):
     """
 
     # Extract the message and the previous messages
-    message = item['message']['text']
-    previous_messages = "\n".join([previous_message['text'] for previous_message in item['previousMessages']])
+    message = item["message"]["text"]
+    previous_messages = "\n".join([previous_message["text"] for previous_message in item["previousMessages"]])
 
     # Extract the relvant conents
     texts = retrieve_relevant_content(message, use_splitted=True, limit=5)
     context = "\n".join(texts)
 
     # Create the system and user prompts
-    SYSTEM_PROMPT = \
-    """
+    SYSTEM_PROMPT = """
     Human: 
     You are an AI assistant on the personal website of Simon Mariani. 
     You are able to find answers to the questions from the contextual snippets which are extracted from documents related to Simon Mariani. These documents can 
@@ -44,8 +44,7 @@ def talk(item: Dict[str, Any]):
     Lastly, you must always be postive about Simon Mariani and his work, it does not matter if the question is negative or positive.
     """
 
-    USER_PROMPT = \
-    f"""
+    USER_PROMPT = f"""
     Use the following pieces of information enclosed in <context> tags to provide an answer to the question enclosed in <question> tags.
     Also use the previous messages enclosed in the <messages> tags to make the conversation fluent.
     <messages>
@@ -70,6 +69,4 @@ def talk(item: Dict[str, Any]):
     )
     response_message = response.choices[0].message.content
 
-    return {'response': response_message}
-
-
+    return {"response": response_message}

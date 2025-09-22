@@ -1,13 +1,16 @@
+# @format
+
 name: deploy code
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - temp
 
 jobs:
-  deploy-project:
+  deploy-production:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: ssh into remote server and setup changes
         uses: appleboy/ssh-action@master
@@ -15,21 +18,21 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          script: | 
+          script: |
 
-              # Just some output to see if the script is running
-              echo 123
+            # Just some output to see if the script is running
+            echo 123
 
-              # Go to the right folder and pull the changes
-              cd /home/applications/personal-website/
-              git pull origin main
+            # Go to the right folder and pull the changes
+            cd /home/applications/personal-website/
+            git pull origin main
 
-              # Update the frontend
-              cd /home/applications/personal-website/frontend/
-              npm install
-              npm run build
+            # Update the frontend
+            cd /home/applications/personal-website/frontend/
+            npm install
+            npm run build
 
-              # Run the docker compose production file for the new changes
-              cd /home/applications/personal-website/
-              # sudo docker compose -f docker-compose.yaml down
-              sudo docker compose -f docker-compose.yaml up --build -d
+            # Run the docker compose production file for the new changes
+            cd /home/applications/personal-website/
+            # sudo docker compose -f docker-compose.yaml down
+            sudo docker compose -f docker-compose.yaml up --build -d

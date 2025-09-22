@@ -1,29 +1,18 @@
 /** @format */
 
 import { Row, Col, Input, Button } from "antd";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 let apiURL = "";
 if (process.env.NODE_ENV === "development") {
   apiURL = "http://localhost:8000";
-  // apiURL = "http://localhost/api";
 } else if (process.env.NODE_ENV === "production") {
-  // apiURL = "https://simonmariani.com";
-  // apiURL = "http://localhost/api";
   apiURL = "https://simonmariani.com/api";
-  // apiURL = "http://simonmariani.com/api";
-  // apiURL = "http://13.95.15.101/api";
 } else {
-  console.log("Unknown environment");
+  console.error("Unknown environment");
 }
 
-// ChatBox Component
 const Chat = () => {
-  /**
-   * Chat component that sends chat messages to the backend server and displays the responses.
-   * The chat messages are stored in the 'messages' state variable which is used to give context to the backend server.
-   */
-
   // State variables for messages and user input
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");

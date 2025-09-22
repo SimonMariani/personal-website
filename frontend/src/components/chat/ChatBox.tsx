@@ -4,9 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Flex, Button, Card, FloatButton, Popover } from "antd";
 import { CloseOutlined, WechatWorkOutlined } from "@ant-design/icons";
 
-import Chat from "./Chat";
-
-function ChatBox({ useSmall }) {
+function ChatBox() {
   const [chatBoxVisible, setChatBoxVisible] = useState(false);
   const [popoverpOpen, setPopoverOpen] = useState(false);
 
