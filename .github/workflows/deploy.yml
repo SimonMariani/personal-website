@@ -24,3 +24,4 @@ jobs:
             git reset --hard origin/main
             make stop-prod
             make start-prod
+            docker system prune -f

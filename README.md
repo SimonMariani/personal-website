@@ -19,6 +19,9 @@ make update-vector-db
 
 # If you want to reset the vector db run after for example changing the schema, run
 make remove-vector-db
+
+# In order to test if the production docker compose runs you can run it locally by running
+make start-prod-local
 ```
 
 ## Remote
@@ -31,6 +34,7 @@ make update-documents-remote
 
 # TODO
 - Add tests
+- Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
 
 
 

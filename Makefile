@@ -19,6 +19,10 @@ start:
 start-prod:
 	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
 
+start-prod-local:
+	docker network create vm-load-balancer || true
+	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
+
 # Stop the docker containers
 stop:
 	docker compose -f docker-compose-dev.yaml down
