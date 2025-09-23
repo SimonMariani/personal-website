@@ -14,17 +14,17 @@ all: start
 
 # Start the docker containers
 start:
-	docker-compose -f docker-compose-dev.yaml up --build --watch
+	docker compose -f docker-compose-dev.yaml up --build --watch --remove-orphans
 
 start-prod:
-	sudo docker compose -f docker-compose-prod.yaml up --build -d
+	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
 
 # Stop the docker containers
 stop:
-	docker-compose -f docker-compose-dev.yaml down
+	docker compose -f docker-compose-dev.yaml down
 
 stop-prod:
-	sudo docker compose -f docker-compose-prod.yaml down
+	docker compose -f docker-compose-prod.yaml down
 
 # Sync the db with the files in the backend/files directory
 update-vector-db:

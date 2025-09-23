@@ -1,7 +1,9 @@
 /** @format */
 
+import { useRef, useEffect } from "react";
 import type { KeyboardEventHandler } from "react";
 import { Input, theme } from "antd";
+import type { InputRef } from "antd";
 
 // Global variables
 const { useToken } = theme;
@@ -21,6 +23,12 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
   // Get the theme token from antd
   const { token } = useToken();
 
+  // Input reference so we can focus on it
+  const inputRef = useRef<InputRef | null>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   // Handle the enter key press to send the message
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === "Enter") {
@@ -33,6 +41,7 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
   return (
     <div style={{ width: "65%", boxShadow: token.boxShadow, borderRadius: 10 }}>
       <Input
+        ref={inputRef}
         placeholder="Ask me anything about Simon Mariani..."
         type="text"
         size="large"
