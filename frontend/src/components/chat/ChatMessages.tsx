@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useRef } from "react";
-import type { Messages } from "../types";
+import type { Messages } from "../../types";
 import ChatMessage from "./ChatMessage";
 import ChatLoading from "./ChatLoading";
 import { Flex } from "antd";

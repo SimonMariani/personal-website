@@ -36,6 +36,6 @@ make update-documents-remote
 - Rename backend to api
 - Add tests
 - Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
-
+- Maybe update the mainenance pages to be cooler but they are also fine like this
 
 
