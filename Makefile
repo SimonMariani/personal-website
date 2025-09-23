@@ -66,3 +66,10 @@ update-vector-db-remote:
 # Remote commands for removing the vector db
 remove-vector-db-remote:
 	ssh root@142.93.104.164 "cd /home/applications/personal-website && make remove-vector-db"
+
+# Remote commands for updating the maintenance pages
+update-maintenance-page-remote-frontend:
+	scp -r ./maintenance/frontend/* root@142.93.104.164:/home/nginx/maintenance/simonmariani.com/
+
+update-maintenance-page-remote-backend:
+	scp -r ./maintenance/backend/* root@142.93.104.164:/home/nginx/maintenance/api.simonmariani.com/

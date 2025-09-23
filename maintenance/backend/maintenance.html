@@ -1,0 +1,72 @@
+<!-- @format -->
+
+<!-- /var/www/html/maintenance.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon Mariani – Maintenance</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Lora", "Playfair Display", serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f8f8; /* light neutral background */
+        color: #505050ff; /* secondary color for text */
+        text-align: center;
+      }
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #505050ff;
+      }
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      a {
+        color: #1677ff; /* subtle accent */
+        text-decoration: none;
+        border-bottom: 1px solid #1677ff;
+        padding-bottom: 2px;
+        transition: color 0.3s, border-color 0.3s;
+      }
+      a:hover {
+        color: #505050ff;
+        border-color: #505050ff;
+      }
+      .maintenance-image {
+        max-width: 200px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
+        padding: 10px; /* optional spacing */
+        border-radius: 8px; /* optional rounded corners */
+      }
+      /* Optional subtle accent line under heading */
+      .accent-line {
+        width: 80px;
+        height: 4px;
+        background-color: #1677ff;
+        margin: 1rem auto 2rem auto;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Local image -->
+    <!-- <img src="/maintenance.png" alt="Simon Mariani Logo" class="maintenance-image" /> -->
+
+    <h1>We'll be back soon!</h1>
+    <div class="accent-line"></div>
+    <p>Our site is currently undergoing maintenance.<br />Please check back shortly.</p>
+  </body>
+</html>
