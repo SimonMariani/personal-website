@@ -32,14 +32,14 @@ stop-prod:
 
 # Sync the db with the files in the backend/files directory
 update-vector-db:
-	docker exec -it personal-website-backend python -m scripts.update_vector_db
+	docker exec personal-website-backend python -m scripts.update_vector_db
 
 remove-vector-db:
-	docker exec -it personal-website-backend python -m scripts.remove_vector_db
+	docker exec personal-website-backend python -m scripts.remove_vector_db
 
 # Build the frontend, this should be done before pushing and deploying
 build-frontend:
-	docker exec -it personal-website-frontend npm run build
+	docker exec personal-website-frontend npm run build
 
 # Useful commands
 logs-backend:
@@ -54,11 +54,14 @@ exec-backend:
 exec-frontend:
 	docker exec -it personal-website-frontend sh
 
-# Remote commands
+# Remote commands. Note that these commands will ask for the password of the server
 update-documents-remote: upload-documents-remote update-vector-db-remote
 
 upload-documents-remote:
 	scp -r ./backend/documents/* root@142.93.104.164:/home/applications/personal-website/backend/documents
 
 update-vector-db-remote:
-	ssh root@142.93.104.164 "cd /home/applications/personal-website && python -m scripts.update_vector_db"
+	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db"
+
+remove-vector-db-remote:
+	ssh root@142.93.104.164 "cd /home/applications/personal-website && make remove-vector-db"

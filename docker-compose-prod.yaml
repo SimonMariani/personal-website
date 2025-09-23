@@ -21,7 +21,7 @@ services:
       target: production
     volumes:
       - ./backend/.env:/app/.env
-      - ./backend/files/:/app/files/
+      - ./backend/documents/:/app/documents/
     healthcheck:
       test: wget -qO- http://localhost/ping || exit 1
       interval: 30s
