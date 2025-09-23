@@ -8,10 +8,18 @@ from vector_db.connections import openai_client, model
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:80", "http://localhost", "http://localhost:8000"],  # here
+    allow_origins=[
+        # Local origins for development, essentially only allow the frontend
+        "http://localhost:3000",
+        # Production origins
+        "http://simonmariani.com",
+        "http://www.simonmariani.com",
+        "https://simonmariani.com",
+        "https://www.simonmariani.com",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # allow all headers
 )
 
 
