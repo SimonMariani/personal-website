@@ -1,21 +1,36 @@
 # Introduction
-This is the github of the personal website from Simon Mariani, as of now it contains the general information you would find on a CV, and a chatbot that has been
-trained to answer questions about Simon Mariani.
-
-# NOTES
-- The database takes some time to statup even after it is running so it can be the case that you have to restart the backend when deploying
+This is the github of the personal website from Simon Mariani. It contains a chatbot to answer questions about Simon Mariani and some general information.
 
 
-Copying files:
-scp -r ./backend/files/* root@142.93.104.164:/home/applications/personal-website/backend/files
+# Usage
+## Quickstart
+The following commands are used for deploying and managing the application
+```bash
+# In order to run the application simply run the following for the development and production setups respectively
+make start
+make start-prod
+
+# In order to stop all the containers run for development and production run the following commands respectively
+make stop
+make stop-prod
+
+# The documents that the chatbot should use in its responses should be put in the `backend/documents` folder. To update the vector db you can then run
+make update-vector-db
+
+# If you want to reset the vector db run after for example changing the schema, run
+make remove-vector-db
+```
+
+## Remote
+For managing the remote application some useful commands have been added to the make file, note that on push the github worflow already updates the applciation
+```bash
+# In order to update the remote documents from the local documents folder
+make update-documents-remote
+```
 
 
 # TODO
-- add links to home for companies and papers and such
-- extend projects page with projects including this one
-- update the chatbot with more files and make sure it knows that not everything is direct information but also projects
-- add file upload extenstion but this requires some form of authentication but you can implement it just on that password so that you can still easily add
-a password or something so it shouldn't be that hard
+- Add tests
 
 
 

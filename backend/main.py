@@ -1,7 +1,8 @@
+from typing import Dict, Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any
-from db import retrieve_relevant_content, openai_client
+from vector_db.operations import retrieve_from_query
+from vector_db.connections import openai_client, model
 
 # App setup
 app = FastAPI()
@@ -15,12 +16,13 @@ app.add_middleware(
 
 
 # Test route
-@app.get("/api/")
+@app.get("/ping/")
 def test():
-    return {"Hello": "World"}
+    return {"value": "pong"}
 
 
-@app.post("/api/talk/")
+# The route to chat with the chatbot
+@app.post("/talk/")
 def talk(item: Dict[str, Any]):
     """
     Route to chat with the chatbot, input should containe the message and the previous messages.
@@ -28,40 +30,56 @@ def talk(item: Dict[str, Any]):
 
     # Extract the message and the previous messages
     message = item["message"]["text"]
-    previous_messages = "\n".join([previous_message["text"] for previous_message in item["previousMessages"]])
+    previous_messages = item["previousMessages"]
 
     # Extract the relvant conents
-    texts = retrieve_relevant_content(message, use_splitted=True, limit=5)
-    context = "\n".join(texts)
+    search_results = retrieve_from_query(message, collection_name="documents", limit=15)
 
-    # Create the system and user prompts
+    # Create the context strings
+    files_context = "\n".join(f"document: {item['entity']['filename']} - snippet: {item['entity']['text']}" for item in search_results)
+    messages_context = "\n".join(f"message by {item['sender']}: {item['text']}" for item in previous_messages[-10:])  # Use only the last 10 messages
+
+    # The system prompt is the general instructions for the chatbot
     SYSTEM_PROMPT = """
-    Human: 
-    You are an AI assistant on the personal website of Simon Mariani. 
-    You are able to find answers to the questions from the contextual snippets which are extracted from documents related to Simon Mariani. These documents can 
-    be work that he did, his resume, his personal projects, etc. It is up to you to find the relevant information from these snippets to answer the questions. 
-    Additionally, you must use the previous messsages of the conversation to make it seem like a natural conversation.
-    Lastly, you must always be postive about Simon Mariani and his work, it does not matter if the question is negative or positive.
+    You are an AI assistant on the personal website of Simon Mariani.  
+    Answer questions about Simon Mariani using information from documents such as his work, resume, and personal projects.  
+
+    Your responses should be:
+    - Short and conversational, like a chat.
+    - Natural and coherent using previous messages.
+    - Professional and positive about Simon Mariani, but not forced.
+    - Based only on the provided context. Do not make up information.
+    - Paraphrase or summarize the context instead of quoting it verbatim whenever possible.
+    - If you do not know the answer, say "I don't know" or "I don't have the information to answer that question."
     """
 
+    # The user prompt contains the context, the question and the previous messages
     USER_PROMPT = f"""
-    Use the following pieces of information enclosed in <context> tags to provide an answer to the question enclosed in <question> tags.
-    Also use the previous messages enclosed in the <messages> tags to make the conversation fluent.
+    Use the following information enclosed in <context> tags to answer the question in <question>.  
+    Use the previous conversation messages in <messages> to make your answer flow naturally.  
+
     <messages>
-    {previous_messages}
-    <messages>
+    {messages_context}
+    </messages>
+
     <context>
-    {context}
+    {files_context}
     </context>
+
     <question>
     {message}
     </question>
+
+    Instructions for your response:
+    - Keep it short and friendly, like a chat message.
+    - Paraphrase the information from the context instead of quoting it directly.
+    - Only use information from the context; do not guess.
+    - Be positive and professional.
     """
 
-    # Get the response from the chatbot and re
+    # Get the response from opanai
     response = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        # model="gpt-4o-mini",
+        model=model,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": USER_PROMPT},
@@ -69,4 +87,5 @@ def talk(item: Dict[str, Any]):
     )
     response_message = response.choices[0].message.content
 
+    # Return only the response message
     return {"response": response_message}

@@ -9,17 +9,17 @@ services:
       watch:
         # Sync the entire frontend directory when any other file changes
         - action: sync
-          path: ./chatbot-frontend
+          path: ./frontend
           target: /app
           ignore:
             - node_modules
         # Rebuild the app container when the package.json file changes
         - action: rebuild
-          path: ./chatbot-frontend/package.json
+          path: ./frontend/package.json
           target: /app/package.json
         # Sync and restart the app container when the vite.config.js file changes
         - action: sync+restart
-          path: ./chatbot-frontend/vite.config.js
+          path: ./frontend/vite.config.js
           target: /app/vite.config.js
     ports:
       - 3000:3000
@@ -37,7 +37,7 @@ services:
     volumes:
       - ./backend/:/app/
     healthcheck:
-      test: wget -qO- http://localhost:8000/api/ || exit 1
+      test: wget -qO- http://localhost:8000/ping || exit 1
       interval: 30s
       timeout: 5s
       retries: 10
@@ -108,3 +108,14 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+
+  # For development we also run the attu dashboard so we can inspect and manage the Milvus instance
+  attu:
+    container_name: milvus-attu
+    image: zilliz/attu:v2.5.6
+    environment:
+      MILVUS_URL: milvus-standalone:19530
+    ports:
+      - "7000:3000"
+    depends_on:
+      - standalone
