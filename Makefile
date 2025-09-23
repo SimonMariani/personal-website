@@ -54,7 +54,7 @@ exec-backend:
 exec-frontend:
 	docker exec -it personal-website-frontend sh
 
-# Remote commands. Note that these commands will ask for the password of the server
+# Remote commands for updating the documents and vector db
 update-documents-remote: upload-documents-remote update-vector-db-remote
 
 upload-documents-remote:
@@ -63,5 +63,6 @@ upload-documents-remote:
 update-vector-db-remote:
 	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db"
 
+# Remote commands for removing the vector db
 remove-vector-db-remote:
 	ssh root@142.93.104.164 "cd /home/applications/personal-website && make remove-vector-db"
