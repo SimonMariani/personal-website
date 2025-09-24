@@ -1,1 +1,10 @@
 /** @format */
+
+/* Change the antd carousel to assume the shape of its container */
+.ant-carousel,
+.slick-slider,
+.slick-list,
+.slick-track,
+.slick-slide > div {
+  height: 100% !important;
+}

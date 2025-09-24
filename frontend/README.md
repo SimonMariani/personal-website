@@ -1,3 +1,6 @@
+# Notes
+- Make sure to install react apexcharts from https://apexcharts.com/docs/react-js/
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

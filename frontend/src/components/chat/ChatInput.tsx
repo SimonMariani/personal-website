@@ -50,6 +50,7 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
           setInputValue(event.target.value);
         }}
         onKeyDown={handleKeyDown}
+        style={{ color: token.colorTextAlternative, pointerEvents: "auto" }}
       />
     </div>
   );

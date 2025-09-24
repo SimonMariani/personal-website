@@ -37,5 +37,8 @@ make update-documents-remote
 - Add tests
 - Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
 - Maybe update the mainenance pages to be cooler but they are also fine like this
+- Update the CV once updated
+- Add some charts with skills that can be cool, for example the radar chart
+- make it mobile friendly
 
 

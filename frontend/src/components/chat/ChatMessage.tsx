@@ -73,7 +73,7 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
           ...chatMessageStyle,
         }}
       >
-        <Text style={{ color: "white", fontSize: token.fontSize }}>{displayedText}</Text>
+        <Text style={{ fontSize: token.fontSize, pointerEvents: "auto" }}>{displayedText}</Text>
       </div>
     </div>
   );

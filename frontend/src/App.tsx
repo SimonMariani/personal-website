@@ -11,14 +11,35 @@ function App() {
       <ConfigProvider
         theme={{
           token: {
-            // colorPrimary: "#1D4ED8",
+            // General colors
             colorPrimary: "#1677ff",
-            // colorPrimary: "#15803D",
             colorSecondary: "#505050ff",
+
+            // Text colors
+            colorTextBase: "#ffffff",
+            colorText: "#ffffff",
+            colorTextAlternative: "#000000ff",
+            colorTextQuaternary: "#ffffff",
+            colorTextSecondary: "#ffffff",
+            colorTextTertiary: "#ffffff",
+            colorTextPlaceholder: "#272727ff",
+
+            // Font
             fontFamily: "'Lora', 'Playfair Display', serif",
+            fontSize: 14,
+
+            // Remaining
             borderRadius: 10,
             boxShadow: "2px 2px 5px rgba(255, 255, 255, 0.10)",
-            fontSize: 14,
+          },
+          components: {
+            Carousel: {
+              arrowSize: 30,
+              arrowOffset: 20,
+              dotActiveWidth: 32,
+              dotHeight: 8,
+              dotWidth: 16,
+            },
           },
         }}
       >
