@@ -8,6 +8,7 @@ import ContactDivider from "@/components/contact/ContactDivider";
 import RadarChart from "@/components/charts/RadarChart";
 import TreeMapChart from "@/components/charts/TreemapChart";
 import PolarChart from "@/components/charts/PolarChart";
+import PolarChartMonochrome from "@/components/charts/PolarChartMonochrome";
 import RadialBarChart from "@/components/charts/RadialBarChart";
 import BarChart from "@/components/charts/BarChart";
 import ColumnChart from "@/components/charts/ColumnChart";
@@ -18,9 +19,6 @@ function ChatPage() {
   // Return the component
   return (
     <Flex vertical style={{ height: "100%", width: "100%" }}>
-      {/* The background is a chart */}
-      <div style={{ position: "absolute", inset: 0 }}>test{/* <RadarChart data={aiExperience} /> */}</div>
-
       {/* The header which consists */}
       <Flex justify="space-between" align="middle" style={{ padding: "15px 20px", backgroundColor: "#242424ff", boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)" }}>
         {/* The title */}
@@ -43,13 +41,13 @@ function ChatPage() {
         {/* overflow: "hidden" */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Carousel arrows infinite={true}>
-            <RadarChart data={experienceConfig.programmingLanguages} opacity={0.3} padding={0} />
-            <PolarChart data={experienceConfig.backend} opacity={0.3} padding={50} />
-            <PolarChart data={experienceConfig.frontend} opacity={0.3} padding={50} />
-            <TreeMapChart data={experienceConfig.developmentTools} opacity={0.3} padding={70} />
-            <RadialBarChart data={experienceConfig.aiExperience} opacity={0.3} padding={20} />
-            <ColumnChart data={experienceConfig.aiFrameworks} opacity={0.3} padding={85} />
-            <BarChart data={experienceConfig.otherSoftware} opacity={0.3} padding={85} />
+            <RadarChart data={experienceConfig.programmingLanguages} opacity={0.4} padding={50} title="Programming Languages" />
+            <PolarChartMonochrome data={experienceConfig.backend} opacity={0.4} padding={50} title="Backend Development" />
+            <RadialBarChart data={experienceConfig.frontend} opacity={0.4} padding={50} title="Frontend Development" />
+            <TreeMapChart data={experienceConfig.developmentTools} opacity={0.4} padding={50} title="Development Tools" />
+            <PolarChart data={experienceConfig.aiExperience} opacity={0.4} padding={50} title="AI Experience" />
+            <ColumnChart data={experienceConfig.aiFrameworks} opacity={0.4} padding={50} title="AI Frameworks" />
+            <BarChart data={experienceConfig.otherSoftware} opacity={0.3} padding={50} title="Other Software" />
           </Carousel>
         </div>
 
@@ -65,9 +63,9 @@ function ChatPage() {
         <Flex gap={10} align="center">
           <ContactText text="simon.mariani65@gmail.com" />
           <ContactDivider />
-          <ContactText text="linkedin.com/in/simon-mariani65" link="https://linkedin.com/in/simon-mariani65" />
+          <ContactText text="Linkedin" link="https://linkedin.com/in/simon-mariani65" />
           <ContactDivider />
-          <ContactText text="github.com/SimonMariani" link="https://github.com/SimonMariani" />
+          <ContactText text="Github" link="https://github.com/SimonMariani" />
           <ContactDivider />
           <ContactText text="Berlin, Germany" />
         </Flex>

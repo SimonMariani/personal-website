@@ -25,7 +25,7 @@ function App() {
             colorTextPlaceholder: "#272727ff",
 
             // Font
-            fontFamily: "'Lora', 'Playfair Display', serif",
+            fontFamily: "Inter, sans-serif",
             fontSize: 14,
 
             // Remaining

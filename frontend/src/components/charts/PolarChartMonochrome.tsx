@@ -26,10 +26,14 @@ function PolarChart({ data, opacity, title, padding }: DefaultChartProps) {
     theme: getThemeConfig(token),
     labels: data.map((dataPoint) => dataPoint.name),
     fill: {
-      opacity: 0.85,
+      opacity: 1,
     },
     stroke: {
-      width: 0,
+      width: 1,
+      colors: undefined,
+    },
+    yaxis: {
+      show: false,
     },
     legend: {
       show: true,
@@ -44,6 +48,16 @@ function PolarChart({ data, opacity, title, padding }: DefaultChartProps) {
       },
       labels: {
         colors: token.colorText,
+      },
+    },
+    plotOptions: {
+      polarArea: {
+        rings: {
+          strokeWidth: 0,
+        },
+        spokes: {
+          strokeWidth: 0,
+        },
       },
     },
     dataLabels: {

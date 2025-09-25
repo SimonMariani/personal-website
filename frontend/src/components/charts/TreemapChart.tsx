@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -25,8 +25,12 @@ function TreeMapChart({ data, opacity, title, padding }: DefaultChartProps) {
   const options: ApexCharts.ApexOptions = {
     chart: {
       type: "treemap",
+      toolbar: getToolbarConfig(),
+      fontFamily: token.fontFamily,
     },
+    theme: getThemeConfig(token, 0.1),
     title: getTitleConfig(title, token),
+    tooltip: getTooltipConfig(token),
     plotOptions: {
       treemap: {
         distributed: true,
@@ -35,7 +39,6 @@ function TreeMapChart({ data, opacity, title, padding }: DefaultChartProps) {
     dataLabels: {
       enabled: true,
       style: {
-        fontFamily: token.fontFamily,
         fontSize: `${token.fontSize}px`,
         fontWeight: "bold",
       },

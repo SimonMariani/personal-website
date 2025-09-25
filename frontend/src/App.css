@@ -8,3 +8,9 @@
 .slick-slide > div {
   height: 100% !important;
 }
+
+/* Change the toolbar settings which we can't customize otherwise */
+.apexcharts-toolbar {
+  color: #000000ff !important;
+  text-align: center !important;
+}

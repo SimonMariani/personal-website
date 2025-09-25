@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -18,23 +18,25 @@ const RadialBarChart = ({ data, opacity, title, padding }: DefaultChartProps) =>
   const options: ApexCharts.ApexOptions = {
     chart: {
       type: "radialBar",
+      toolbar: getToolbarConfig(),
+      fontFamily: token.fontFamily,
     },
     title: getTitleConfig(title, token),
+    tooltip: getTooltipConfig(token),
+    theme: getThemeConfig(token),
     plotOptions: {
       radialBar: {
         startAngle: 0,
         endAngle: 270,
         hollow: {
-          margin: 5,
-          background: "transparent",
-          image: undefined,
+          size: "30%",
         },
         barLabels: {
           enabled: true,
           offsetX: -8,
           fontSize: `${token.fontSize}px`,
           formatter: function (seriesName: string, opts: { seriesIndex: number; w: { globals: { series: number[] } } }) {
-            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex] + "%";
           },
         },
       },

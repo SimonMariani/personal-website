@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig, percentageFormatter, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -23,8 +23,12 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
   const options: ApexCharts.ApexOptions = {
     chart: {
       type: "bar",
+      toolbar: getToolbarConfig(),
+      fontFamily: token.fontFamily,
     },
     title: getTitleConfig(title, token),
+    tooltip: getTooltipConfig(token),
+    theme: getThemeConfig(token),
     plotOptions: {
       bar: {
         borderRadius: token.borderRadius,
@@ -35,6 +39,7 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
     dataLabels: {
       enabled: true,
       style: { colors: [token.colorText] },
+      formatter: percentageFormatter,
     },
     grid: {
       xaxis: {
@@ -42,22 +47,41 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
           show: true,
         },
       },
+      yaxis: {
+        lines: {
+          show: false,
+        },
+      },
     },
     xaxis: {
+      title: {
+        text: "Percentage (%)",
+        style: {
+          fontSize: `${token.fontSizeHeading5}px`,
+          fontWeight: "bold",
+          color: token.colorText,
+        },
+      },
+      max: 100,
       categories: data.map((dataPoint) => dataPoint.name),
       labels: {
-        show: false,
+        show: true,
         style: {
           fontSize: `${token.fontSize}px`,
           fontWeight: "bold",
           colors: [token.colorText],
         },
       },
-      position: "end",
     },
     yaxis: {
-      max: 100,
-      reversed: false,
+      title: {
+        text: "Softwares",
+        style: {
+          fontSize: `${token.fontSizeHeading5}px`,
+          fontWeight: "bold",
+          color: token.colorText,
+        },
+      },
       labels: {
         style: {
           fontSize: `${token.fontSize}px`,

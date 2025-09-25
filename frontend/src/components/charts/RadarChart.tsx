@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -23,12 +23,15 @@ function RadarChart({ data, opacity, title, padding }: DefaultChartProps) {
   const options: ApexCharts.ApexOptions = {
     chart: {
       type: "radar",
+      toolbar: getToolbarConfig(),
+      fontFamily: token.fontFamily,
     },
     title: getTitleConfig(title, token),
+    tooltip: getTooltipConfig(token),
+    theme: getThemeConfig(token),
     xaxis: {
       labels: {
         style: {
-          fontFamily: token.fontFamily,
           fontSize: `${token.fontSize}px`,
           fontWeight: "bold",
         },
