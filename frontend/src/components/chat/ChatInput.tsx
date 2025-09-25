@@ -26,7 +26,9 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
   // Input reference so we can focus on it but exclude this function on small screens
   const inputRef = useRef<InputRef | null>(null);
   useEffect(() => {
-    if (!token.useSmall) {
+    if (token.useSmall) {
+      inputRef.current?.blur();
+    } else {
       inputRef.current?.focus();
     }
   }, [token.useSmall]);
