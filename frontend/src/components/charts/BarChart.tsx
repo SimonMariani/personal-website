@@ -3,11 +3,12 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
+import ClientOnly from "@/components/general/ClientOnly";
 import { getTitleConfig, getTooltipConfig, getToolbarConfig, percentageFormatter } from "@/utils/chart";
 
 const { useToken } = theme;
 
-function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
+function BarChart({ data, title }: DefaultChartProps) {
   // Antd theme token for styling
   const { token } = useToken();
 
@@ -68,13 +69,13 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
         style: {
           fontSize: `${token.fontSize}px`,
           fontWeight: "bold",
-          colors: [token.colorText],
+          colors: token.colorText,
         },
       },
     },
     yaxis: {
       title: {
-        text: "Softwares",
+        text: token.useSmall ? "" : "Softwares",
         style: {
           fontSize: `${token.fontSizeHeading5}px`,
           fontWeight: "bold",
@@ -85,7 +86,7 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
         style: {
           fontSize: `${token.fontSize}px`,
           fontWeight: "bold",
-          colors: [token.colorText],
+          colors: token.colorText,
         },
       },
     },
@@ -93,9 +94,9 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
 
   // Return the component
   return (
-    <div style={{ width: "100%", height: "100%", opacity: opacity || 1, padding: padding || 0, boxSizing: "border-box" }}>
-      <Chart options={options} series={series} type="bar" height="100%" width="100%" />
-    </div>
+    <ClientOnly>
+      <Chart options={options} series={series} type="bar" height="100%" width="100%" style={{ flex: 1 }} />
+    </ClientOnly>
   );
 }
 

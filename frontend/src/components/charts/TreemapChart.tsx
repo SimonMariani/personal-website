@@ -3,11 +3,12 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
+import ClientOnly from "@/components/general/ClientOnly";
 import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
-function TreeMapChart({ data, opacity, title, padding }: DefaultChartProps) {
+function TreeMapChart({ data, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -47,12 +48,10 @@ function TreeMapChart({ data, opacity, title, padding }: DefaultChartProps) {
 
   // Return the component, NOTE that we set box-sizing: border-box so that padding is included in div size
   return (
-    <div style={{ width: "100%", height: "100%", opacity: opacity || 1, padding: padding || 0, boxSizing: "border-box" }}>
-      <Chart options={options} series={series} type="treemap" height="100%" width="100%" />
-    </div>
+    <ClientOnly>
+      <Chart options={options} series={series} type="treemap" height="100%" width="100%" style={{ flex: 1 }} />
+    </ClientOnly>
   );
-
-  // return <Chart options={options} series={series} type="treemap" height={500} />;
 }
 
 export default TreeMapChart;

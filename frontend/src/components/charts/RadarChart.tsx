@@ -3,11 +3,12 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
+import ClientOnly from "@/components/general/ClientOnly";
 import { getTitleConfig, getTooltipConfig, getToolbarConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
-function RadarChart({ data, opacity, title, padding }: DefaultChartProps) {
+function RadarChart({ data, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -42,9 +43,9 @@ function RadarChart({ data, opacity, title, padding }: DefaultChartProps) {
 
   // Return the component
   return (
-    <div style={{ width: "100%", height: "100%", opacity: opacity || 1, padding: padding || 0, boxSizing: "border-box" }}>
-      <Chart options={options} series={series} type="radar" height="100%" width="100%" />
-    </div>
+    <ClientOnly>
+      <Chart options={options} series={series} type="radar" height="100%" width="100%" style={{ flex: 1 }} />
+    </ClientOnly>
   );
 }
 

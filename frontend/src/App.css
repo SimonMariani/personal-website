@@ -9,6 +9,11 @@
   height: 100% !important;
 }
 
+/* NOTE that we use a negative bottom here because we cannot set the padding of the carousel items */
+.slick-dots {
+  bottom: -35px !important;
+}
+
 /* Change the toolbar settings which we can't customize otherwise */
 .apexcharts-toolbar {
   color: #000000ff !important;

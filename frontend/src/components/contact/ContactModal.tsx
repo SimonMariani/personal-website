@@ -23,7 +23,7 @@ function ContactModal() {
         Contact
       </Button>
 
-      <Modal title="Contact" closable={{ "aria-label": "Custom Close Button" }} open={isModalOpen} onCancel={handleCancel} footer={null}>
+      <Modal closable={false} open={isModalOpen} onCancel={handleCancel} footer={null}>
         <ContactCard />
       </Modal>
     </>

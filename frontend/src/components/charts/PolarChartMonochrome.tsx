@@ -3,11 +3,12 @@
 import { theme } from "antd";
 import Chart from "react-apexcharts";
 import type { DefaultChartProps } from "@/types";
+import ClientOnly from "@/components/general/ClientOnly";
 import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
-function PolarChart({ data, opacity, title, padding }: DefaultChartProps) {
+function PolarChart({ data, opacity, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -26,7 +27,7 @@ function PolarChart({ data, opacity, title, padding }: DefaultChartProps) {
     theme: getThemeConfig(token),
     labels: data.map((dataPoint) => dataPoint.name),
     fill: {
-      opacity: 1,
+      opacity: opacity || 1,
     },
     stroke: {
       width: 1,
@@ -65,11 +66,10 @@ function PolarChart({ data, opacity, title, padding }: DefaultChartProps) {
     },
   };
 
-  // Return the component
   return (
-    <div style={{ width: "100%", height: "100%", opacity: opacity || 1, padding: padding || 0, boxSizing: "border-box" }}>
+    <ClientOnly>
       <Chart options={options} series={series} type="polarArea" height="100%" width="100%" />
-    </div>
+    </ClientOnly>
   );
 }
 

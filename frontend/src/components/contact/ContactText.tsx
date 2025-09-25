@@ -7,13 +7,14 @@ const { Text } = Typography;
 type ContactTextProps = {
   text: string;
   link?: string;
+  openInNewTab?: boolean;
 };
 
-function ContactText({ text, link }: ContactTextProps) {
+function ContactText({ text, link, openInNewTab }: ContactTextProps) {
   return (
     <div>
       {link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer">
+        <a href={link} target={openInNewTab ? "_blank" : "_self"} rel="noopener noreferrer">
           <Text style={{ margin: 0 }} type="secondary">
             {text}
           </Text>

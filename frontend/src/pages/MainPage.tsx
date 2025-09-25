@@ -1,5 +1,6 @@
 /** @format */
 
+import { useEffect, useState } from "react";
 import { Flex, Typography, Button, Carousel, theme } from "antd";
 import experienceConfig from "@/config/experience";
 import Chat from "@/components/chat/Chat";
@@ -14,11 +15,24 @@ import BarChart from "@/components/charts/BarChart";
 import ColumnChart from "@/components/charts/ColumnChart";
 
 const { useToken } = theme;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function ChatPage() {
   // Get the theme tokens
   const { token } = useToken();
+
+  // Show the chat boolean
+  const [showChat, setShowChat] = useState(false);
+
+  // Graph opacity
+  const [graphOpacity, setGraphOpacity] = useState(1);
+  useEffect(() => {
+    if (showChat) {
+      setGraphOpacity(0.3);
+    } else {
+      setGraphOpacity(1);
+    }
+  }, [showChat]);
 
   // Return the component
   return (
@@ -29,6 +43,13 @@ function ChatPage() {
         <Title style={{ margin: 0 }} level={3}>
           Simon Mariani
         </Title>
+
+        {/* The button to show/hide the chat */}
+        <Flex justify="middle" align="center">
+          <Text onClick={() => setShowChat(!showChat)} style={{ color: showChat ? token.colorText : token.colorPrimary, cursor: "pointer" }}>
+            {showChat ? "Hide" : "Show"} Chat
+          </Text>
+        </Flex>
       </Flex>
 
       {/* The chat window aligned in the center of the page */}
@@ -38,29 +59,31 @@ function ChatPage() {
         style={{
           position: "relative",
           flexGrow: 1,
-          overflow: "auto", // NOTE this is important so the container doesn't grow too much
+          overflow: "hidden", // NOTE this is important so the container doesn't grow too much
         }}
       >
         {/* The background is a chart carousel*/}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0, opacity: graphOpacity, padding: token.useSmall ? `0px 10px 50px 10px` : 50 }}>
           <Carousel arrows infinite={true}>
-            <RadarChart data={experienceConfig.programmingLanguages} opacity={0.4} padding={50} title="Programming Languages" />
-            <PolarChartMonochrome data={experienceConfig.backend} opacity={0.4} padding={50} title="Backend Development" />
-            <RadialBarChart data={experienceConfig.frontend} opacity={0.4} padding={50} title="Frontend Development" />
-            <TreeMapChart data={experienceConfig.developmentTools} opacity={0.4} padding={50} title="Development Tools" />
-            <PolarChart data={experienceConfig.aiExperience} opacity={0.4} padding={50} title="AI Experience" />
-            <ColumnChart data={experienceConfig.aiFrameworks} opacity={0.4} padding={50} title="AI Frameworks" />
-            <BarChart data={experienceConfig.otherSoftware} opacity={0.3} padding={50} title="Other Software" />
+            <RadarChart data={experienceConfig.programmingLanguages} title="Programming Languages" />
+            <PolarChartMonochrome data={experienceConfig.backend} title="Backend Development" />
+            <RadialBarChart data={experienceConfig.frontend} title="Frontend Development" />
+            <TreeMapChart data={experienceConfig.developmentTools} title="Development Tools" />
+            <BarChart data={experienceConfig.aiExperience} title="AI Experience" />
+            <PolarChart data={experienceConfig.aiFrameworks} opacity={graphOpacity} title="AI Frameworks" />
+            <ColumnChart data={experienceConfig.otherSoftware} title="Other Software" />
           </Carousel>
         </div>
 
         {/* Then the chat window, NOTE that we put pointerevents to none so that we can still interact with the charts even though this element is on top */}
+
         <Flex
           style={{
             width: token.useSmall ? "100%" : "50%",
             height: token.useSmall ? "100%" : "90%",
             zIndex: 1,
             pointerEvents: "none",
+            visibility: showChat ? "visible" : "hidden",
           }}
         >
           <Chat />

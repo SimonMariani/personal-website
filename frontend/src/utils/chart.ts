@@ -32,7 +32,7 @@ export const getTooltipConfig = (token: AliasToken): ApexCharts.ApexOptions["too
 
 export const getToolbarConfig = (): NonNullable<ApexCharts.ApexOptions["chart"]>["toolbar"] => {
   return {
-    show: true,
+    show: false,
     tools: {
       download: true,
       selection: true,
