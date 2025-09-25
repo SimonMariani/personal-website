@@ -38,10 +38,10 @@ function ChatPage() {
         style={{
           position: "relative",
           flexGrow: 1,
-          overflow: "auto",
+          overflow: "auto", // NOTE this is important so the container doesn't grow too much
         }}
       >
-        {/* The background is a chart NOTE: we set overflow to hidden because the background chart should not create scrollbars */}
+        {/* The background is a chart carousel*/}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Carousel arrows infinite={true}>
             <RadarChart data={experienceConfig.programmingLanguages} opacity={0.4} padding={50} title="Programming Languages" />
@@ -54,7 +54,7 @@ function ChatPage() {
           </Carousel>
         </div>
 
-        {/* Then the chat window */}
+        {/* Then the chat window, NOTE that we put pointerevents to none so that we can still interact with the charts even though this element is on top */}
         <Flex
           style={{
             width: token.useSmall ? "100%" : "50%",

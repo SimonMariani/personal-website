@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Flex, theme } from "antd";
 import { apiURL } from "@/config/config";
 import type { Message } from "@/types";
@@ -66,11 +66,67 @@ function Chat() {
     }
   };
 
+  // Custom smooth scrolling logic, NOTE that we need this because this element doesn't have any pointer events so the user can interact with the charts
+  // The ref to the container that is supposed to scroll, the desired scroll position which changes on every wheel event and hether we are currently scrolling
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollTarget = useRef<number>(0);
+  const isScrolling = useRef<boolean>(false);
+
+  // Only mount the event listener once
+  useEffect(() => {
+    const handleWheel = (event: WheelEvent) => {
+      // Prevent window scroll and return if there is no container
+      event.preventDefault();
+      if (!containerRef.current) return;
+
+      // Update the scroll target based on the wheel delta, NOTE that we are making sure that the scroll target is within bounds, i.e. >= 0 and <= max scroll
+      scrollTarget.current += event.deltaY;
+      const maxScroll = containerRef.current.scrollHeight - containerRef.current.clientHeight;
+      scrollTarget.current = Math.max(0, Math.min(scrollTarget.current, maxScroll));
+
+      // If the user is not currently scrolling, start the smooth scroll
+      if (!isScrolling.current) {
+        isScrolling.current = true;
+        // Additional requestAnimationFrame info: https://dev.to/tawe/requestanimationframe-explained-why-your-ui-feels-laggy-and-how-to-fix-it-3ep2
+        requestAnimationFrame(smoothScroll);
+      }
+    };
+
+    // The smooth scroll function
+    const smoothScroll = () => {
+      // Return if there is no container
+      if (!containerRef.current) return;
+
+      // Obtain the difference between the current scroll position and the target scroll position, then determine the step size
+      const current = containerRef.current.scrollTop;
+      const diff = scrollTarget.current - current;
+      const step = diff * 0.2; // smoothing factor
+      containerRef.current.scrollTop = current + step;
+
+      // If the difference is still significant, continue scrolling, else stop scrolling and set isScrolling to false
+      // NOTE that if this threshold is too small it will get stuck in an infinite loop
+      if (Math.abs(diff) > 5) {
+        requestAnimationFrame(smoothScroll);
+      } else {
+        isScrolling.current = false;
+      }
+    };
+
+    // Add the event listener to the window
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    // Cleanup the event listener on unmount
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   // Return the component
   return (
     <Flex vertical justify={messages.length > 0 ? "space-between" : "center"} gap={20} style={{ width: "100%", height: "100%" }}>
       {/* The box with the messages */}
       <div
+        ref={containerRef}
         style={{
           overflow: "auto",
           scrollbarWidth: "none",

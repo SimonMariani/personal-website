@@ -1,5 +1,6 @@
 # Notes
 - Make sure to install react apexcharts from https://apexcharts.com/docs/react-js/
+- Good inspiration: https://www.reddit.com/r/Frontend/comments/1at0laf/show_me_your_personal_websites/
 
 # React + TypeScript + Vite
 
