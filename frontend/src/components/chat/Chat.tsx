@@ -13,7 +13,7 @@ function Chat() {
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Async function to send a message to the backend server and update the state variable 'messages'
+  // Async function to send a message to the api server and update the state variable 'messages'
   const handleSendMessage = async () => {
     // Do nothing if the input value is empty
     if (inputValue.trim() === "") return;
@@ -24,9 +24,9 @@ function Chat() {
     setInputValue("");
     setLoading(true);
 
-    // Try to send the message to the backend server
+    // Try to send the message to the api server
     try {
-      // Send the message to the backend server
+      // Send the message to the api server
       const response = await fetch(apiURL + "/talk/", {
         method: "POST",
         headers: {

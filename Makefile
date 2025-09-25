@@ -30,26 +30,26 @@ stop:
 stop-prod:
 	docker compose -f docker-compose-prod.yaml down
 
-# Sync the db with the files in the backend/files directory
+# Sync the db with the files in the api/files directory
 update-vector-db:
-	docker exec personal-website-backend python -m scripts.update_vector_db
+	docker exec personal-website-api python -m scripts.update_vector_db
 
 remove-vector-db:
-	docker exec personal-website-backend python -m scripts.remove_vector_db
+	docker exec personal-website-api python -m scripts.remove_vector_db
 
 # Build the frontend, this should be done before pushing and deploying
 build-frontend:
 	docker exec personal-website-frontend npm run build
 
 # Useful commands
-logs-backend:
-	docker logs -f personal-website-backend
+logs-api:
+	docker logs -f personal-website-api
 
 logs-frontend:
 	docker logs -f personal-website-frontend
 
-exec-backend:
-	docker exec -it personal-website-backend sh
+exec-api:
+	docker exec -it personal-website-api sh
 
 exec-frontend:
 	docker exec -it personal-website-frontend sh
@@ -58,7 +58,7 @@ exec-frontend:
 update-documents-remote: upload-documents-remote update-vector-db-remote
 
 upload-documents-remote:
-	scp -r ./backend/documents/* root@142.93.104.164:/home/applications/personal-website/backend/documents
+	scp -r ./api/documents/* root@142.93.104.164:/home/applications/personal-website/api/documents
 
 update-vector-db-remote:
 	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db"
@@ -71,5 +71,5 @@ remove-vector-db-remote:
 update-maintenance-page-remote-frontend:
 	scp -r ./maintenance/frontend/* root@142.93.104.164:/home/nginx/maintenance/simonmariani.com/
 
-update-maintenance-page-remote-backend:
-	scp -r ./maintenance/backend/* root@142.93.104.164:/home/nginx/maintenance/api.simonmariani.com/
+update-maintenance-page-remote-api:
+	scp -r ./maintenance/api/* root@142.93.104.164:/home/nginx/maintenance/api.simonmariani.com/

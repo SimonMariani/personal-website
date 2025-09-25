@@ -14,7 +14,7 @@ make start-prod
 make stop
 make stop-prod
 
-# The documents that the chatbot should use in its responses should be put in the `backend/documents` folder. To update the vector db you can then run
+# The documents that the chatbot should use in its responses should be put in the `api/documents` folder. To update the vector db you can then run
 make update-vector-db
 
 # If you want to reset the vector db run after for example changing the schema, run
@@ -34,7 +34,7 @@ make update-documents-remote
 
 # TODO
 - make it mobile friendly
-- Rename backend to api
+
 - Update the CV once updated
 
 
@@ -47,3 +47,4 @@ make update-documents-remote
 - Add some charts with skills that can be cool, for example the radar chart
 - Feedback updates
 - Update the skills in the charts as you have more experience now
+- Rename backend to api

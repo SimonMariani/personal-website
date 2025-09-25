@@ -24,18 +24,18 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      personal-website-backend:
+      personal-website-api:
         condition: service_healthy
 
-  # The backend application
-  personal-website-backend:
-    image: personal-website-backend
-    container_name: personal-website-backend
+  # The api application
+  personal-website-api:
+    image: personal-website-api
+    container_name: personal-website-api
     build:
-      context: ./backend/
+      context: ./api/
       target: development
     volumes:
-      - ./backend/:/app/
+      - ./api/:/app/
     healthcheck:
       test: wget -qO- http://localhost:8000/ping || exit 1
       interval: 30s

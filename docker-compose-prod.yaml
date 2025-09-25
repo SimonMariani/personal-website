@@ -6,22 +6,22 @@ services:
       context: ./frontend
       target: production
     depends_on:
-      personal-website-backend:
+      personal-website-api:
         condition: service_healthy
     networks:
       - default
       - network-global
 
-  # The backend application
-  personal-website-backend:
-    image: personal-website-backend
-    container_name: personal-website-backend
+  # The api application
+  personal-website-api:
+    image: personal-website-api
+    container_name: personal-website-api
     build:
-      context: ./backend/
+      context: ./api/
       target: production
     volumes:
-      - ./backend/.env:/app/.env
-      - ./backend/documents/:/app/documents/
+      - ./api/.env:/app/.env
+      - ./api/documents/:/app/documents/
     healthcheck:
       test: wget -qO- http://localhost/ping || exit 1
       interval: 30s
