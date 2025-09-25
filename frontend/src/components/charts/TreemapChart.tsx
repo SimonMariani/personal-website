@@ -49,7 +49,7 @@ function TreeMapChart({ data, title }: DefaultChartProps) {
   // Return the component, NOTE that we set box-sizing: border-box so that padding is included in div size
   return (
     <ClientOnly>
-      <Chart options={options} series={series} type="treemap" height="100%" width="100%" style={{ flex: 1 }} />
+      <Chart options={options} series={series} type="treemap" height="100%" width="100%" />
     </ClientOnly>
   );
 }

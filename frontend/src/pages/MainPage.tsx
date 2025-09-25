@@ -22,7 +22,7 @@ function ChatPage() {
   const { token } = useToken();
 
   // Show the chat boolean
-  const [showChat, setShowChat] = useState(false);
+  const [showChat, setShowChat] = useState(true);
 
   // Graph opacity
   const [graphOpacity, setGraphOpacity] = useState(1);
@@ -62,15 +62,26 @@ function ChatPage() {
           overflow: "hidden", // NOTE this is important so the container doesn't grow too much
         }}
       >
-        {/* The background is a chart carousel*/}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0, opacity: graphOpacity, padding: token.useSmall ? `0px 10px 50px 10px` : 50 }}>
-          <Carousel arrows infinite={true}>
+        {/* The background is a chart carousel. NOTE that we use the useSmall value as key to force a rerender when the window is resized, this is necessary 
+        because the graphs depend on the size of the parent container and without this the spacing becomes weird*/}
+        <div
+          className="chartsCarousel"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            opacity: graphOpacity,
+            padding: token.useSmall ? `0px 10px 50px 10px` : 50,
+          }}
+          key={`${token.useSmall}`}
+        >
+          <Carousel arrows infinite={true} draggable={true}>
             <RadarChart data={experienceConfig.programmingLanguages} title="Programming Languages" />
             <PolarChartMonochrome data={experienceConfig.backend} title="Backend Development" />
             <RadialBarChart data={experienceConfig.frontend} title="Frontend Development" />
             <TreeMapChart data={experienceConfig.developmentTools} title="Development Tools" />
             <BarChart data={experienceConfig.aiExperience} title="AI Experience" />
-            <PolarChart data={experienceConfig.aiFrameworks} opacity={graphOpacity} title="AI Frameworks" />
+            <PolarChart data={experienceConfig.aiFrameworks} title="AI Frameworks" />
             <ColumnChart data={experienceConfig.otherSoftware} title="Other Software" />
           </Carousel>
         </div>

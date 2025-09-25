@@ -44,7 +44,7 @@ function RadarChart({ data, title }: DefaultChartProps) {
   // Return the component
   return (
     <ClientOnly>
-      <Chart options={options} series={series} type="radar" height="100%" width="100%" style={{ flex: 1 }} />
+      <Chart options={options} series={series} type="radar" height="100%" width="100%" />
     </ClientOnly>
   );
 }

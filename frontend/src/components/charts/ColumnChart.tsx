@@ -43,7 +43,7 @@ function ColumnChart({ data, title }: DefaultChartProps) {
     },
     xaxis: {
       title: {
-        text: "Frameworks / Libraries",
+        text: token.useSmall ? "" : "Frameworks / Libraries",
         style: {
           fontSize: `${token.fontSizeHeading5}px`,
           fontWeight: "bold",
@@ -65,7 +65,7 @@ function ColumnChart({ data, title }: DefaultChartProps) {
       max: 100,
       reversed: false,
       title: {
-        text: "Percentage (%)",
+        text: token.useSmall ? "" : "Percentage (%)",
         style: {
           fontSize: `${token.fontSizeHeading5}px`,
           fontWeight: "bold",
@@ -85,7 +85,7 @@ function ColumnChart({ data, title }: DefaultChartProps) {
   // Return the component
   return (
     <ClientOnly>
-      <Chart options={options} series={series} type="bar" height="100%" width="100%" style={{ flex: 1 }} />
+      <Chart options={options} series={series} type="bar" height="100%" width="100%" />
     </ClientOnly>
   );
 }

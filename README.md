@@ -33,9 +33,8 @@ make update-documents-remote
 
 
 # TODO
-- make it mobile friendly
 - Update the CV once updated
-
+- Update relevant files
 
 - Add tests
 - Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
@@ -47,3 +46,4 @@ make update-documents-remote
 - Feedback updates
 - Update the skills in the charts as you have more experience now
 - Rename backend to api
+- make it mobile friendly
