@@ -75,7 +75,7 @@ function ChatPage() {
           }}
           key={`${token.useSmall}`}
         >
-          <Carousel arrows infinite={true} draggable={true}>
+          <Carousel arrows infinite={true}>
             <RadarChart data={experienceConfig.programmingLanguages} title="Programming Languages" />
             <PolarChartMonochrome data={experienceConfig.backend} title="Backend Development" />
             <RadialBarChart data={experienceConfig.frontend} title="Frontend Development" />
