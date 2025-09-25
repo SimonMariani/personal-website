@@ -38,7 +38,6 @@ function ChatPage() {
         }}
       >
         {/* The background is a chart NOTE: we set overflow to hidden because the background chart should not create scrollbars */}
-        {/* overflow: "hidden" */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Carousel arrows infinite={true}>
             <RadarChart data={experienceConfig.programmingLanguages} opacity={0.4} padding={50} title="Programming Languages" />

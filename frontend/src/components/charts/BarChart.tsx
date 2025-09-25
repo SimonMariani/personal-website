@@ -24,7 +24,6 @@ function BarChart({ data, opacity, title, padding }: DefaultChartProps) {
     chart: {
       type: "bar",
       toolbar: getToolbarConfig(),
-      fontFamily: token.fontFamily,
     },
     title: getTitleConfig(title, token),
     tooltip: getTooltipConfig(token),
