@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig, getTooltipConfig, getToolbarConfig, percentageFormatter, getThemeConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig, percentageFormatter } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -28,7 +28,7 @@ function ColumnChart({ data, opacity, title, padding }: DefaultChartProps) {
     },
     title: getTitleConfig(title, token),
     tooltip: getTooltipConfig(token),
-    theme: getThemeConfig(token),
+    colors: [token.colorPrimary],
     plotOptions: {
       bar: {
         borderRadius: token.borderRadius,

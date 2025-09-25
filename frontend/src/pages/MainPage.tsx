@@ -1,10 +1,10 @@
 /** @format */
 
-import { Flex, Typography, Button, Carousel } from "antd";
+import { Flex, Typography, Button, Carousel, theme } from "antd";
 import experienceConfig from "@/config/experience";
 import Chat from "@/components/chat/Chat";
-import ContactText from "@/components/contact/ContactText";
-import ContactDivider from "@/components/contact/ContactDivider";
+import ContactCardHorizontal from "@/components/contact/ContactCardHorizontal";
+import ContactModal from "@/components/contact/ContactModal";
 import RadarChart from "@/components/charts/RadarChart";
 import TreeMapChart from "@/components/charts/TreemapChart";
 import PolarChart from "@/components/charts/PolarChart";
@@ -13,9 +13,13 @@ import RadialBarChart from "@/components/charts/RadialBarChart";
 import BarChart from "@/components/charts/BarChart";
 import ColumnChart from "@/components/charts/ColumnChart";
 
+const { useToken } = theme;
 const { Title } = Typography;
 
 function ChatPage() {
+  // Get the theme tokens
+  const { token } = useToken();
+
   // Return the component
   return (
     <Flex vertical style={{ height: "100%", width: "100%" }}>
@@ -51,7 +55,14 @@ function ChatPage() {
         </div>
 
         {/* Then the chat window */}
-        <Flex style={{ width: "55%", height: "90%", zIndex: 1, pointerEvents: "none" }}>
+        <Flex
+          style={{
+            width: token.useSmall ? "100%" : "50%",
+            height: token.useSmall ? "100%" : "90%",
+            zIndex: 1,
+            pointerEvents: "none",
+          }}
+        >
           <Chat />
         </Flex>
       </Flex>
@@ -59,15 +70,7 @@ function ChatPage() {
       {/* The footer which contains some contact information */}
       <Flex justify="space-between" align="middle" style={{ padding: "15px 20px", backgroundColor: "#292929ff", boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)" }}>
         {/* Contact information */}
-        <Flex gap={10} align="center">
-          <ContactText text="simon.mariani65@gmail.com" />
-          <ContactDivider />
-          <ContactText text="Linkedin" link="https://linkedin.com/in/simon-mariani65" />
-          <ContactDivider />
-          <ContactText text="Github" link="https://github.com/SimonMariani" />
-          <ContactDivider />
-          <ContactText text="Berlin, Germany" />
-        </Flex>
+        {token.useSmall ? <ContactModal /> : <ContactCardHorizontal />}
 
         {/* Button to show the  CV */}
         <Button

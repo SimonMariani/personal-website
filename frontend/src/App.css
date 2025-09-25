@@ -14,3 +14,14 @@
   color: #000000ff !important;
   text-align: center !important;
 }
+
+/* Change the default modal styling */
+.ant-modal-content {
+  background-color: #272727 !important;
+}
+
+.ant-modal-header,
+.ant-modal-body,
+.ant-modal-footer {
+  background-color: #272727 !important;
+}

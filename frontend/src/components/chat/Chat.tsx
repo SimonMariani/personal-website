@@ -1,13 +1,18 @@
 /** @format */
 
 import { useState } from "react";
-import { Flex } from "antd";
+import { Flex, theme } from "antd";
 import { apiURL } from "@/config/config";
 import type { Message } from "@/types";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 
+const { useToken } = theme;
+
 function Chat() {
+  // Get the theme token
+  const { token } = useToken();
+
   // State variables for messages, user input and loading state
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -70,13 +75,14 @@ function Chat() {
           overflow: "auto",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
+          padding: token.useSmall ? "15px 0 0 0" : 0,
         }}
       >
         <ChatMessages messages={messages} loading={loading} />
       </div>
 
       {/* The input box and send button */}
-      <Flex justify="center" gap={10}>
+      <Flex justify="center" gap={10} style={{ padding: token.useSmall ? "0px 15px 15px 15px" : 0 }}>
         <ChatInput inputValue={inputValue} setInputValue={setInputValue} handleSendMessage={handleSendMessage} />
       </Flex>
     </Flex>

@@ -3,7 +3,7 @@
 import Chart from "react-apexcharts";
 import { theme } from "antd";
 import type { DefaultChartProps } from "@/types";
-import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } from "@/utils/chart";
+import { getTitleConfig, getTooltipConfig, getToolbarConfig } from "@/utils/chart";
 
 const { useToken } = theme;
 
@@ -28,7 +28,7 @@ function RadarChart({ data, opacity, title, padding }: DefaultChartProps) {
     },
     title: getTitleConfig(title, token),
     tooltip: getTooltipConfig(token),
-    theme: getThemeConfig(token),
+    colors: [token.colorPrimary],
     xaxis: {
       labels: {
         style: {

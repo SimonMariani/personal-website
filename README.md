@@ -34,7 +34,6 @@ make update-documents-remote
 
 # TODO
 - make it mobile friendly
-
 - Update the CV once updated
 
 

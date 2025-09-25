@@ -8,5 +8,6 @@ declare module "antd/es/theme/interface" {
   interface AliasToken {
     colorSecondary?: string;
     colorTextAlternative?: string;
+    useSmall?: boolean;
   }
 }

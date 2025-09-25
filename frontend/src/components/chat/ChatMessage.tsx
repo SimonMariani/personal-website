@@ -60,7 +60,8 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
   return (
     <div
       style={{
-        width: "83%",
+        maxWidth: "83%",
+        pointerEvents: "auto",
         ...chatMessageParentStyle,
       }}
     >
@@ -73,7 +74,7 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
           ...chatMessageStyle,
         }}
       >
-        <Text style={{ fontSize: token.fontSize, pointerEvents: "auto" }}>{displayedText}</Text>
+        <Text style={{ fontSize: token.fontSize }}>{displayedText}</Text>
       </div>
     </div>
   );

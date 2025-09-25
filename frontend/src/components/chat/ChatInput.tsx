@@ -39,7 +39,14 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
 
   // Return the component
   return (
-    <div style={{ width: "65%", boxShadow: token.boxShadow, borderRadius: 10 }}>
+    <div
+      style={{
+        width: token.useSmall ? "100%" : "65%",
+        boxShadow: token.boxShadow,
+        borderRadius: 10,
+        pointerEvents: "auto",
+      }}
+    >
       <Input
         ref={inputRef}
         placeholder="Ask me anything about Simon Mariani..."
@@ -50,7 +57,7 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
           setInputValue(event.target.value);
         }}
         onKeyDown={handleKeyDown}
-        style={{ color: token.colorTextAlternative, pointerEvents: "auto" }}
+        style={{ color: token.colorTextAlternative }}
       />
     </div>
   );

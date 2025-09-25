@@ -4,7 +4,7 @@ import { Divider, theme } from "antd";
 
 const { useToken } = theme;
 
-function ContactDivider() {
+function ContactDividerVertical() {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -12,4 +12,4 @@ function ContactDivider() {
   return <Divider type="vertical" style={{ backgroundColor: token.colorPrimary, height: 20 }} />;
 }
 
-export default ContactDivider;
+export default ContactDividerVertical;

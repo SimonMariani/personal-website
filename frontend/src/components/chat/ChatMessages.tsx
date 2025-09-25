@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useRef } from "react";
-import type { Messages } from "../../types";
+import type { Messages } from "@/types";
 import ChatMessage from "./ChatMessage";
 import ChatLoading from "./ChatLoading";
 import { Flex } from "antd";
@@ -28,7 +28,7 @@ function ChatMessages({ messages, loading }: ChatMessagesProps) {
   // Return the component
   return (
     // NOTE that we are using padding here solely so the box shadow does not get cut off
-    <Flex vertical gap={12} style={{ padding: "0px 30px" }}>
+    <Flex vertical gap={12} style={{ padding: "0px 15px" }}>
       {/* The list of messages */}
       {messages.map((message, index) => (
         <ChatMessage key={index} message={message} chatEndRef={chatEndRef} />
@@ -36,7 +36,6 @@ function ChatMessages({ messages, loading }: ChatMessagesProps) {
 
       {/* Loading indicator */}
       {loading && <ChatLoading />}
-      {/* <ChatLoading /> */}
 
       {/* The element used to indicate the end of the chat */}
       <div ref={chatEndRef}></div>
