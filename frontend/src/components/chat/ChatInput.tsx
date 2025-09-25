@@ -23,11 +23,13 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
   // Get the theme token from antd
   const { token } = useToken();
 
-  // Input reference so we can focus on it
+  // Input reference so we can focus on it but exclude this function on small screens
   const inputRef = useRef<InputRef | null>(null);
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (!token.useSmall) {
+      inputRef.current?.focus();
+    }
+  }, [token.useSmall]);
 
   // Handle the enter key press to send the message
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
