@@ -54,7 +54,7 @@ function App() {
         }}
       >
         {/* We simply want the entire app to be the viewport width and height */}
-        <div className="App" style={{ width: "100vw", height: "100vh" }}>
+        <div className="App" style={{ width: "100dvw", height: "100dvh" }}>
           <Routes>
             <Route path="/" element={<MainPage />}></Route>
           </Routes>
