@@ -47,3 +47,4 @@ make update-documents-remote
 - Update the skills in the charts as you have more experience now
 - Rename backend to api
 - make it mobile friendly
+- Fix mobile chat to be better, hook up your phone though because it is slightly annoying since it is only visible on physical devices

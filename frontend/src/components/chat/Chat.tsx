@@ -4,14 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { Flex, theme } from "antd";
 import { apiURL } from "@/config/config";
 import type { Message } from "@/types";
-import ChatMessages from "./ChatMessages";
-import ChatInput from "./ChatInput";
+import { useGlobal } from "@/hooks/contexts/useGlobal";
+import ChatMessages from "@/components/chat/ChatMessages";
+import ChatInput from "@/components/chat/ChatInput";
 
 const { useToken } = theme;
 
 function Chat() {
   // Get the theme token
   const { token } = useToken();
+
+  // Global context which we use here to store the global keyboard open state
+  const { keyboardOpen } = useGlobal();
 
   // State variables for messages, user input and loading state
   const [messages, setMessages] = useState<Message[]>([]);
@@ -123,7 +127,7 @@ function Chat() {
 
   // Return the component
   return (
-    <Flex vertical justify={messages.length > 0 ? "space-between" : "center"} gap={20} style={{ width: "100%", height: "100%" }}>
+    <Flex vertical justify={messages.length > 0 ? (keyboardOpen ? "end" : "space-between") : "center"} gap={20} style={{ width: "100%", height: "100%" }}>
       {/* The box with the messages */}
       <div
         ref={containerRef}

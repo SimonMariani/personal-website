@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Flex, Typography, Button, Carousel, theme } from "antd";
 import experienceConfig from "@/config/experience";
+import { useGlobal } from "@/hooks/contexts/useGlobal";
 import Chat from "@/components/chat/Chat";
 import ContactCardHorizontal from "@/components/contact/ContactCardHorizontal";
 import ContactModal from "@/components/contact/ContactModal";
@@ -20,6 +21,8 @@ const { Title, Text } = Typography;
 function ChatPage() {
   // Get the theme tokens
   const { token } = useToken();
+
+  const { keyboardOpen } = useGlobal();
 
   // Show the chat boolean
   const [showChat, setShowChat] = useState(true);
@@ -102,20 +105,30 @@ function ChatPage() {
       </Flex>
 
       {/* The footer which contains some contact information */}
-      <Flex justify="space-between" align="middle" style={{ padding: "15px 20px", backgroundColor: "#292929ff", boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)" }}>
-        {/* Contact information */}
-        {token.useSmall ? <ContactModal /> : <ContactCardHorizontal />}
-
-        {/* Button to show the  CV */}
-        <Button
-          type="primary"
-          onClick={() => {
-            window.open("/Simon_Mariani_CV.pdf", "_blank");
+      {!keyboardOpen && (
+        <Flex
+          justify="space-between"
+          align="middle"
+          style={{
+            padding: "15px 20px",
+            backgroundColor: "#292929ff",
+            boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)",
           }}
         >
-          CV
-        </Button>
-      </Flex>
+          {/* Contact information */}
+          {token.useSmall ? <ContactModal /> : <ContactCardHorizontal />}
+
+          {/* Button to show the  CV */}
+          <Button
+            type="primary"
+            onClick={() => {
+              window.open("/Simon_Mariani_CV.pdf", "_blank");
+            }}
+          >
+            CV
+          </Button>
+        </Flex>
+      )}
     </Flex>
   );
 }

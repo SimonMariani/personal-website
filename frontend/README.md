@@ -1,7 +1,7 @@
 # Notes
 - Make sure to install react apexcharts from https://apexcharts.com/docs/react-js/
 - Good inspiration: https://www.reddit.com/r/Frontend/comments/1at0laf/show_me_your_personal_websites/
-
+- If you want to develop directly on your phone simply run the development server and then obtain you ipv4 address by running `ipconfig`, then use the IPv4 Address on your phone to connect to your website, the url should look like http://192.168.x.x:3000
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
