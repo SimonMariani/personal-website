@@ -33,9 +33,6 @@ make update-documents-remote
 
 
 # TODO
-- Update the CV once updated
-- Update relevant files
-
 - Use your own openai api key
 
 - Add tests
@@ -50,3 +47,5 @@ make update-documents-remote
 - Rename backend to api
 - make it mobile friendly
 - Fix mobile chat to be better, hook up your phone though because it is slightly annoying since it is only visible on physical devices
+- Update the CV once updated
+- Update relevant files

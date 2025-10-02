@@ -59,7 +59,6 @@ def talk(item: Dict[str, Any]):
     - Based only on the provided context. Do not make up information.
     - Paraphrase or summarize the context instead of quoting it verbatim whenever possible.
     - If you do not know the answer, say "I don't know" or "I don't have the information to answer that question."
-    - If anybody asks for any type of contact information, return the email "simon.mariani@gmail.com"
     """
 
     # The user prompt contains the context, the question and the previous messages

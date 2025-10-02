@@ -55,7 +55,10 @@ exec-frontend:
 	docker exec -it personal-website-frontend sh
 
 # Remote commands for updating the documents and vector db
-update-documents-remote: upload-documents-remote update-vector-db-remote
+update-documents-remote: remove-documents-remote upload-documents-remote update-vector-db-remote
+
+remove-documents-remote:
+	ssh root@142.93.104.164 "rm -rf /home/applications/personal-website/api/documents/{*,.*} 2>/dev/null"
 
 upload-documents-remote:
 	scp -r ./api/documents/* root@142.93.104.164:/home/applications/personal-website/api/documents

@@ -146,9 +146,11 @@ def add_files_to_vector_db(collection_name, directory, overwrite=False):
     Update the vector database from the files in the files directory.
     """
 
-    print("Adding files to vector database...")
+    print(f'Adding files from directory "{directory}" to vector database...')
 
     for file in os.listdir(directory):
+
+        print(f"Checking file: {file}")
 
         # If the file already exists in the vector database and overwrite is False, we skip it
         if filename_exists_in_vector_db(collection_name, file) and not overwrite:
