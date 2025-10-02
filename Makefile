@@ -34,6 +34,9 @@ stop-prod:
 update-vector-db:
 	docker exec personal-website-api python -m scripts.update_vector_db
 
+update-vector-db-overwrite:
+	docker exec personal-website-api python -m scripts.update_vector_db --overwrite
+
 remove-vector-db:
 	docker exec personal-website-api python -m scripts.remove_vector_db
 
@@ -65,6 +68,9 @@ upload-documents-remote:
 
 update-vector-db-remote:
 	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db"
+
+update-vector-db-remote-overwrite:
+	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db-overwrite"
 
 # Remote commands for removing the vector db
 remove-vector-db-remote:
