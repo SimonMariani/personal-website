@@ -64,7 +64,7 @@ upload-documents-remote:
 	scp -r ./api/documents/* root@142.93.104.164:/home/applications/personal-website/api/documents
 
 update-vector-db-remote:
-	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db $(ARGS)"
+	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db ARGS=\"$(ARGS)\""
 
 # Remote commands for removing the vector db
 remove-vector-db-remote:
