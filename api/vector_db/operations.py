@@ -128,27 +128,29 @@ def add_chunks(file_content_chunks, collection_name, filename, file_path):
 ####################
 
 
-def update_vector_db(collection_name, directory, overwrite=False):
+def update_vector_db(collection_name, directory, overwrite=False, file=None):
     """
     Update the vector database from the files in the given directory, this consists of adding the files and removing the files that no longer exist.
     """
 
-    print("Starting vector database update...")
+    print(">>>Starting vector database update...")
 
-    add_files_to_vector_db(collection_name, directory=directory, overwrite=overwrite)
+    add_files_to_vector_db(collection_name, directory=directory, overwrite=overwrite, file=file)
     remove_deleted_files_from_vector_db(collection_name, directory=directory)
 
-    print("Vector database update complete.")
+    print(">>>Vector database update complete.")
 
 
-def add_files_to_vector_db(collection_name, directory, overwrite=False):
+def add_files_to_vector_db(collection_name, directory, overwrite=False, file=None):
     """
     Update the vector database from the files in the files directory.
     """
 
-    print(f'Adding files from directory "{directory}" to vector database...')
+    print(f'>>>Adding files from directory "{directory}" to vector database...')
 
-    for file in os.listdir(directory):
+    # Get the list of files in the directory or the single file if specified
+    files = [file] if file else os.listdir(directory)
+    for file in files:
 
         print(f"Checking file: {file}")
 
@@ -161,7 +163,7 @@ def add_files_to_vector_db(collection_name, directory, overwrite=False):
         print("Processing file: ", file)
         add_to_vector_db(collection_name, file, os.path.join(directory, file))
 
-    print("Finished adding files to vector database.")
+    print(">>>Finished adding files to vector database.")
 
 
 def remove_deleted_files_from_vector_db(collection_name, directory="documents"):
@@ -169,7 +171,7 @@ def remove_deleted_files_from_vector_db(collection_name, directory="documents"):
     Ensure the Milvus collection only contains entries for files that still exist in the given directory. Deletes entries for missing files.
     """
 
-    print("Removing deleted files from vector database...")
+    print(">>>Removing deleted files from vector database...")
 
     existing_files = set(os.listdir(directory))
 

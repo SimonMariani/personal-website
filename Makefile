@@ -32,10 +32,7 @@ stop-prod:
 
 # Sync the db with the files in the api/files directory
 update-vector-db:
-	docker exec personal-website-api python -m scripts.update_vector_db
-
-update-vector-db-overwrite:
-	docker exec personal-website-api python -m scripts.update_vector_db --overwrite
+	docker exec personal-website-api python -m scripts.update_vector_db $(ARGS)
 
 remove-vector-db:
 	docker exec personal-website-api python -m scripts.remove_vector_db
@@ -67,10 +64,7 @@ upload-documents-remote:
 	scp -r ./api/documents/* root@142.93.104.164:/home/applications/personal-website/api/documents
 
 update-vector-db-remote:
-	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db"
-
-update-vector-db-remote-overwrite:
-	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db-overwrite"
+	ssh root@142.93.104.164 "cd /home/applications/personal-website && make update-vector-db $(ARGS)"
 
 # Remote commands for removing the vector db
 remove-vector-db-remote:

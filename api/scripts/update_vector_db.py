@@ -9,6 +9,7 @@ from vector_db.operations import update_vector_db
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Update the vector database from the documents directory and collection.")
     parser.add_argument("--overwrite", action="store_true", help="If set, overwrite the existing collection.")
+    parser.add_argument("--file", type=str, help="Optional: filename that should be updated.")
 
     args = parser.parse_args()
-    update_vector_db("documents", "documents", overwrite=args.overwrite)
+    update_vector_db("documents", "documents", overwrite=args.overwrite, file=args.file)
