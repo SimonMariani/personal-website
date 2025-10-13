@@ -20,7 +20,7 @@ function ContactCard() {
       <Divider style={{ backgroundColor: token.colorSecondary, height: 1, margin: 0 }} />
 
       <ContactText text="simon.mariani65@gmail.com" link="mailto:simon.mariani65@gmail.com" />
-      <ContactText text="+31 6 375 552 91" link="tel:+31637555291" />
+      {/* <ContactText text="+31 6 375 552 91" link="tel:+31637555291" /> */}
 
       <Divider style={{ backgroundColor: token.colorSecondary, height: 1, margin: 0 }} />
 

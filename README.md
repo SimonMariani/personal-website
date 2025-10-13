@@ -34,6 +34,7 @@ make update-documents-remote
 
 # TODO
 - Use your own openai api key
+- Remove phone number from website and cv
 
 - Add tests
 - Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
