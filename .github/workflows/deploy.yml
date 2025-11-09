@@ -11,7 +11,6 @@ on:
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
-
     steps:
       - name: ssh into remote server and setup changes
         uses: appleboy/ssh-action@master
@@ -26,3 +25,73 @@ jobs:
             make stop-prod
             make start-prod
             docker system prune -f
+
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check website availability
+        run: |
+          URL="https://simonmariani.com/"
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Website is down! Status code: $STATUS"
+            exit 1
+          else
+            echo "Website is up! Status code: $STATUS"
+          fi
+
+      - name: Check api availability
+        run: |
+          URL="https://api.simonmariani.com/ping/"
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo " Website is down! Status code: $STATUS"
+            exit 1
+          else
+            echo "Website is up! Status code: $STATUS"
+          fi
+
+      - name: Check API talk availability
+        run: |
+          URL="https://api.simonmariani.com/talk/"
+          CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+          BODY='{
+              "message": {
+                  "sender": "user",
+                  "text": "test",
+                  "timestamp": "$CURRENT_TIME"
+              },
+              "previousMessages": [
+                  {
+                      "sender": "user",
+                      "text": "test",
+                      "timestamp": "$CURRENT_TIME"
+                  }
+              ]
+          }'
+
+          echo "Sending POST request to $URL..."
+          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$URL" \
+            -H "Content-Type: application/json" \
+            -d "$BODY")
+
+          echo "HTTP Status: $RESPONSE"
+          echo "Response body:"
+          cat response.txt
+
+          if [ "$RESPONSE" -ne 200 ]; then
+            echo "API returned non-200 status ($RESPONSE)"
+            exit 1
+          fi
+
+          if ! grep -q '"response"' response.txt; then
+            echo "API response did not contain the expected key 'response'"
+            exit 1
+          fi
+
+          echo -e "\nAPI health check passed!"
+
+
+      

@@ -1,5 +1,5 @@
-from typing import Dict, Any
-from fastapi import FastAPI
+import json
+from fastapi import FastAPI, Request, Form
 from fastapi.middleware.cors import CORSMiddleware
 from vector_db.operations import retrieve_from_query
 from vector_db.connections import openai_client, model
@@ -23,25 +23,31 @@ app.add_middleware(
 )
 
 
-# Test route
+# Test route to see if the api is up
 @app.get("/ping/")
-def test():
+async def ping():
     return {"value": "pong"}
 
 
 # The route to chat with the chatbot
 @app.post("/talk/")
-def talk(item: Dict[str, Any]):
+async def talk(request: Request, message: str = Form(None), previousMessages: str = Form(None)):
     """
-    Route to chat with the chatbot, input should containe the message and the previous messages.
+    Route to chat with the chatbot, input should containe the message and the previous messages. Accepts both JSON and form data but note that we are using
+    json in the frontend but we need to accept formdata for our api checking with robotalp as we are using the free version.
     """
-
-    # Extract the message and the previous messages
-    message = item["message"]["text"]
-    previous_messages = item["previousMessages"]
+    # Depending on the content type, parse the request differently
+    if request.headers.get("content-type", "").startswith("application/json"):
+        item = await request.json()
+        message_text = item["message"]["text"]
+        previous_messages = item["previousMessages"]
+    else:
+        message_obj = json.loads(message)
+        previous_messages = json.loads(previousMessages)
+        message_text = message_obj["text"]
 
     # Extract the relvant conents
-    search_results = retrieve_from_query(message, collection_name="documents", limit=15)
+    search_results = retrieve_from_query(message_text, collection_name="documents", limit=15)
 
     # Create the context strings
     files_context = "\n".join(f"document: {item['entity']['filename']} - snippet: {item['entity']['text']}" for item in search_results)
@@ -75,7 +81,7 @@ def talk(item: Dict[str, Any]):
     </context>
 
     <question>
-    {message}
+    {message_text}
     </question>
 
     Instructions for your response:
