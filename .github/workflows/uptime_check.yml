@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check website availability
         run: |
-          URL="https://simonmariani.com"
+          URL="https://simonmariani.com/"
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
 
           if [ "$STATUS" -ne 200 ]; then
@@ -24,7 +24,7 @@ jobs:
 
       - name: Check api availability
         run: |
-          URL="https://api.simonmariani.com/ping"
+          URL="https://api.simonmariani.com/ping/"
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
 
           if [ "$STATUS" -ne 200 ]; then
