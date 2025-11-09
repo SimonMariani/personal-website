@@ -24,22 +24,24 @@ make remove-vector-db
 make start-prod-local
 ```
 
+## API keys
+The openai api key can be managed in your account's api keys page here: https://platform.openai.com/api-keys and the payments can be managed in your account's payments page here: https://platform.openai.com/settings/organization/billing/overview
+
 ## Remote
 For managing the remote application some useful commands have been added to the make file, note that on push the github worflow already updates the applciation
 ```bash
 # In order to update the remote documents from the local documents folder
 make update-documents-remote
+
+# In order to only update a specific file from the local documents folder
+make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 ```
 
 
 # TODO
-- Use your own openai api key
-- Remove phone number from website and cv
-
-- Add tests
+- Use your own openai api key -> the api key seems to be working but the billing details are not setup yet, I can only pay by creditcard so get one first and then update the billing details there to start using the api key
+- Add some tests to know that it is still running and that all the functionalities work
 - Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
-- Maybe update the mainenance pages to be cooler but they are also fine like this
-
 
 # DONE
 - Add some charts with skills that can be cool, for example the radar chart
@@ -50,3 +52,5 @@ make update-documents-remote
 - Fix mobile chat to be better, hook up your phone though because it is slightly annoying since it is only visible on physical devices
 - Update the CV once updated
 - Update relevant files
+- Remove phone number from website and cv
+- Add tests

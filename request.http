@@ -1,0 +1,34 @@
+########################
+### EXAMPLE REQUESTS ###
+########################
+
+
+@baseUrl = https://api.simonmariani.com/
+# @baseUrl = http://localhost:8000/
+
+###
+
+GET {{baseUrl}}ping/ HTTP/1.1
+content-type: application/json
+
+###
+
+POST {{baseUrl}}talk/ HTTP/1.1
+content-type: application/json
+
+{
+    "message": {
+        "sender": "user",
+        "text": "test",
+        "timestamp": "2025-11-08T11:54:20.836Z"
+    },
+    "previousMessages": [
+        {
+            "sender": "user",
+            "text": "test",
+            "timestamp": "2025-11-08T11:53:39.052Z"
+        }
+    ]
+}
+
+
