@@ -24,6 +24,7 @@ jobs:
             git reset --hard origin/main
             make stop-prod
             make start-prod
+            make wait-for-ready
             docker system prune -f
 
   smoke-test:

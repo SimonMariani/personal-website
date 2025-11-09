@@ -16,9 +16,16 @@ all: start
 start:
 	docker compose -f docker-compose-dev.yaml up --build --watch --remove-orphans
 
-# Start the docker containers in production mode which means we use the production compose file and we wait for the containers to be healthy
+# Start the docker containers in production 
 start-prod:
 	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
+
+start-prod-local:
+	docker network create vm-load-balancer || true
+	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
+
+# Wait for ready function
+wait-for-ready:
 	@echo "Waiting for containers to become healthy..." ; \
 	sleep 2 ; \
 	until [ -z "$$(docker ps --filter 'health=starting' --format '{{.ID}}')" ]; do \
@@ -26,10 +33,6 @@ start-prod:
 		sleep 2; \
 	done ; \
 	echo "All containers are healthy!"
-
-start-prod-local:
-	docker network create vm-load-balancer || true
-	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
 
 # Stop the docker containers
 stop:

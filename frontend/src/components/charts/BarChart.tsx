@@ -88,6 +88,7 @@ function BarChart({ data, title }: DefaultChartProps) {
           fontWeight: "bold",
           colors: token.colorText,
         },
+        maxWidth: 500, // set a high enough width to fit your longest label
       },
     },
   };

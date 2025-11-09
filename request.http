@@ -34,14 +34,8 @@ content-type: application/json
 ###
 
 POST {{baseUrl}}talk/ HTTP/1.1
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Content-Type: application/json
 
-------WebKitFormBoundary
-Content-Disposition: form-data; name="message"
-
-{"sender":"user","text":"test","timestamp":"2025-11-08T11:54:20.836Z"}
-------WebKitFormBoundary
-Content-Disposition: form-data; name="previousMessages"
-
-[{"sender":"user","text":"test","timestamp":"2025-11-08T11:53:39.052Z"}]
-------WebKitFormBoundary--
+{
+  "item": "{\"message\":{\"sender\":\"user\",\"text\":\"test\",\"timestamp\":\"2025-11-08T11:54:20.836Z\"},\"previousMessages\":[{\"sender\":\"user\",\"text\":\"test\",\"timestamp\":\"2025-11-08T11:53:39.052Z\"}]}"
+}

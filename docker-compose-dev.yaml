@@ -37,7 +37,7 @@ services:
     volumes:
       - ./api/:/app/
     healthcheck:
-      test: wget -qO- http://localhost:8000/ping || exit 1
+      test: wget -qO- http://localhost:8000/ping/ || exit 1
       interval: 30s
       timeout: 5s
       retries: 10

@@ -18,7 +18,7 @@ function PolarChart({ data, title }: DefaultChartProps) {
   // The options for the chart
   const options: ApexCharts.ApexOptions = {
     chart: {
-      type: "radialBar",
+      type: "polarArea",
       toolbar: getToolbarConfig(),
       fontFamily: token.fontFamily,
     },
@@ -46,6 +46,11 @@ function PolarChart({ data, title }: DefaultChartProps) {
     },
     dataLabels: {
       enabled: true,
+      formatter: (_val, opts) => {
+        const name = opts.w.globals.labels[opts.seriesIndex];
+        const rawValue = opts.w.config.series[opts.seriesIndex];
+        return `${name}: ${rawValue}%`;
+      },
     },
   };
 

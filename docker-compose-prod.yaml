@@ -23,7 +23,7 @@ services:
       - ./api/.env:/app/.env
       - ./api/documents/:/app/documents/
     healthcheck:
-      test: wget -qO- http://localhost/ping || exit 1
+      test: wget -qO- http://localhost/ping/ || exit 1
       interval: 30s
       timeout: 5s
       retries: 10
