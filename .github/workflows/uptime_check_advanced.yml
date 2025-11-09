@@ -48,5 +48,5 @@ jobs:
             exit 1
           fi
 
-          echo "API health check passed!"
+          echo -e "\nAPI health check passed!"
 

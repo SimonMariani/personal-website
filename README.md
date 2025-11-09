@@ -43,7 +43,7 @@ make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 
 # TODO
 - Use your own openai api key -> the api key seems to be working but the billing details are not setup yet, I can only pay by creditcard so get one first and then update the billing details there to start using the api key
-
+- Add something so you can see who is visiting your website
 
 # DONE
 - Add some charts with skills that can be cool, for example the radar chart

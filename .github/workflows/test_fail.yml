@@ -1,0 +1,19 @@
+name: Test Failure Notification
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  workflow_dispatch:        # Allows manual testing
+
+jobs:
+  fail-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print message
+        run: echo "This workflow is running to test failure notifications."
+
+      - name: Force failure
+        run: |
+          echo "❌ This step is intentionally failing for testing purposes."
+          exit 1
