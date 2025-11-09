@@ -27,6 +27,7 @@ jobs:
             docker system prune -f
 
   smoke-test:
+    needs: deploy-production
     runs-on: ubuntu-latest
     steps:
       - name: Check website availability
