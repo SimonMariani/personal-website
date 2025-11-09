@@ -1,0 +1,52 @@
+name: Check Advanced API Route
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'   # Runs every 12 hours
+  workflow_dispatch:
+
+jobs:
+  check-advanced-uptime:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check advanced route availability
+        run: |
+          URL="https://api.simonmariani.com/talk"
+          CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+          BODY='{
+              "message": {
+                  "sender": "user",
+                  "text": "test",
+                  "timestamp": "$CURRENT_TIME"
+              },
+              "previousMessages": [
+                  {
+                      "sender": "user",
+                      "text": "test",
+                      "timestamp": "$CURRENT_TIME"
+                  }
+              ]
+          }'
+
+          echo "Sending POST request to $URL..."
+          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$URL" \
+            -H "Content-Type: application/json" \
+            -d "$BODY")
+
+          echo "HTTP Status: $RESPONSE"
+          echo "Response body:"
+          cat response.txt
+
+          if [ "$RESPONSE" -ne 200 ]; then
+            echo "API returned non-200 status ($RESPONSE)"
+            exit 1
+          fi
+
+          if ! grep -q '"response"' response.txt; then
+            echo "API response did not contain the expected key 'response'"
+            exit 1
+          fi
+
+          echo "API health check passed!"
+

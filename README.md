@@ -37,11 +37,13 @@ make update-documents-remote
 make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 ```
 
+# Notes
+- The milvus vector DB doesn't seem very stable and I had to roll back a couple of versions for it to work. In the future it could be better to use another alternative. I think MongoDB would be a simple and nice alternative as they have been working at creating a vector DB, I think it was called MongoDB Atlas or something?
+
 
 # TODO
 - Use your own openai api key -> the api key seems to be working but the billing details are not setup yet, I can only pay by creditcard so get one first and then update the billing details there to start using the api key
-- Add some tests to know that it is still running and that all the functionalities work
-- Use another vector database than milvus because it doesn't seem very stable and I had to roll back a couple of versions for it to work
+
 
 # DONE
 - Add some charts with skills that can be cool, for example the radar chart
@@ -54,3 +56,4 @@ make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 - Update relevant files
 - Remove phone number from website and cv
 - Add tests
+- Add some tests to know that it is still running and that all the functionalities work
