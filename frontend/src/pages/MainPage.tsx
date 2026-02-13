@@ -82,9 +82,12 @@ function ChatPage() {
             <RadarChart data={experienceConfig.programmingLanguages} title="Programming Languages" />
             <PolarChartMonochrome data={experienceConfig.backend} title="Backend Development" />
             <RadialBarChart data={experienceConfig.frontend} title="Frontend Development" />
-            <TreeMapChart data={experienceConfig.developmentTools} title="Development Tools" />
-            <BarChart data={experienceConfig.aiExperience} title="AI Experience" />
-            <PolarChart data={experienceConfig.aiFrameworks} title="AI Frameworks" />
+            <TreeMapChart data={experienceConfig.deploymentTools} title="Deployment Tools" />
+            <PolarChartMonochrome data={experienceConfig.databases} title="Databases" />
+            <TreeMapChart data={experienceConfig.cloudPlatforms} title="Cloud Platforms" />
+            <PolarChart data={experienceConfig.aiTools} title="AI Tools" />
+            <BarChart data={experienceConfig.aiFields} title="AI Fields" />
+            <PolarChart data={experienceConfig.modelsAndArchitectures} title="Models & Architectures" />
             <ColumnChart data={experienceConfig.otherSoftware} title="Other Software" />
           </Carousel>
         </div>

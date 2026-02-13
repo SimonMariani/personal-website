@@ -2,55 +2,43 @@
 
 export default {
   programmingLanguages: [
-    { name: "Python", percentage: 95, description: "Python is a good general purpose language which are very versatile and usefull for many cases." },
-    { name: "JavaScript", percentage: 95, description: "JavaScript is indispensable for frontend developemnt. It also runs fast and is suitable for backend." },
-    { name: "HTML/CSS", percentage: 95, description: "HTML and CSS are the basic building blocks of frontend development." },
+    { name: "Python", percentage: 95, description: "Versatile, high-level language widely used for web, data science, automation, and more." },
+    { name: "JavaScript", percentage: 95, description: "Essential for frontend development and also widely used for backend with Node.js." },
+    { name: "Typescript", percentage: 95, description: "A superset of JavaScript that adds static typing for improved code quality and maintainability." },
+    { name: "HTML/CSS", percentage: 95, description: "Core technologies for building and styling web pages and user interfaces." },
     {
       name: "C#",
       percentage: 65,
-      description: "C# is a good language for game development and windows applications. It is especially fast compared to Python.",
+      description: "Modern, object-oriented language commonly used for Windows applications and game development with Unity.",
     },
-    { name: "R", percentage: 40, description: "R is a language for statistical computing and graphics. It is very useful for data analysis." },
-    { name: "C++", percentage: 30, description: "C++ is a powerful general-purpose programming language." },
-    { name: "C", percentage: 35, description: "C is a general-purpose programming language that is extremely popular, with a wide range of applications." },
-    { name: "Clingo", percentage: 70, description: "Clingo is a language for logic programming and is used for solving complex problems." },
-    { name: "Prolog", percentage: 70, description: "Similar to Clingo, Prolog is a language for logic programming." },
-    { name: "Netlogo", percentage: 40, description: "Netlogo is a language for agent-based modeling and is used for simulating complex systems." },
+    { name: "C++", percentage: 30, description: "Powerful language for system/software development and performance-critical applications." },
+    { name: "C", percentage: 35, description: "Widely-used procedural language, foundational for system programming and embedded systems." },
+    { name: "Clingo", percentage: 70, description: "Logic programming language used for declarative problem solving and answer set programming." },
+    { name: "Prolog", percentage: 70, description: "Logic programming language ideal for symbolic reasoning and AI applications." },
+    { name: "Netlogo", percentage: 40, description: "Agent-based modeling language for simulating complex systems and behaviors." },
+    { name: "R", percentage: 40, description: "Statistical computing language popular for data analysis and visualization." },
   ],
 
   backend: [
     {
       name: "Django",
       percentage: 90,
-      description: "Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.",
+      description: "Robust Python web framework for rapid development and clean, pragmatic design.",
     },
     {
       name: "Flask",
       percentage: 65,
-      description:
-        "Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.",
+      description: "Lightweight Python web framework ideal for small to medium applications and APIs.",
     },
     {
       name: "FastAPI",
       percentage: 55,
-      description: "FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.",
+      description: "Modern Python framework for building fast APIs with automatic docs and type hints.",
     },
     {
-      name: "NodeJS + ExpressJS",
+      name: "ExpressJS",
       percentage: 85,
-      description:
-        "Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser.",
-    },
-    {
-      name: "SQL",
-      percentage: 90,
-      description: "SQL is a domain-specific language used in programming and designed for managing data held in a relational database management system.",
-    },
-    {
-      name: "NoSQL",
-      percentage: 85,
-      description:
-        "A NoSQL (originally referring to 'non-SQL' or 'non-relational') database provides a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases.",
+      description: "Minimal and flexible Node.js web application framework for building APIs and web apps.",
     },
   ],
 
@@ -58,157 +46,259 @@ export default {
     {
       name: "ReactJS",
       percentage: 90,
-      description:
-        "React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.",
+      description: "Popular JavaScript library for building interactive user interfaces and single-page applications.",
     },
     {
       name: "VueJS",
       percentage: 85,
-      description: "Vue.js is an open-source model–view–viewmodel front end JavaScript framework for building user interfaces and single-page applications.",
+      description: "Progressive JavaScript framework for building user interfaces and SPAs with ease.",
     },
     {
       name: "Figma",
       percentage: 80,
-      description: "Figma is a vector graphics editor and prototyping tool which is primarily web-based, with additional offline features.",
+      description: "Web-based design and prototyping tool for collaborative UI/UX development.",
     },
   ],
 
-  developmentTools: [
+  deploymentTools: [
     {
       name: "Docker",
       percentage: 95,
-      description: "Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.",
+      description: "Platform for developing, shipping, and running applications in lightweight containers.",
     },
-    { name: "Docker Compose", percentage: 95, description: "Docker Compose is a tool for defining and running multi-container Docker applications." },
-    { name: "Docker Swarm", percentage: 30, description: "Docker Swarm is a container orchestration platform." },
+    { name: "Docker Compose", percentage: 95, description: "Tool for defining and managing multi-container Docker applications." },
+    // { name: "Docker Swarm", percentage: 30, description: "Docker Swarm is a container orchestration platform." },
     {
       name: "Kubernetes",
       percentage: 95,
-      description: "Kubernetes is an open-source container-orchestration system for automating computer application deployment, scaling, and management.",
+      description: "Open-source system for automating deployment, scaling, and management of containerized applications.",
+    },
+    {
+      name: "Helm",
+      percentage: 95,
+      description: "Kubernetes package manager for defining, installing, and upgrading complex Kubernetes apps.",
+    },
+    {
+      name: "Kustomize",
+      percentage: 90,
+      description: "Tool for customizing Kubernetes resource configuration without templates.",
+    },
+    {
+      name: "Prometheus",
+      percentage: 80,
+      description: "Open-source monitoring and alerting toolkit for systems and services.",
+    },
+    {
+      name: "Grafana",
+      percentage: 80,
+      description: "Open-source analytics and interactive visualization web application for monitoring and observability.",
+    },
+    {
+      name: "Loki",
+      percentage: 70,
+      description: "Log aggregation system designed for storing and querying logs efficiently, integrated with Grafana.",
+    },
+    {
+      name: "Promtail",
+      percentage: 70,
+      description: "Agent for collecting and shipping logs to Loki for aggregation and analysis.",
     },
     {
       name: "Git",
       percentage: 90,
-      description:
-        "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development.",
+      description: "Distributed version control system for tracking changes in source code during software development.",
     },
-    { name: "GitHub", percentage: 80, description: "GitHub is a provider of Internet hosting for software development and version control using Git." },
+    // { name: "GitHub", percentage: 80, description: "GitHub is a provider of Internet hosting for software development and version control using Git." },
     {
       name: "GitHub Actions",
       percentage: 80,
-      description: "GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD.",
+      description: "CI/CD and automation platform integrated with GitHub repositories.",
     },
     {
-      name: "Azure",
-      percentage: 85,
-      description:
-        "Microsoft Azure, commonly referred to as Azure, is a cloud computing service created by Microsoft for building, testing, deploying, and managing applications and services through Microsoft-managed data centers.",
-    },
-
-    {
-      name: "AWS",
-      percentage: 20,
-      description:
-        "Amazon Web Services (AWS) is a subsidiary of Amazon providing on-demand cloud computing platforms and APIs to individuals, companies, and governments, on a metered pay-as-you-go basis.",
+      name: "N8n",
+      percentage: 60,
+      description: "Workflow automation tool for integrating and automating tasks across different services.",
     },
     {
-      name: "Digital Ocean",
-      percentage: 35,
-      description: "DigitalOcean, Inc. is an American cloud infrastructure provider headquartered in New York City with data centers worldwide.",
-    },
-    {
-      name: "OVH Cloud",
-      percentage: 85,
-      description: "OVH Cloud is a French cloud computing company that offers VPS, dedicated servers, and other web services.",
+      name: "Apache Airflow",
+      percentage: 60,
+      description: "Platform to programmatically author, schedule, and monitor complex data workflows.",
     },
     {
       name: "ETL/ELT",
       percentage: 55,
-      description:
-        "ETL stands for Extract, Transform, Load. ETL is a process that extracts the data from different RDBMS source systems, then transforms the data (like applying calculations, concatenations, etc.) and finally loads the data into the Data Warehouse system.",
+      description: "Processes for extracting, transforming, and loading (or loading then transforming) data between systems.",
     },
   ],
 
-  aiExperience: [
+  databases: [
+    {
+      name: "PostgreSQL",
+      percentage: 90,
+      description: "Advanced open-source relational database known for reliability and feature richness.",
+    },
+    {
+      name: "MySQL",
+      percentage: 80,
+      description: "Popular open-source relational database management system for web and server applications.",
+    },
+    {
+      name: "MariaDB",
+      percentage: 75,
+      description: "Community-developed fork of MySQL, offering improved performance and features.",
+    },
+    {
+      name: "TimescaleDB",
+      percentage: 85,
+      description: "Time-series database built on PostgreSQL for scalable and fast time-series data management.",
+    },
+    {
+      name: "InfluxDB",
+      percentage: 60,
+      description: "Open-source time-series database optimized for high-write loads and real-time analytics.",
+    },
+    {
+      name: "Milvus",
+      percentage: 85,
+      description: "Open-source vector database for scalable similarity search and AI applications.",
+    },
+    {
+      name: "FAISS",
+      percentage: 60,
+      description: "Library for efficient similarity search and clustering of dense vectors, often used in AI.",
+    },
+    {
+      name: "MongoDB",
+      percentage: 65,
+      description: "Document-oriented NoSQL database for flexible and scalable data storage.",
+    },
+    {
+      name: "Redis",
+      percentage: 65,
+      description: "In-memory data structure store used as a database, cache, and message broker.",
+    },
+  ],
+
+  cloudPlatforms: [
+    {
+      name: "Azure",
+      percentage: 85,
+      description: "Microsoft's cloud computing platform for building, deploying, and managing applications and services.",
+    },
+    {
+      name: "AWS",
+      percentage: 60,
+      description: "Amazon's comprehensive cloud platform offering a wide range of infrastructure and application services.",
+    },
+    {
+      name: "Digital Ocean",
+      percentage: 75,
+      description: "Cloud infrastructure provider known for simplicity and developer-friendly virtual servers.",
+    },
+    {
+      name: "OVH Cloud",
+      percentage: 85,
+      description: "European cloud provider offering VPS, dedicated servers, and scalable cloud solutions.",
+    },
+    {
+      name: "Scaleway",
+      percentage: 65,
+      description: "Cloud computing platform providing virtual instances, storage, and managed services.",
+    },
+  ],
+
+  aiTools: [
+    { name: "Numpy", percentage: 95, description: "Python library for efficient numerical computations and array operations." },
+    { name: "Pandas", percentage: 95, description: "Python library for data manipulation and analysis, especially with tabular data." },
+    { name: "Matplotlib", percentage: 95, description: "Python library for creating static, animated, and interactive visualizations." },
+    { name: "Scikit-learn", percentage: 95, description: "Python library for classical machine learning algorithms and data preprocessing." },
+    { name: "PyTorch", percentage: 95, description: "Open-source deep learning framework for building and training neural networks." },
+    { name: "CUDA", percentage: 85, description: "NVIDIA's parallel computing platform for accelerating computations on GPUs." },
+    { name: "LLM APIs", percentage: 80, description: "APIs for interacting with large language models for NLP and generative AI tasks." },
+    { name: "Huggingface", percentage: 60, description: "Open-source platform and libraries for natural language processing and transformer models." },
+    { name: "Langchain", percentage: 50, description: "Framework for building applications with language models and AI agents." },
+    { name: "Keras", percentage: 45, description: "High-level neural networks API for fast prototyping, running on top of TensorFlow." },
+    { name: "TensorFlow", percentage: 45, description: "Open-source platform for machine learning and deep learning, supporting large-scale training." },
+  ],
+
+  aiFields: [
+    {
+      name: "MLOps",
+      percentage: 90,
+      description: "Practices and tools for deploying, monitoring, and managing machine learning models in production.",
+    },
     {
       name: "Deep Learning",
       percentage: 85,
-      description: "Deep learning is part of a broader family of machine learning methods based on artificial neural networks with representation learning.",
+      description: "Subset of machine learning using neural networks for tasks like image, speech, and text processing.",
     },
     {
       name: "Machine Learning",
       percentage: 85,
-      description: "Machine learning is the study of computer algorithms that improve automatically through experience.",
+      description: "Algorithms and statistical models that enable computers to learn from data and make predictions.",
     },
     {
       name: "Computer Vision",
       percentage: 90,
-      description:
-        "Computer vision is an interdisciplinary scientific field that deals with how computers can gain high-level understanding from digital images or videos.",
+      description: "Field focused on enabling computers to interpret and process visual information from images and videos.",
     },
     {
       name: "Natural Language Processing",
       percentage: 75,
-      description:
-        "Natural language processing is a subfield of linguistics, computer science, and artificial intelligence concerned with the interactions between computers and human language.",
+      description: "Techniques for computers to understand, interpret, and generate human language.",
     },
     {
       name: "Reinforcement Learning",
       percentage: 45,
-      description:
-        "Reinforcement learning is an area of machine learning concerned with how software agents ought to take actions in an environment in order to maximize the notion of cumulative reward.",
-    },
-    {
-      name: "Active Learning",
-      percentage: 85,
-      description:
-        "Active learning is a special case of machine learning in which a learning algorithm can interactively query a user to label data with the desired outputs.",
-    },
-    {
-      name: "OOD-Detection",
-      percentage: 85,
-      description:
-        "Out-of-distribution detection is a problem in machine learning where the model is required to detect when the input data is different from the training data.",
+      description: "Area of ML where agents learn to make decisions by interacting with an environment to maximize rewards.",
     },
     {
       name: "Anomaly Detection",
       percentage: 55,
-      description:
-        "Anomaly detection is the identification of rare items, events or observations which raise suspicions by differing significantly from the majority of the data.",
-    },
-    {
-      name: "Time Series Analysis",
-      percentage: 65,
-      description:
-        "Time series analysis comprises methods for analyzing time series data in order to extract meaningful statistics and other characteristics of the data.",
+      description: "Identifying rare or unusual patterns in data that do not conform to expected behavior.",
     },
     {
       name: "Recommender Systems",
       percentage: 35,
-      description:
-        "Recommender systems are a subclass of information filtering system that seek to predict the 'rating' or 'preference' a user would give to an item.",
+      description: "Algorithms that suggest relevant items to users based on preferences and behavior.",
     },
     {
-      name: "Game Theory",
-      percentage: 45,
-      description: "Game theory is the study of mathematical models of strategic interaction among rational decision-makers.",
+      name: "Time Series Analysis",
+      percentage: 65,
+      description: "Analyzing time-ordered data to extract meaningful statistics and forecast future values.",
     },
+    {
+      name: "OOD-Detection",
+      percentage: 85,
+      description: "Techniques for detecting inputs that are out-of-distribution or different from training data.",
+    },
+    {
+      name: "Active Learning",
+      percentage: 85,
+      description: "ML approach where the model interactively queries for labels to improve learning efficiency.",
+    },
+    // {
+    //   name: "Game Theory",
+    //   percentage: 45,
+    //   description: "Study of mathematical models of strategic interaction among rational agents.",
+    // },
   ],
-
-  aiFrameworks: [
-    { name: "PyTorch", percentage: 95, description: "PyTorch is an open source machine learning library based on the Torch library." },
-    { name: "CUDA", percentage: 85, description: "CUDA is a parallel computing platform and application programming interface model created by Nvidia." },
-    { name: "Sklearn", percentage: 80, description: "Scikit-learn is a free software machine learning library for the Python programming language." },
-    { name: "Keras", percentage: 50, description: "Keras is an open-source deep learning framework written in Python." },
-    { name: "Tensorflow", percentage: 45, description: "TensorFlow is an end-to-end open source platform for machine learning." },
+  modelsAndArchitectures: [
+    { name: "CNNs", percentage: 95, description: "Python library for efficient numerical computations and array operations." },
+    { name: "ML Models", percentage: 95, description: "Python library for data manipulation and analysis, especially with tabular data." },
+    { name: "RNNs/LSTMs", percentage: 95, description: "Python library for creating static, animated, and interactive visualizations." },
+    { name: "Transformers", percentage: 95, description: "Python library for classical machine learning algorithms and data preprocessing." },
+    { name: "VAEs", percentage: 95, description: "Open-source deep learning framework for building and training neural networks." },
+    { name: "GANs", percentage: 85, description: "NVIDIA's parallel computing platform for accelerating computations on GPUs." },
+    { name: "Bayesian Models", percentage: 80, description: "APIs for interacting with large language models for NLP and generative AI tasks." },
   ],
 
   otherSoftware: [
-    { name: "Windows", percentage: 95, description: "Windows is a group of several proprietary graphical operating system families." },
-    { name: "Linux", percentage: 85, description: "Linux is a family of open-source Unix-like operating systems based on the Linux kernel." },
-    { name: "MacOS", percentage: 45, description: "macOS is a series of proprietary graphical operating systems developed and marketed by Apple Inc." },
-    { name: "PowerBI", percentage: 70, description: "Power BI is a business analytics service by Microsoft." },
-    { name: "Unity", percentage: 50, description: "Unity is a cross-platform game engine developed by Unity Technologies." },
-    { name: "PyQt", percentage: 50, description: "PyQt is a set of Python v2 and v3 bindings for The Qt Company's Qt application framework." },
+    { name: "Windows", percentage: 95, description: "Microsoft's widely-used operating system for personal computers and enterprise environments." },
+    { name: "Linux", percentage: 85, description: "Open-source family of Unix-like operating systems for servers, desktops, and embedded systems." },
+    { name: "MacOS", percentage: 45, description: "Apple's proprietary operating system for Mac computers." },
+    { name: "PowerBI", percentage: 70, description: "Microsoft's business analytics tool for interactive data visualization and reporting." },
+    { name: "Unity", percentage: 50, description: "Cross-platform game engine for developing 2D and 3D games and simulations." },
+    { name: "PyQt", percentage: 50, description: "Python bindings for the Qt application framework, used for building GUI applications." },
   ],
 };
