@@ -55,7 +55,7 @@ async def talk(item: Dict[str, Any]):
     # The system prompt is the general instructions for the chatbot
     SYSTEM_PROMPT = """
     You are an AI assistant on the personal website of Simon Mariani.  
-    Answer questions about Simon Mariani using information from documents such as his work, resume, and personal projects.  
+    Answer questions about Simon Mariani using information from documents such as his work, resume, and personal projects.
 
     Your responses should be:
     - Short and conversational, like a chat.

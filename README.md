@@ -24,6 +24,10 @@ make remove-vector-db
 make start-prod-local
 ```
 
+## Changing skills
+In order to change the skills add or remove them from the `/frontend/src/config/experience.ts` file.
+
+
 ## API keys
 The openai api key can be managed in your account's api keys page here: https://platform.openai.com/api-keys and the payments can be managed in your account's payments page here: https://platform.openai.com/settings/organization/billing/overview
 
@@ -42,6 +46,8 @@ make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 
 
 # TODO
+- Add a dev branch
+- Make the courasel vertically scrollable
 - Add something so you can see who is visiting your website or at least how many people
 
 # DONE
