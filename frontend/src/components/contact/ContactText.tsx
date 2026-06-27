@@ -8,9 +8,10 @@ type ContactTextProps = {
   text: string;
   link?: string;
   openInNewTab?: boolean;
+  onClick?: () => void;
 };
 
-function ContactText({ text, link, openInNewTab }: ContactTextProps) {
+function ContactText({ text, link, openInNewTab, onClick }: ContactTextProps) {
   return (
     <div>
       {link ? (
@@ -20,7 +21,7 @@ function ContactText({ text, link, openInNewTab }: ContactTextProps) {
           </Text>
         </a>
       ) : (
-        <Text style={{ margin: 0 }} type="secondary">
+        <Text onClick={onClick} style={{ margin: 0, cursor: onClick ? "pointer" : "default" }} type="secondary">
           {text}
         </Text>
       )}

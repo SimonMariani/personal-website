@@ -93,7 +93,6 @@ function ChatPage() {
         </div>
 
         {/* Then the chat window, NOTE that we put pointerevents to none so that we can still interact with the charts even though this element is on top */}
-
         <Flex
           style={{
             width: token.useSmall ? "100%" : "50%",
