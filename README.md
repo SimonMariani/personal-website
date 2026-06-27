@@ -51,6 +51,6 @@ make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 
 # Notes
 
-- The milvus vector DB doesn't seem very stable and I had to roll back a couple of versions for it to work. In the future it could be better to use another alternative. I think MongoDB would be a simple and nice alternative as they have been working at creating a vector DB, I think it was called MongoDB Atlas or something?
+- The vector database is Postgres with the [pgvector](https://github.com/pgvector/pgvector) extension. Each "collection" is a separate table and similarity search uses an HNSW index with cosine distance. This replaced the previous Milvus setup, which required several extra services (etcd, minio, standalone) and was less stable.
 
 # TODO
