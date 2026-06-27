@@ -19,11 +19,8 @@ make start-prod
 make stop
 make stop-prod
 
-# The documents that the chatbot should use in its responses should be put in the `api/documents` folder. To update the vector db you can then run
-make update-vector-db
-
-# If you want to reset the vector db run after for example changing the schema, run
-make remove-vector-db
+# The documents that the chatbot should use in its responses should be put in the `api/documents` folder. To sync the vector db with that folder you can then run
+make sync-db
 
 # In order to test if the production docker compose runs you can run it locally by running
 make start-prod-local
@@ -46,7 +43,7 @@ For managing the remote application some useful commands have been added to the 
 make update-documents-remote
 
 # In order to only update a specific file from the local documents folder
-make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
+make sync-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 ```
 
 # Notes
