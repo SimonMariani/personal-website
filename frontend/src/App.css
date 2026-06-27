@@ -19,3 +19,26 @@
   color: #000000ff !important;
   text-align: center !important;
 }
+
+/* Tighten the spacing of markdown-rendered bot messages so they sit nicely inside the chat bubble */
+.chatMarkdown > :first-child {
+  margin-top: 0;
+}
+.chatMarkdown > :last-child {
+  margin-bottom: 0;
+}
+.chatMarkdown p {
+  margin: 0.4em 0;
+}
+.chatMarkdown ul,
+.chatMarkdown ol {
+  margin: 0.4em 0;
+  padding-left: 1.2em;
+}
+.chatMarkdown pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.chatMarkdown code {
+  word-break: break-word;
+}

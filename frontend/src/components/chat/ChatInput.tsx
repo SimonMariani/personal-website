@@ -48,19 +48,23 @@ function ChatInput({ inputValue, setInputValue, handleSendMessage }: ChatInputPr
   // Detect the keyboard open state on mobile by checking the window height change when the input is focussed
   const [isFocused, setIsFocussed] = useState(false);
   useEffect(() => {
+    // NOTE that visualViewport is not supported in every browser, so we guard against it being undefined and simply skip the detection if it is missing
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
     // The initial height of the window and the resize event listener which checks the height difference
     // NOTE that we are using the visualviewport height as the actual viewport height stays the same when the keyboard is open
-    const initialHeight = window.visualViewport!.height;
+    const initialHeight = viewport.height;
     const onResize = () => {
-      const heightDiff = initialHeight - window.visualViewport!.height;
+      const heightDiff = initialHeight - viewport.height;
       setKeyboardOpen(heightDiff > 150); // ~150px+ drop = keyboard}
     };
 
     // Add and remove the event listener
-    window.addEventListener("resize", onResize);
+    viewport.addEventListener("resize", onResize);
 
     // Cleanup function to remove the event listener
-    return () => window.removeEventListener("resize", onResize);
+    return () => viewport.removeEventListener("resize", onResize);
   }, [setKeyboardOpen, isFocused]);
 
   // Return the component

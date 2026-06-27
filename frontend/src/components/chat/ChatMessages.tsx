@@ -12,9 +12,12 @@ type ChatMessagesProps = {
 
   /* Whether the chat is currently loading a response */
   loading: boolean;
+
+  /* The number of messages restored from storage; these (indices below it) appear instantly instead of animating */
+  restoredCount: number;
 };
 
-function ChatMessages({ messages, loading }: ChatMessagesProps) {
+function ChatMessages({ messages, loading, restoredCount }: ChatMessagesProps) {
   // Always scroll to the bottom on message update or loading state change. NOTE that we are using a timeout to ensure the DOM has updated before scrolling
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -31,7 +34,7 @@ function ChatMessages({ messages, loading }: ChatMessagesProps) {
     <Flex vertical gap={12} style={{ padding: "0px 15px" }}>
       {/* The list of messages */}
       {messages.map((message, index) => (
-        <ChatMessage key={index} message={message} chatEndRef={chatEndRef} />
+        <ChatMessage key={index} message={message} animate={index >= restoredCount} chatEndRef={chatEndRef} />
       ))}
 
       {/* Loading indicator */}

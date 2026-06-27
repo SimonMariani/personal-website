@@ -8,15 +8,16 @@ import { renderRoute } from "./renderRoute";
 // lacks, so stub the chart component out. We only care about routing here.
 vi.mock("react-apexcharts", () => ({ default: () => null }));
 
-// The app currently has a single route ("/") and no catch-all 404 page.
+// The app has a single content route ("/") and a catch-all 404 page for everything else.
 describe("routing", () => {
   it("renders the main page at /", () => {
     renderRoute("/");
     expect(screen.getByRole("heading", { level: 3, name: "Simon Mariani" })).toBeInTheDocument();
   });
 
-  it("renders nothing for an unknown path (no 404 page is defined)", () => {
+  it("renders the 404 page for an unknown path", () => {
     renderRoute("/this-route-does-not-exist");
+    expect(screen.getByRole("heading", { name: "404" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { level: 3, name: "Simon Mariani" })).not.toBeInTheDocument();
   });
 });

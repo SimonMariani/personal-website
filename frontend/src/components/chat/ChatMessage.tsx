@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { Typography, theme } from "antd";
+import ReactMarkdown from "react-markdown";
 import type { Message } from "@/types";
 
 // Global variables
@@ -12,6 +13,9 @@ type ChatMessageProps = {
   /* The message to display */
   message: Message;
 
+  /* Whether the bot message should type itself out; false for messages restored from storage so they appear instantly */
+  animate?: boolean;
+
   /* The speed at which the message is typed out (in ms per character) */
   typingSpeed?: number;
 
@@ -19,16 +23,16 @@ type ChatMessageProps = {
   chatEndRef?: React.RefObject<HTMLDivElement | null>;
 };
 
-function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
+function ChatMessage({ message, animate = true, typingSpeed, chatEndRef }: ChatMessageProps) {
   // Get the theme token from antd
   const { token } = useToken();
 
-  // State variable to hold the text that is currently displayed
-  const [displayedText, setDisplayedText] = useState<string>("");
+  // State variable to hold the text that is currently displayed. NOTE that restored (non-animated) messages start fully shown to avoid re-typing on reload
+  const [displayedText, setDisplayedText] = useState<string>(animate ? "" : message.text);
 
   useEffect(() => {
-    // If the message is from the user, display it immediately
-    if (message.sender === "user") {
+    // Display the full text immediately for user messages and for messages that should not animate (e.g. restored from storage)
+    if (message.sender === "user" || !animate) {
       setDisplayedText(message.text);
       return;
     }
@@ -46,7 +50,7 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
 
     // Cleanup if component unmounts
     return () => clearInterval(interval);
-  }, [message, typingSpeed, chatEndRef]);
+  }, [message, animate, typingSpeed, chatEndRef]);
 
   // The chat message parent style depends on the sender
   const chatMessageParentStyle: CSSProperties =
@@ -74,7 +78,21 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
           ...chatMessageStyle,
         }}
       >
-        <Text style={{ fontSize: token.fontSize }}>{displayedText}</Text>
+        {/* User messages are shown verbatim; bot messages are rendered as markdown so lists, links and emphasis display properly. NOTE that react-markdown
+        does not render raw HTML, so this is safe against injection. The .chatMarkdown class tightens the default block margins (see App.css) */}
+        {message.sender === "bot" ? (
+          <div className="chatMarkdown" style={{ color: token.colorText, fontSize: token.fontSize, fontFamily: token.fontFamily, textAlign: "left" }}>
+            <ReactMarkdown
+              components={{
+                a: ({ ...props }) => <a {...props} target="_blank" rel="noreferrer" style={{ color: token.colorTextBase }} />,
+              }}
+            >
+              {displayedText}
+            </ReactMarkdown>
+          </div>
+        ) : (
+          <Text style={{ fontSize: token.fontSize }}>{displayedText}</Text>
+        )}
       </div>
     </div>
   );

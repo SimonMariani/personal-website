@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ConfigProvider, Grid } from "antd";
 import { GlobalProvider } from "@/contexts/GlobalContext";
 import MainPage from "@/pages/MainPage";
+import NotFound from "@/pages/NotFound";
 
 const { useBreakpoint } = Grid;
 
@@ -72,6 +73,9 @@ function App() {
           <div className="App" style={{ width: "100dvw", height: "100dvh" }}>
             <Routes>
               <Route path="/" element={<MainPage />}></Route>
+
+              {/* Catch-all 404 for any unknown path */}
+              <Route path="*" element={<NotFound />}></Route>
             </Routes>
           </div>
         </ConfigProvider>

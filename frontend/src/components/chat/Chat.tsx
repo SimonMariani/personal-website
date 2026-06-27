@@ -1,14 +1,29 @@
 /** @format */
 
 import { useState, useRef, useEffect } from "react";
-import { Flex, theme } from "antd";
+import { Flex, Typography, theme } from "antd";
 import { apiURL } from "@/config/config";
 import type { Message, Messages } from "@/types";
 import { useGlobal } from "@/hooks/contexts/useGlobal";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
+import ChatStarters from "@/components/chat/ChatStarters";
 
 const { useToken } = theme;
+const { Text } = Typography;
+
+// The sessionStorage key under which the conversation is persisted so a page reload keeps the chat
+const STORAGE_KEY = "chatMessages";
+
+// Read the persisted conversation from sessionStorage, returning an empty list if there is nothing (or it is corrupt)
+const loadMessages = (): Messages => {
+  try {
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    return stored ? (JSON.parse(stored) as Messages) : [];
+  } catch {
+    return [];
+  }
+};
 
 type ChatProps = {
   /* Whether the chat is currently shown; the smooth-scroll listener is only attached while active */
@@ -22,18 +37,36 @@ function Chat({ active = true }: ChatProps) {
   // Global context which we use here to store the global keyboard open state
   const { keyboardOpen } = useGlobal();
 
-  // State variables for messages, user input and loading state
-  const [messages, setMessages] = useState<Messages>([]);
+  // State variables for messages, user input and loading state. NOTE that messages are seeded from sessionStorage so a reload keeps the conversation
+  const [messages, setMessages] = useState<Messages>(loadMessages);
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Async function to send a message to the api server and update the state variable 'messages'
-  const handleSendMessage = async () => {
-    // Do nothing if the input value is empty
-    if (inputValue.trim() === "") return;
+  // The number of messages restored from sessionStorage. These were already typed out in a previous session, so they should appear instantly instead of
+  // re-running the typing animation on reload. Anything after this index is new and animates. NOTE that we reset it to 0 when the conversation is cleared
+  const restoredCount = useRef<number>(messages.length);
+
+  // Persist the conversation to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  }, [messages]);
+
+  // Clear the conversation and remove it from sessionStorage. NOTE that we reset the restored count so messages sent after a reset animate normally
+  const handleReset = () => {
+    restoredCount.current = 0;
+    setMessages([]);
+    sessionStorage.removeItem(STORAGE_KEY);
+  };
+
+  // Async function to send a message to the api server and update the state variable 'messages'. NOTE that an explicit text can be passed (used by the
+  // starter questions); otherwise the current input value is used
+  const handleSendMessage = async (text?: string) => {
+    // Resolve the text to send and do nothing if it is empty
+    const messageText = (text ?? inputValue).trim();
+    if (messageText === "") return;
 
     // Update user messages when the user sends a message and clear the input value
-    const message: Message = { sender: "user", text: inputValue, timestamp: new Date() };
+    const message: Message = { sender: "user", text: messageText, timestamp: new Date() };
     setMessages((prevMessages) => [...prevMessages, message]);
     setInputValue("");
     setLoading(true);
@@ -51,6 +84,9 @@ function Chat({ active = true }: ChatProps) {
           previousMessages: messages,
         }),
       });
+
+      // NOTE that fetch only rejects on network errors, so we check the status ourselves and surface server errors via the catch block below
+      if (!response.ok) throw new Error(`Server returned ${response.status}`);
       const data = await response.json();
 
       // Update bot messages when the bot responds
@@ -134,23 +170,51 @@ function Chat({ active = true }: ChatProps) {
 
   // Return the component
   return (
-    <Flex vertical justify={messages.length > 0 ? (keyboardOpen ? "end" : "space-between") : "center"} gap={20} style={{ width: "100%", height: "100%" }}>
-      {/* The box with the messages */}
+    <Flex
+      vertical
+      justify={messages.length > 0 ? (keyboardOpen ? "end" : "space-between") : "center"}
+      gap={20}
+      style={{ position: "relative", width: "100%", height: "100%" }}
+    >
+      {/* The reset button, only shown when there is a conversation to clear. NOTE that pointerEvents must be auto because the chat container disables them */}
+      {messages.length > 0 && (
+        <Text
+          onClick={handleReset}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: token.useSmall ? 15 : 0,
+            zIndex: 2,
+            color: token.colorPrimary,
+            cursor: "pointer",
+            pointerEvents: "auto",
+          }}
+        >
+          Reset
+        </Text>
+      )}
+
+      {/* The box with the messages. NOTE that we add top padding when there is a conversation so the first message clears the absolutely-positioned reset button */}
       <div
         ref={containerRef}
         style={{
           overflow: "auto",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
-          padding: token.useSmall ? "15px 0 0 0" : 0,
+          padding: messages.length > 0 ? "30px 0 0 0" : token.useSmall ? "15px 0 0 0" : 0,
         }}
       >
-        <ChatMessages messages={messages} loading={loading} />
+        <ChatMessages messages={messages} loading={loading} restoredCount={restoredCount.current} />
       </div>
 
       {/* The input box and send button */}
-      <Flex justify="center" gap={10} style={{ padding: token.useSmall ? "0px 15px 15px 15px" : 0 }}>
-        <ChatInput inputValue={inputValue} setInputValue={setInputValue} handleSendMessage={handleSendMessage} />
+      <Flex vertical gap={10} style={{ padding: token.useSmall ? "0px 15px 15px 15px" : 0 }}>
+        <Flex justify="center" gap={10}>
+          <ChatInput inputValue={inputValue} setInputValue={setInputValue} handleSendMessage={handleSendMessage} />
+        </Flex>
+
+        {/* When there is no conversation yet, show clickable starter questions below the input to help the visitor get going */}
+        {messages.length === 0 && !loading && <ChatStarters onSelect={(question) => handleSendMessage(question)} />}
       </Flex>
     </Flex>
   );
