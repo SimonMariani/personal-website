@@ -7,7 +7,6 @@ from .connections import milvus_client, openai_client, embedding_model
 from .utility import emb_text
 from .setup import embedding_dim, schema, index_params
 
-
 ##############
 ### DB ADD ###
 ##############

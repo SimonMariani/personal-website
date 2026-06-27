@@ -1,10 +1,15 @@
+<!-- @format -->
+
 # Introduction
+
 This is the github of the personal website from Simon Mariani. It contains a chatbot to answer questions about Simon Mariani and some general information.
 
-
 # Usage
+
 ## Quickstart
+
 The following commands are used for deploying and managing the application
+
 ```bash
 # In order to run the application simply run the following for the development and production setups respectively
 make start
@@ -25,14 +30,17 @@ make start-prod-local
 ```
 
 ## Changing skills
+
 In order to change the skills add or remove them from the `/frontend/src/config/experience.ts` file.
 
-
 ## API keys
+
 The openai api key can be managed in your account's api keys page here: https://platform.openai.com/api-keys and the payments can be managed in your account's payments page here: https://platform.openai.com/settings/organization/billing/overview
 
 ## Remote
+
 For managing the remote application some useful commands have been added to the make file, note that on push the github worflow already updates the applciation
+
 ```bash
 # In order to update the remote documents from the local documents folder
 make update-documents-remote
@@ -42,24 +50,7 @@ make update-vector-db-remote ARGS="--overwrite --file Simon_Mariani_CV.pdf"
 ```
 
 # Notes
+
 - The milvus vector DB doesn't seem very stable and I had to roll back a couple of versions for it to work. In the future it could be better to use another alternative. I think MongoDB would be a simple and nice alternative as they have been working at creating a vector DB, I think it was called MongoDB Atlas or something?
 
-
 # TODO
-- Add a dev branch
-- Make the courasel vertically scrollable
-- Add something so you can see who is visiting your website or at least how many people
-
-# DONE
-- Add some charts with skills that can be cool, for example the radar chart
-- Feedback updates
-- Update the skills in the charts as you have more experience now
-- Rename backend to api
-- make it mobile friendly
-- Fix mobile chat to be better, hook up your phone though because it is slightly annoying since it is only visible on physical devices
-- Update the CV once updated
-- Update relevant files
-- Remove phone number from website and cv
-- Add tests
-- Add some tests to know that it is still running and that all the functionalities work
-- Use your own openai api key -> the api key seems to be working but the billing details are not setup yet, I can only pay by creditcard so get one first and then update the billing details there to start using the api key

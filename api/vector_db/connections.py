@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from pymilvus import MilvusClient
 from openai import OpenAI
 
-
 # Load environment variables
 load_dotenv()
 
