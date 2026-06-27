@@ -41,7 +41,7 @@ function Chat({ active = true }: ChatProps) {
     // Try to send the message to the api server
     try {
       // Send the message to the api server
-      const response = await fetch(apiURL + "/talk/", {
+      const response = await fetch(apiURL + "/answer/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

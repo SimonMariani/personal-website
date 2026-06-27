@@ -7,14 +7,17 @@ from pptx import Presentation
 import pandas as pd
 from connections.db_connection import pool
 from connections.model_connection import client
-from config import EMBEDDING_MODEL, EMBEDDING_DIM, CHUNK_SIZE, CHUNK_OVERLAP
+from config import EMBEDDING_MODEL, EMBEDDING_DIM, CHUNK_SIZE, CHUNK_OVERLAP, SEARCH_COLLECTION
+
+# Max inputs per OpenAI embeddings request; the API rejects larger batches.
+EMBED_BATCH_SIZE = 1000
 
 ##################
 ### OPERATIONS ###
 ##################
 
 
-def sync_directory(directory, collection="documents", overwrite=False, only_file=None):
+def sync_directory(directory, collection=SEARCH_COLLECTION, overwrite=False, only_file=None):
     """
     Match a collection to a directory: upload new/updated files and drop removed ones.
     """
@@ -37,7 +40,7 @@ def sync_directory(directory, collection="documents", overwrite=False, only_file
             conn.execute(sql.SQL("DELETE FROM {} WHERE filename = %s").format(sql.Identifier(collection)), (filename,))
 
 
-def upload_file(filename, file_path, collection="documents"):
+def upload_file(filename, file_path, collection=SEARCH_COLLECTION):
     """
     Read, chunk, embed and store a file, replacing any previous version of it.
     """
@@ -46,9 +49,8 @@ def upload_file(filename, file_path, collection="documents"):
     if not chunks:
         return
 
-    # Embed every chunk (sorted back into input order) and pair vectors with text/page.
-    response = client.embeddings.create(input=[text for text, _ in chunks], model=EMBEDDING_MODEL)
-    vectors = [item.embedding for item in sorted(response.data, key=lambda item: item.index)]
+    # Embed every chunk and pair the vectors back up with their text/page.
+    vectors = _embed([text for text, _ in chunks])
     rows = [(filename, file_path, page, text, Vector(vector)) for (text, page), vector in zip(chunks, vectors)]
 
     with pool.connection() as conn, conn.cursor() as cur:
@@ -59,6 +61,24 @@ def upload_file(filename, file_path, collection="documents"):
             sql.SQL("INSERT INTO {} (filename, file_path, page, text, vector) VALUES (%s, %s, %s, %s, %s)").format(sql.Identifier(collection)),
             rows,
         )
+
+
+#################
+### EMBEDDING ###
+#################
+
+
+def _embed(texts):
+    """
+    Embed a list of texts, batching requests to stay within the API's input limit.
+    """
+    vectors = []
+    for start in range(0, len(texts), EMBED_BATCH_SIZE):
+        batch = texts[start : start + EMBED_BATCH_SIZE]
+        # Sort each response back into input order before appending.
+        response = client.embeddings.create(input=batch, model=EMBEDDING_MODEL)
+        vectors.extend(item.embedding for item in sorted(response.data, key=lambda item: item.index))
+    return vectors
 
 
 ########################

@@ -31,7 +31,7 @@ COPY . .
 #########################
 FROM base AS development
 
-# Expose Django's development server port
+# Expose the FastAPI development server port
 EXPOSE 8000
 
 # Command to run the development server
@@ -43,7 +43,7 @@ CMD ["fastapi", "dev", "main.py", "--host", "0.0.0.0", "--port", "8000"]
 ########################
 FROM base AS production
 
-# Expose WSGI port
+# Expose the ASGI server port
 EXPOSE 80
 
 # Command to run the production server

@@ -34,7 +34,7 @@ The chatbot uses RAG: documents are chunked (1000 chars / 50-char overlap), embe
 | Method | Path | Description |
 |---|---|---|
 | `GET` | `/ping/` | Health check |
-| `POST` | `/talk/` | Chat - body: `{ message: str, previousMessages: list }` |
+| `POST` | `/answer/` | Chat - body: `{ message: str, previousMessages: list }` |
 
 ### Syncing documents
 

@@ -54,11 +54,12 @@ jobs:
             echo "Website is up! Status code: $STATUS"
           fi
 
-      - name: Check API talk availability
+      - name: Check API answer availability
         run: |
-          URL="https://api.simonmariani.com/talk/"
+          URL="https://api.simonmariani.com/answer/"
           CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
-          BODY='{
+          BODY=$(cat <<EOF
+          {
               "message": {
                   "sender": "user",
                   "text": "test",
@@ -71,7 +72,9 @@ jobs:
                       "timestamp": "$CURRENT_TIME"
                   }
               ]
-          }'
+          }
+          EOF
+          )
 
           echo "Sending POST request to $URL..."
           RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$URL" \
