@@ -5,7 +5,6 @@ import { Flex, Typography } from "antd";
 import { contactName, contactGroups } from "@/config/contact";
 import ContactText from "@/components/contact/ContactText";
 import ContactDivider from "@/components/contact/ContactDivider";
-import ContactFormModal from "@/components/contact/ContactFormModal";
 
 const { Title } = Typography;
 
@@ -35,8 +34,6 @@ function ContactCard({ direction = "vertical" }: ContactCardProps) {
             ))}
           </Fragment>
         ))}
-        <ContactDivider direction="horizontal" />
-        <ContactFormModal />
       </Flex>
     );
   }
@@ -51,8 +48,6 @@ function ContactCard({ direction = "vertical" }: ContactCardProps) {
           <ContactText text={item.text} link={item.link} openInNewTab={item.openInNewTab} />
         </Fragment>
       ))}
-      <ContactDivider direction="vertical" />
-      <ContactFormModal />
     </Flex>
   );
 }

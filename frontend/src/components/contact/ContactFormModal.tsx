@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Alert, Button, Form, Input, Modal, Typography, theme } from "antd";
 import { useForm } from "@formspree/react";
 import { formSpreeId } from "@/config/config";
-import ContactText from "@/components/contact/ContactText";
 
 const { useToken } = theme;
 const { Title, Text } = Typography;
@@ -25,8 +24,10 @@ function ContactFormModal() {
 
   return (
     <>
-      {/* The text to click to open the modal */}
-      <ContactText text="Contact me" onClick={() => setIsModalOpen(true)} />
+      {/* The button to open the modal */}
+      <Button type="primary" onClick={() => setIsModalOpen(true)}>
+        Contact me
+      </Button>
 
       {/* The actual modal */}
       <Modal closable={false} open={isModalOpen} onCancel={handleCancel} footer={null}>

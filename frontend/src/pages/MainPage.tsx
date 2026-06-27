@@ -7,6 +7,7 @@ import { useGlobal } from "@/hooks/contexts/useGlobal";
 import Chat from "@/components/chat/Chat";
 import ContactCard from "@/components/contact/ContactCard";
 import ContactModal from "@/components/contact/ContactModal";
+import ContactFormModal from "@/components/contact/ContactFormModal";
 import RadarChart from "@/components/charts/RadarChart";
 import TreemapChart from "@/components/charts/TreemapChart";
 import PolarChart from "@/components/charts/PolarChart";
@@ -113,15 +114,20 @@ function MainPage() {
           {/* Contact information */}
           {token.useSmall ? <ContactModal /> : <ContactCard direction="horizontal" />}
 
-          {/* Button to show the  CV */}
-          <Button
-            type="primary"
-            onClick={() => {
-              window.open("/Simon_Mariani_CV.pdf", "_blank");
-            }}
-          >
-            CV
-          </Button>
+          {/* The action buttons: contact form and CV */}
+          <Flex gap={10} align="center">
+            <ContactFormModal />
+
+            {/* Button to show the CV */}
+            <Button
+              type="primary"
+              onClick={() => {
+                window.open("/Simon_Mariani_CV.pdf", "_blank");
+              }}
+            >
+              CV
+            </Button>
+          </Flex>
         </Flex>
       )}
     </Flex>
