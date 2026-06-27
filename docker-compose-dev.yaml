@@ -21,6 +21,12 @@ services:
         - action: sync+restart
           path: ./frontend/vite.config.js
           target: /app/vite.config.js
+    healthcheck:
+      test: wget -qO- http://localhost:3000/ || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     ports:
       - 3000:3000
     depends_on:
