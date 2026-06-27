@@ -65,6 +65,7 @@ npm install
 npm run dev      # http://localhost:3000
 npm run build    # type-check + production build
 npm run lint
+npm test         # run the Vitest tests
 ```
 
 For mobile testing: run `ipconfig`, grab your IPv4 address, and open `http://192.168.x.x:3000` on your phone.
@@ -75,6 +76,9 @@ For mobile testing: run `ipconfig`, grab your IPv4 address, and open `http://192
 cd api
 pip install -r requirements.txt
 fastapi dev main.py --host 0.0.0.0 --port 8000
+
+pip install -r requirements-dev.txt   # adds pytest
+pytest                                 # run the API tests
 ```
 
 ## Remote management

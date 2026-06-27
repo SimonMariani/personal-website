@@ -91,4 +91,4 @@ update-maintenance-page-remote-frontend:
 	scp -r ./maintenance/frontend/* root@142.93.104.164:/home/nginx/maintenance/simonmariani.com/
 
 update-maintenance-page-remote-api:
-	scp -r ./maintenance/frontend/* root@142.93.104.164:/home/nginx/maintenance/api.simonmariani.com/
+	scp -r ./maintenance/api/* root@142.93.104.164:/home/nginx/maintenance/api.simonmariani.com/
