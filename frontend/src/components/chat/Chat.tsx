@@ -3,14 +3,19 @@
 import { useState, useRef, useEffect } from "react";
 import { Flex, theme } from "antd";
 import { apiURL } from "@/config/config";
-import type { Message } from "@/types";
+import type { Message, Messages } from "@/types";
 import { useGlobal } from "@/hooks/contexts/useGlobal";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
 
 const { useToken } = theme;
 
-function Chat() {
+type ChatProps = {
+  /* Whether the chat is currently shown; the smooth-scroll listener is only attached while active */
+  active?: boolean;
+};
+
+function Chat({ active = true }: ChatProps) {
   // Get the theme token
   const { token } = useToken();
 
@@ -18,7 +23,7 @@ function Chat() {
   const { keyboardOpen } = useGlobal();
 
   // State variables for messages, user input and loading state
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Messages>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -58,7 +63,7 @@ function Chat() {
         errorMessage = error.message;
       }
 
-      // Update the reposne message with the error
+      // Update the response message with the error
       const responseMessage: Message = {
         sender: "bot",
         text: `Error: ${errorMessage}`,
@@ -71,13 +76,15 @@ function Chat() {
   };
 
   // Custom smooth scrolling logic, NOTE that we need this because this element doesn't have any pointer events so the user can interact with the charts
-  // The ref to the container that is supposed to scroll, the desired scroll position which changes on every wheel event and hether we are currently scrolling
+  // The ref to the container that is supposed to scroll, the desired scroll position which changes on every wheel event and whether we are currently scrolling
   const containerRef = useRef<HTMLDivElement | null>(null);
   const scrollTarget = useRef<number>(0);
   const isScrolling = useRef<boolean>(false);
 
-  // Only mount the event listener once
+  // Only mount the event listener while the chat is active, NOTE that otherwise it would hijack window scrolling even when the chat is hidden
   useEffect(() => {
+    if (!active) return;
+
     const handleWheel = (event: WheelEvent) => {
       // Prevent window scroll and return if there is no container
       event.preventDefault();
@@ -123,7 +130,7 @@ function Chat() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [active]);
 
   // Return the component
   return (

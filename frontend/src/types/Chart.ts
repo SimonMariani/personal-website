@@ -15,7 +15,4 @@ export type DefaultChartProps = {
 
   /* The title of the chart */
   title?: string;
-
-  /* Padding around the chart */
-  padding?: number;
 };

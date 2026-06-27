@@ -48,11 +48,11 @@ function ChatMessage({ message, typingSpeed, chatEndRef }: ChatMessageProps) {
     return () => clearInterval(interval);
   }, [message, typingSpeed, chatEndRef]);
 
-  // The chatmessage parent style depends on the sender
+  // The chat message parent style depends on the sender
   const chatMessageParentStyle: CSSProperties =
     message.sender === "user" ? { alignSelf: "flex-end", textAlign: "right" } : { alignSelf: "flex-start", textAlign: "left" };
 
-  // The style of the cahtmessage itself depends on the sender as well
+  // The style of the chat message itself depends on the sender as well
   const chatMessageStyle: CSSProperties =
     message.sender === "user" ? { textAlign: "right", backgroundColor: token.colorSecondary } : { textAlign: "left", backgroundColor: token.colorPrimary };
 

@@ -284,13 +284,29 @@ export default {
     // },
   ],
   modelsAndArchitectures: [
-    { name: "CNNs", percentage: 95, description: "Python library for efficient numerical computations and array operations." },
-    { name: "ML Models", percentage: 95, description: "Python library for data manipulation and analysis, especially with tabular data." },
-    { name: "RNNs/LSTMs", percentage: 95, description: "Python library for creating static, animated, and interactive visualizations." },
-    { name: "Transformers", percentage: 95, description: "Python library for classical machine learning algorithms and data preprocessing." },
-    { name: "VAEs", percentage: 95, description: "Open-source deep learning framework for building and training neural networks." },
-    { name: "GANs", percentage: 85, description: "NVIDIA's parallel computing platform for accelerating computations on GPUs." },
-    { name: "Bayesian Models", percentage: 80, description: "APIs for interacting with large language models for NLP and generative AI tasks." },
+    {
+      name: "CNNs",
+      percentage: 95,
+      description: "Convolutional Neural Networks, deep learning models specialized for processing grid-like data such as images.",
+    },
+    {
+      name: "ML Models",
+      percentage: 95,
+      description: "Classical machine learning models such as decision trees, SVMs, and ensemble methods for prediction tasks.",
+    },
+    { name: "RNNs/LSTMs", percentage: 95, description: "Recurrent networks and Long Short-Term Memory units for modeling sequential and time-dependent data." },
+    { name: "Transformers", percentage: 95, description: "Attention-based architecture powering modern natural language processing and generative models." },
+    { name: "VAEs", percentage: 95, description: "Variational Autoencoders, generative models that learn probabilistic latent representations of data." },
+    {
+      name: "GANs",
+      percentage: 85,
+      description: "Generative Adversarial Networks, paired generator and discriminator models for generating realistic synthetic data.",
+    },
+    {
+      name: "Bayesian Models",
+      percentage: 80,
+      description: "Probabilistic models that incorporate prior knowledge and quantify uncertainty in their predictions.",
+    },
   ],
 
   otherSoftware: [

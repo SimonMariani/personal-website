@@ -8,7 +8,7 @@ import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } fr
 
 const { useToken } = theme;
 
-const RadialBarChart = ({ data, title }: DefaultChartProps) => {
+function RadialBarChart({ data, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -51,6 +51,6 @@ const RadialBarChart = ({ data, title }: DefaultChartProps) => {
       <Chart options={options} series={series} type="radialBar" height="100%" width="100%" />
     </ClientOnly>
   );
-};
+}
 
 export default RadialBarChart;

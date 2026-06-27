@@ -8,7 +8,7 @@ import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } fr
 
 const { useToken } = theme;
 
-function PolarChart({ data, opacity, title }: DefaultChartProps) {
+function PolarChartMonochrome({ data, opacity, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -71,6 +71,7 @@ function PolarChart({ data, opacity, title }: DefaultChartProps) {
     },
   };
 
+  // Return the component
   return (
     <ClientOnly>
       <Chart options={options} series={series} type="polarArea" height="100%" width="100%" />
@@ -78,4 +79,4 @@ function PolarChart({ data, opacity, title }: DefaultChartProps) {
   );
 }
 
-export default PolarChart;
+export default PolarChartMonochrome;

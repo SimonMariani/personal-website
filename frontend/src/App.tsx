@@ -11,7 +11,7 @@ const { useBreakpoint } = Grid;
 function App() {
   // Get the current screen size so we can determine if should use the small layout
   const screens = useBreakpoint();
-  const useSmall = (screens.xs || screens.sm) && !screens.md ? true : false;
+  const useSmall = (screens.xs || screens.sm) && !screens.md;
 
   // Return the main application
   return (
@@ -33,9 +33,17 @@ function App() {
               colorTextTertiary: "#ffffff",
               colorTextPlaceholder: "#272727ff",
 
+              // NOTE antd's Typography type="secondary" reads colorTextDescription (not colorTextSecondary)
+              colorTextDescription: "#a6a6a6",
+
               // Font
               fontFamily: "Inter, sans-serif",
               fontSize: 14,
+
+              // Layout colors
+              colorBgHeader: "#242424",
+              colorBgFooter: "#292929",
+              boxShadowHeader: "10px 0 20px rgba(0, 0, 0, 0.5)",
 
               // Remaining
               borderRadius: 10,
@@ -51,6 +59,11 @@ function App() {
                 dotActiveWidth: 32,
                 dotHeight: 8,
                 dotWidth: 16,
+              },
+              Modal: {
+                contentBg: "#272727",
+                headerBg: "#272727",
+                footerBg: "#272727",
               },
             },
           }}

@@ -8,7 +8,7 @@ import { getTitleConfig, getTooltipConfig, getToolbarConfig, getThemeConfig } fr
 
 const { useToken } = theme;
 
-function TreeMapChart({ data, title }: DefaultChartProps) {
+function TreemapChart({ data, title }: DefaultChartProps) {
   // Get the theme token for styling
   const { token } = useToken();
 
@@ -54,4 +54,4 @@ function TreeMapChart({ data, title }: DefaultChartProps) {
   );
 }
 
-export default TreeMapChart;
+export default TreemapChart;

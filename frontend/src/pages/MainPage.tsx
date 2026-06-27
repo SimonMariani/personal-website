@@ -1,14 +1,14 @@
 /** @format */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Flex, Typography, Button, Carousel, theme } from "antd";
 import experienceConfig from "@/config/experience";
 import { useGlobal } from "@/hooks/contexts/useGlobal";
 import Chat from "@/components/chat/Chat";
-import ContactCardHorizontal from "@/components/contact/ContactCardHorizontal";
+import ContactCard from "@/components/contact/ContactCard";
 import ContactModal from "@/components/contact/ContactModal";
 import RadarChart from "@/components/charts/RadarChart";
-import TreeMapChart from "@/components/charts/TreemapChart";
+import TreemapChart from "@/components/charts/TreemapChart";
 import PolarChart from "@/components/charts/PolarChart";
 import PolarChartMonochrome from "@/components/charts/PolarChartMonochrome";
 import RadialBarChart from "@/components/charts/RadialBarChart";
@@ -18,7 +18,7 @@ import ColumnChart from "@/components/charts/ColumnChart";
 const { useToken } = theme;
 const { Title, Text } = Typography;
 
-function ChatPage() {
+function MainPage() {
   // Get the theme tokens
   const { token } = useToken();
 
@@ -27,21 +27,14 @@ function ChatPage() {
   // Show the chat boolean
   const [showChat, setShowChat] = useState(true);
 
-  // Graph opacity
-  const [graphOpacity, setGraphOpacity] = useState(1);
-  useEffect(() => {
-    if (showChat) {
-      setGraphOpacity(0.3);
-    } else {
-      setGraphOpacity(1);
-    }
-  }, [showChat]);
+  // The charts are dimmed while the chat is shown so the chat stays readable
+  const graphOpacity = showChat ? 0.3 : 1;
 
   // Return the component
   return (
     <Flex vertical style={{ height: "100%", width: "100%" }}>
       {/* The header which consists */}
-      <Flex justify="space-between" align="middle" style={{ padding: "15px 20px", backgroundColor: "#242424ff", boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)" }}>
+      <Flex justify="space-between" align="middle" style={{ padding: "15px 20px", backgroundColor: token.colorBgHeader, boxShadow: token.boxShadowHeader }}>
         {/* The title */}
         <Title style={{ margin: 0 }} level={3}>
           Simon Mariani
@@ -82,9 +75,9 @@ function ChatPage() {
             <RadarChart data={experienceConfig.programmingLanguages} title="Programming Languages" />
             <PolarChartMonochrome data={experienceConfig.backend} title="Backend Development" />
             <RadialBarChart data={experienceConfig.frontend} title="Frontend Development" />
-            <TreeMapChart data={experienceConfig.deploymentTools} title="Deployment Tools" />
+            <TreemapChart data={experienceConfig.deploymentTools} title="Deployment Tools" />
             <PolarChartMonochrome data={experienceConfig.databases} title="Databases" />
-            <TreeMapChart data={experienceConfig.cloudPlatforms} title="Cloud Platforms" />
+            <TreemapChart data={experienceConfig.cloudPlatforms} title="Cloud Platforms" />
             <PolarChart data={experienceConfig.aiTools} title="AI Tools" />
             <BarChart data={experienceConfig.aiFields} title="AI Fields" />
             <PolarChart data={experienceConfig.modelsAndArchitectures} title="Models & Architectures" />
@@ -102,7 +95,7 @@ function ChatPage() {
             visibility: showChat ? "visible" : "hidden",
           }}
         >
-          <Chat />
+          <Chat active={showChat} />
         </Flex>
       </Flex>
 
@@ -113,12 +106,12 @@ function ChatPage() {
           align="middle"
           style={{
             padding: "15px 20px",
-            backgroundColor: "#292929ff",
-            boxShadow: "10px 0 20px rgba(0, 0, 0, 0.5)",
+            backgroundColor: token.colorBgFooter,
+            boxShadow: token.boxShadowHeader,
           }}
         >
           {/* Contact information */}
-          {token.useSmall ? <ContactModal /> : <ContactCardHorizontal />}
+          {token.useSmall ? <ContactModal /> : <ContactCard direction="horizontal" />}
 
           {/* Button to show the  CV */}
           <Button
@@ -135,4 +128,4 @@ function ChatPage() {
   );
 }
 
-export default ChatPage;
+export default MainPage;
