@@ -1,0 +1,66 @@
+# @format
+
+name: Smoke test
+description: Check the website and API are up and the chatbot answers.
+
+inputs:
+  website-url:
+    description: Base URL of the frontend website (no trailing slash).
+    required: true
+  api-url:
+    description: Base URL of the API (no trailing slash).
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # Check the website is up and returns HTTP 200.
+    - name: Check website availability
+      shell: bash
+      run: |
+        STATUS=$(curl -o /dev/null -s -w "%{http_code}" \
+          --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 10 \
+          "${{ inputs.website-url }}/")
+        if [ "$STATUS" -ne 200 ]; then
+          echo "Website is down! Status code: $STATUS"
+          exit 1
+        fi
+        echo "Website is up! Status code: $STATUS"
+
+    # Check the API is up and returns HTTP 200.
+    - name: Check API availability
+      shell: bash
+      run: |
+        STATUS=$(curl -o /dev/null -s -w "%{http_code}" \
+          --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 10 \
+          "${{ inputs.api-url }}/ping/")
+        if [ "$STATUS" -ne 200 ]; then
+          echo "API is down! Status code: $STATUS"
+          exit 1
+        fi
+        echo "API is up! Status code: $STATUS"
+
+    # Check the API returns a valid answer to a test question.
+    - name: Check API answer
+      shell: bash
+      run: |
+        BODY='{"message":{"sender":"user","text":"test"},"previousMessages":[]}'
+        STATUS=$(curl -s -o response.txt -w "%{http_code}" \
+          --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 10 \
+          -X POST "${{ inputs.api-url }}/answer/" \
+          -H "Content-Type: application/json" \
+          -d "$BODY")
+
+        echo "HTTP status: $STATUS"
+        echo "Response body:"
+        cat response.txt
+
+        if [ "$STATUS" -ne 200 ]; then
+          echo "API returned non-200 status ($STATUS)"
+          exit 1
+        fi
+        if ! grep -q '"response"' response.txt; then
+          echo "API response did not contain the expected key 'response'"
+          exit 1
+        fi
+        echo -e "\nAPI answer check passed!"

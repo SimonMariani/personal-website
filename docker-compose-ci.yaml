@@ -1,0 +1,20 @@
+# Port mappings so CI can reach the prod stack over HTTP from the runner host. It also enables GitHub Actions layer caching. Layered on top of
+# docker-compose-prod.yaml; never used in a real deployment.
+services:
+  personal-website-frontend:
+    build:
+      cache_from:
+        - type=gha,scope=frontend
+      cache_to:
+        - type=gha,mode=max,scope=frontend
+    ports:
+      - "8080:80"
+
+  personal-website-api:
+    build:
+      cache_from:
+        - type=gha,scope=api
+      cache_to:
+        - type=gha,mode=max,scope=api
+    ports:
+      - "8000:80"

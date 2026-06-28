@@ -20,11 +20,22 @@ start:
 	docker compose -f docker-compose-dev.yaml up --build --watch --remove-orphans
 
 start-prod:
-	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
+	docker compose -f docker-compose-prod.yaml up --build -d --wait --remove-orphans
 
 start-prod-local:
 	docker network create vm-load-balancer || true
-	docker compose -f docker-compose-prod.yaml up --build -d --remove-orphans
+	docker compose -f docker-compose-prod.yaml up --build -d --wait --remove-orphans
+
+# CI commands: prod stack plus the port-publishing override, used by the deploy workflow
+start-ci:
+	docker network create vm-load-balancer || true
+	docker compose -f docker-compose-prod.yaml -f docker-compose-ci.yaml up --build -d --wait
+
+logs-ci:
+	docker compose -f docker-compose-prod.yaml -f docker-compose-ci.yaml logs
+
+stop-ci:
+	docker compose -f docker-compose-prod.yaml -f docker-compose-ci.yaml down -v
 
 # Stop the containers
 stop:

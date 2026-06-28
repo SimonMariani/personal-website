@@ -1,0 +1,39 @@
+# @format
+
+name: Sync test
+description: Index a dummy document, then confirm it is searchable and answerable.
+
+runs:
+  using: composite
+  steps:
+    # The api container mounts ./api/documents, so a file written here on the runner appears inside the container; sync just the dummy subfolder.
+    - name: Sync a dummy document
+      shell: bash
+      run: |
+        mkdir -p api/documents/ci-sync
+        printf "Simon Mariani studied Artificial Intelligence at the University of Groningen.\nHe builds web applications.\n" > api/documents/ci-sync/dummy.txt
+        make sync-db ARGS="--directory documents/ci-sync --overwrite"
+
+    # Verify the dummy file is searchable.
+    - name: Verify the dummy file is searchable
+      shell: bash
+      run: |
+        OUTPUT=$(make search-db ARGS="'where did Simon study'")
+        echo "$OUTPUT"
+        if ! echo "$OUTPUT" | grep -q "dummy.txt"; then
+          echo "Search check failed: dummy.txt not found in search results"
+          exit 1
+        fi
+        echo "Search check passed!"
+
+    # Verify the dummy file is answerable.
+    - name: Verify the chatbot answers from the dummy document
+      shell: bash
+      run: |
+        OUTPUT=$(make answer-db ARGS="'Which university did Simon Mariani study at?'")
+        echo "$OUTPUT"
+        if ! echo "$OUTPUT" | grep -qi "groningen"; then
+          echo "Answer check failed: expected the answer to mention Groningen"
+          exit 1
+        fi
+        echo "Answer check passed!"

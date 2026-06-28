@@ -8,91 +8,76 @@ on:
       - main
   workflow_dispatch:
 
+# Don't run overlapping deploys; let an in-flight one finish.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  test-backend:
+  build-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      # buildx + COMPOSE_BAKE below enable the GitHub Actions layer cache.
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies
-        working-directory: api
+      # Real OpenAI key so the /answer/ check works; dummy Postgres creds.
+      - name: Create .env
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          cat > .env <<EOF
+          OPENAIKEY=${{ secrets.OPENAIKEY }}
+          POSTGRES_USER=test
+          POSTGRES_PASSWORD=test
+          POSTGRES_DB=test
+          EOF
 
-      - name: Run tests
-        working-directory: api
-        run: pytest
+      - name: Build and start the stack
+        env:
+          COMPOSE_BAKE: "true"
+        run: make start-ci
 
-  test-frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Smoke test
+        uses: ./.github/actions/smoke-test
         with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          website-url: http://localhost:8080
+          api-url: http://localhost:8000
 
-      - name: Install dependencies
-        working-directory: frontend
-        run: npm ci
+      - name: Sync test
+        uses: ./.github/actions/sync-test
 
-      - name: Run tests
-        working-directory: frontend
-        run: npm test
+      - name: Print logs on failure
+        if: failure()
+        run: make logs-ci
 
-      - name: Build
-        working-directory: frontend
-        run: npm run build
-
-  update-maintenance-pages:
-    needs: [test-backend, test-frontend]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Copy frontend maintenance page to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: maintenance/frontend/*
-          target: /home/nginx/maintenance/simonmariani.com/
-          strip_components: 2
-
-      - name: Copy api maintenance page to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: maintenance/api/*
-          target: /home/nginx/maintenance/api.simonmariani.com/
-          strip_components: 2
+      - name: Tear down
+        if: always()
+        run: make stop-ci
 
   deploy-production:
-    needs: [test-backend, test-frontend, update-maintenance-pages]
+    needs: [build-check]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: ssh into remote server and setup changes
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            # Pull the latest code from the main branch and reset the working tree to match it.
             cd /home/applications/personal-website/
             git fetch origin
             git reset --hard origin/main
+
+            # Copy the just-pulled maintenance pages into place before downtime.
+            mkdir -p /home/nginx/maintenance/simonmariani.com/ /home/nginx/maintenance/api.simonmariani.com/
+            cp -r maintenance/frontend/* /home/nginx/maintenance/simonmariani.com/
+            cp -r maintenance/api/* /home/nginx/maintenance/api.simonmariani.com/
+
+            # Stop the stack, start it again, and prune old images to save disk space.
             make stop-prod
             make start-prod
             docker system prune -f
@@ -100,73 +85,12 @@ jobs:
   smoke-test:
     needs: deploy-production
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Check website availability
-        run: |
-          URL="https://simonmariani.com/"
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+      - uses: actions/checkout@v4
 
-          if [ "$STATUS" -ne 200 ]; then
-            echo "Website is down! Status code: $STATUS"
-            exit 1
-          else
-            echo "Website is up! Status code: $STATUS"
-          fi
-
-      - name: Check api availability
-        run: |
-          URL="https://api.simonmariani.com/ping/"
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
-
-          if [ "$STATUS" -ne 200 ]; then
-            echo " Website is down! Status code: $STATUS"
-            exit 1
-          else
-            echo "Website is up! Status code: $STATUS"
-          fi
-
-      - name: Check API answer availability
-        run: |
-          URL="https://api.simonmariani.com/answer/"
-          CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
-          BODY=$(cat <<EOF
-          {
-              "message": {
-                  "sender": "user",
-                  "text": "test",
-                  "timestamp": "$CURRENT_TIME"
-              },
-              "previousMessages": [
-                  {
-                      "sender": "user",
-                      "text": "test",
-                      "timestamp": "$CURRENT_TIME"
-                  }
-              ]
-          }
-          EOF
-          )
-
-          echo "Sending POST request to $URL..."
-          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$URL" \
-            -H "Content-Type: application/json" \
-            -d "$BODY")
-
-          echo "HTTP Status: $RESPONSE"
-          echo "Response body:"
-          cat response.txt
-
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo "API returned non-200 status ($RESPONSE)"
-            exit 1
-          fi
-
-          if ! grep -q '"response"' response.txt; then
-            echo "API response did not contain the expected key 'response'"
-            exit 1
-          fi
-
-          echo -e "\nAPI health check passed!"
-
-
-      
+      - name: Smoke test
+        uses: ./.github/actions/smoke-test
+        with:
+          website-url: https://simonmariani.com
+          api-url: https://api.simonmariani.com
