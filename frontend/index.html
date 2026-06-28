@@ -6,9 +6,18 @@
     <!-- Meta information -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Simon Mariani" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1677ff" />
 
-    <!-- Favicon -->
+    <!-- Favicon, icons and PWA manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Speed up the cross-origin font fetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Import the font, we are using Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
@@ -23,23 +32,50 @@
 
     <!-- Open Graph (Facebook, LinkedIn, Slack, ...) -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Simon Mariani" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://simonmariani.com/" />
     <meta property="og:title" content="Simon Mariani - Software & AI Engineer" />
     <meta
       property="og:description"
       content="The personal site of Simon Mariani, a software and AI engineer. Ask the chat anything about his experience, tech stack and projects, or get in touch."
     />
-    <!-- NOTE replace with a 1200x630 PNG for the best social previews; most platforms do not render SVG og:image -->
-    <meta property="og:image" content="https://simonmariani.com/favicon.svg" />
+    <meta property="og:image" content="https://simonmariani.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Simon Mariani - Software & AI Engineer" />
 
     <!-- Twitter / X card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Simon Mariani - Software & AI Engineer" />
     <meta
       name="twitter:description"
       content="The personal site of Simon Mariani, a software and AI engineer. Ask the chat anything about his experience, tech stack and projects, or get in touch."
     />
-    <meta name="twitter:image" content="https://simonmariani.com/favicon.svg" />
+    <meta name="twitter:image" content="https://simonmariani.com/og-image.png" />
+    <meta name="twitter:image:alt" content="Simon Mariani - Software & AI Engineer" />
+
+    <!-- Structured data (schema.org Person) for rich search results -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Simon Mariani",
+        "url": "https://simonmariani.com/",
+        "image": "https://simonmariani.com/og-image.png",
+        "jobTitle": "Software & AI Engineer",
+        "email": "mailto:simon.mariani65@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Berlin",
+          "addressCountry": "DE"
+        },
+        "sameAs": [
+          "https://linkedin.com/in/simon-mariani65",
+          "https://github.com/SimonMariani"
+        ]
+      }
+    </script>
 
     <!-- Cloudflare Web Analytics -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "20165a43045240299db64db534644e54"}'></script>
