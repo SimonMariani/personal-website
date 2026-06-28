@@ -41,7 +41,7 @@ RUN npm run build
 ########################
 ### PRODUCTION STAGE ###
 ########################
-FROM nginx:1.29.0-alpine AS production
+FROM nginx:1.30.3-alpine AS production
 
 # Install wget for the healthcheck (not included in nginx:alpine by default)
 RUN apk add --no-cache wget

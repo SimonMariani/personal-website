@@ -33,6 +33,9 @@ jobs:
           POSTGRES_DB=test
           EOF
 
+      - name: Pre-create mounted directories
+        run: mkdir -p api/documents
+
       - name: Build and start the stack
         env:
           COMPOSE_BAKE: "true"
