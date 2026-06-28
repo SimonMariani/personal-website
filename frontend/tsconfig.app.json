@@ -23,10 +23,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    // NOTE for using relative imports we also need to set the baseurl and the paths so that the environment can resolve the paths correctly
-    "baseUrl": ".",
+    // NOTE that this is required for the `@` alias to work. It allows TypeScript to resolve imports that start with `@/` to the `src/` directory.
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "ignore/ChatOld.tsx"]

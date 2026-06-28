@@ -38,7 +38,7 @@ The chatbot uses RAG: documents are chunked (1000 chars / 50-char overlap), embe
 
 ### Syncing documents
 
-Drop any PDF, Word (`.docx`), or PowerPoint (`.pptx`) files into `api/documents/` and run:
+Drop any PDF, Word (`.docx`), PowerPoint (`.pptx`), CSV/Excel, or plain-text files into `api/documents/` and run:
 
 ```bash
 make sync-db                           # index all documents
@@ -65,7 +65,6 @@ npm install
 npm run dev      # http://localhost:3000
 npm run build    # type-check + production build
 npm run lint
-npm test         # run the Vitest tests
 ```
 
 For mobile testing: run `ipconfig`, grab your IPv4 address, and open `http://192.168.x.x:3000` on your phone.
@@ -76,14 +75,23 @@ For mobile testing: run `ipconfig`, grab your IPv4 address, and open `http://192
 cd api
 pip install -r requirements.txt
 fastapi dev main.py --host 0.0.0.0 --port 8000
-
-pip install -r requirements-dev.txt   # adds pytest
-pytest                                 # run the API tests
 ```
+
+## CI / CD
+
+Pushing to `main` (or running the workflow manually) triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which runs three sequential jobs:
+
+1. **build-check** - builds the production images and starts the full stack on the runner (with Docker layer caching via `make start-ci`), waits for every healthcheck, then runs two reusable composite actions:
+   - [`smoke-test`](.github/actions/smoke-test) - checks the website, `/ping/`, and `/answer/` over HTTP.
+   - [`sync-test`](.github/actions/sync-test) - indexes a dummy document and confirms it is searchable and answerable.
+2. **deploy-production** - SSHes into the server, pulls `main`, refreshes the maintenance pages, and restarts the prod stack.
+3. **smoke-test** - reruns the `smoke-test` action against the live site.
+
+The `smoke-test` action runs both before deployment (against the local stack) and after (against production). The CI stack uses an extra [`docker-compose-ci.yaml`](docker-compose-ci.yaml) overlay that publishes ports and enables layer caching. The workflow needs an `OPENAIKEY` repository secret, plus `SSH_HOST` / `SSH_USER` / `SSH_KEY` for the deploy.
 
 ## Remote management
 
-GitHub Actions updates the server on push. For manual document updates:
+For manual document updates:
 
 ```bash
 make update-documents-remote                                          # push all documents
